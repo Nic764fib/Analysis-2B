@@ -1,5 +1,11 @@
 # Analysis 2B
 
+## Öffentlicher Link
+
+**Online-Version:** [https://nic764fib.github.io/Analysis-2B/](https://nic764fib.github.io/Analysis-2B/)
+
+Direkt im Browser lernen – ohne Installation oder Anmeldung.
+
 Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine externen Dienste zur Laufzeit, kein Backend und keine Anmeldung. KaTeX 0.16.22 einschließlich Fonts ist lokal eingebunden; Lizenz unter `dist/vendor/katex/LICENSE`.
 
 ## Starten
@@ -40,4 +46,6 @@ Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwe
 
 Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `analysis2b-v1` und alle bisherigen Inhalts-IDs bleiben erhalten. Notizen, Markierungen, letzte Auswahl und laufende Trainings werden lokal gespeichert. Neuladen erhält auch die Klausuruhr. Export/Import unter „Quellen und Lernstand“ liest weiterhin alte Exporte. Gleiche Originalaufgaben teilen ihre neuen Teilaufgabennotizen zwischen Modul und Blatt. Es gibt keine erfundene offizielle Dauer oder Bestehensgrenze.
 
-Hosting-Identität steht in `.openai/hosting.json`. Bei Erweiterungen dieselbe Site weiterverwenden. GitHub-Push und Sites-Veröffentlichung sind getrennte Schritte.
+Die öffentliche Version läuft über GitHub Pages. Veröffentlicht wird der Inhalt von `dist/` im Wurzelverzeichnis des Branches `gh-pages`. Bei Änderungen an der Lernplattform auch diesen Veröffentlichungsstand aktualisieren. Die bestehende Sites-Konfiguration in `.openai/hosting.json` gehört zur früheren Webadresse.
+
+Ein Lernstand von der früheren Webadresse lässt sich dort exportieren und unter „Quellen und Lernstand“ in die neue Online-Version importieren.

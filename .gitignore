@@ -1,0 +1,6 @@
+.sites-runtime/
+node_modules/
+*.tar.gz
+qa/
+tmp/
+loesungen_text.txt

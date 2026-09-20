@@ -1,0 +1,1 @@
+{"name":"analysis-2b","private":true,"type":"module","scripts":{"check":"node scripts/check.mjs"}}

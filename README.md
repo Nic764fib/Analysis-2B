@@ -17,6 +17,11 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/plots.js`: kontrollierbare SVG-Grafiken.
 - `dist/generators.js`: reproduzierbare numerische Aufgabenvarianten und eingeschränkter Zahlenparser ohne eval.
 - `dist/style.css`: gemeinsame Gestaltung und responsive Layouts.
+- `dist/study.css`: Teilaufgaben, Trainingsauswahl und mobiles Menü.
+- `dist/worksheet-data.js`: 48 Originalaufgaben mit 105 Angabe-Lösung-Paaren.
+- `dist/exam-supplements.js`: ergänzte Skriptaussagen und Anwendungen.
+- `dist/training.js`, `dist/exam-ui.js`: zwei Schwerpunktsets, weiterer Übungsstoff und Altklausur 2025.
+- `dist/study-ui.js`, `dist/storage.js`: gemeinsame Aufgabenansicht und validierte Übernahme alter Lernstände.
 - `scripts/check.mjs`: Datenreferenzen, Formeln und Generatoren prüfen: `node scripts/check.mjs`.
 
 ## Ein Modul ergänzen
@@ -27,12 +32,12 @@ Theorieeintrag: `{id, kind, title, text, source, checks, note?, intro?, visualLi
 
 ## Fachliche Entscheidungen
 
-Primärquellen: bereitgestellte Altklausur 2025 (zwei Seiten), Lecture Notes, Übungsblätter 1–7 SS 2026; Schwerpunktsetzung zusätzlich nach Dozentenmail und Prüfungsberichten. Die Aufgabenauswahl und ihre genaue Zuordnung sind in COVERAGE.md dokumentiert. Die priorisierten Themen enthalten vollständige Definitionen, Sätze und ausgearbeitete Hauptaufgaben. Originaldateien und persönliche Screenshots sind nicht im Web-Verzeichnis.
+Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Zuordnung ist in COVERAGE.md dokumentiert. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
 
 Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwert (−4,0), gekennzeichnete Übungsfassung F+(4,0). Weitere Errata unter `content.js`. Freie Beweise werden nicht automatisch als richtig bewertet. Generatoren prüfen Zahlen, nicht Argumentationen. Keine Aussage über garantierte Prüfungsthemen oder eine garantierte Note.
 
 ## Zustand und Teilen
 
-Hash-URLs machen Module direkt teilbar. Notizen, Selbsteinschätzungen und Wiederholungsfälligkeiten liegen im localStorage-Schlüssel `analysis2b-v1`. Export/Import unter Quellen. Geräte oder Besucher teilen keinen Lernstand. Ein Reload setzt eine laufende Klausuruhr zurück, erhält aber Notizen. Exam-Dauer wurde nicht geraten; die Uhr zählt aufwärts.
+Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `analysis2b-v1` und alle bisherigen Inhalts-IDs bleiben erhalten. Notizen, Markierungen, letzte Auswahl und laufende Trainings werden lokal gespeichert. Neuladen erhält auch die Klausuruhr. Export/Import unter „Quellen und Lernstand“ liest weiterhin alte Exporte. Gleiche Originalaufgaben teilen ihre neuen Teilaufgabennotizen zwischen Modul und Blatt. Es gibt keine erfundene offizielle Dauer oder Bestehensgrenze.
 
-Hosting-Identität steht in `.openai/hosting.json`. Bei Erweiterungen dieselbe Site weiterverwenden.
+Hosting-Identität steht in `.openai/hosting.json`. Bei Erweiterungen dieselbe Site weiterverwenden. GitHub-Push und Sites-Veröffentlichung sind getrennte Schritte.

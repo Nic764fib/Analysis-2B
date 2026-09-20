@@ -1,0 +1,80 @@
+:root { --muted:#596373; }
+.sidebar-head { display:flex; flex-direction:column; }
+.brand { display:block; }
+.menu-toggle { display:none; }
+.study-route { display:flex; flex-wrap:wrap; gap:12px 25px; padding:20px 0; color:var(--muted); font-size:14px; border-bottom:1px solid var(--line); }
+.learning-group { margin-top:38px; }
+.learning-group h2 { margin-bottom:8px; }
+.module-list { margin-top:16px; }
+.module-row h3 { margin-bottom:4px; }
+.module-row p { margin:4px 0 8px; }
+.prerequisites { max-width:790px; margin:16px 0; }
+.prerequisites summary { color:var(--accent); }
+.task-heading { margin:8px 0 22px; }
+.original-intro { margin:18px 0 24px; }
+.task-part { border-top:1px solid var(--line); padding-top:25px; margin-top:29px; }
+.part-label { color:var(--accent); font-size:14px; font-weight:650; margin-bottom:12px; }
+.statement { margin-bottom:22px; }
+.statement p,.original-intro p { line-height:1.85; }
+.note-label { display:block; font-size:14px; margin:20px 0 8px; }
+.note-label span { color:var(--muted); margin-left:6px; }
+textarea { min-height:106px; resize:vertical; line-height:1.7; }
+.solution { margin-top:16px; }
+.solution>summary { padding:12px 0; color:var(--accent); font-weight:550; }
+.solution[open]>summary { margin-bottom:18px; border-bottom:1px solid var(--line); }
+.solution p { line-height:1.85; }
+.solution .steps li p { margin:0 0 12px; }
+.solution-check { margin-top:24px; padding-top:12px; border-top:1px solid var(--line); }
+.check-row { align-items:flex-start; line-height:1.65; }
+.check-row input { margin-top:5px; flex-shrink:0; }
+.formula { max-width:100%; min-width:0; }
+.formula .katex-display { margin:18px 0; }
+.task-part figure { margin:25px 0 10px; }
+.region-sketch { display:block; width:100%; max-width:470px; margin:auto; background:var(--bg); border:1px solid var(--line); border-radius:6px; }
+.region-sketch .axis { fill:none; stroke:var(--muted); stroke-width:1; }
+.sketch-labels { fill:var(--ink); font-size:14px; }
+figcaption { text-align:center; color:var(--muted); font-size:13px; line-height:1.6; margin-top:12px; }
+.sheet-tabs,.training-choices { display:flex; flex-wrap:wrap; gap:8px; margin:25px 0; }
+.sheet-tabs a { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid var(--line); border-radius:6px; color:var(--ink); background:var(--paper); }
+.sheet-tabs a.active,.training-choices button.selected { color:var(--accent); border-color:var(--accent); background:var(--soft); }
+.training-choices button { font-size:14px; }
+.training-outline { margin:24px 0; border-top:1px solid var(--line); }
+.training-outline>div { display:grid; grid-template-columns:25px 1fr auto; align-items:center; gap:14px; padding:18px 5px; border-bottom:1px solid var(--line); line-height:1.6; }
+.exercise,.theorem,.flash { min-width:0; }
+.tabs { overflow-x:auto; }
+.tabs a { white-space:nowrap; }
+.section-picker select { min-width:0; text-overflow:ellipsis; }
+.actions { flex-wrap:wrap; }
+.notice { max-width:790px; }
+.meta { line-height:1.65; }
+@media(max-width:740px) {
+ .sidebar { padding:15px 20px; }
+ .sidebar-head { flex-direction:row; justify-content:space-between; align-items:center; gap:15px; }
+ .brand { padding:0; font-size:20px; }
+ .menu-toggle { display:block; font-size:13px; padding:9px 10px; }
+ .sidebar nav { display:none; }
+ .sidebar.menu-open nav { display:grid; grid-template-columns:1fr 1fr; gap:3px; padding-top:18px; max-height:65vh; overflow-y:auto; }
+ .sidebar.menu-open .nav-label { display:block; grid-column:1 / -1; }
+ .sidebar.menu-open .nav-item { white-space:normal; margin:0; }
+ .content { padding:27px 18px 55px; }
+ .focus-content>.panel { padding:21px 18px; }
+ .task-part { margin-top:25px; padding-top:22px; }
+ .task-heading { font-size:21px; }
+ .sheet-tabs { gap:6px; }
+ .sheet-tabs a { width:calc((100% - 36px) / 7); max-width:48px; }
+ .training-choices { display:grid; grid-template-columns:1fr 1fr; }
+ .training-choices button { line-height:1.4; }
+ .training-outline>div { grid-template-columns:20px 1fr; }
+ .training-outline .meta { grid-column:2; }
+ .exam-controls { position:static; }
+ .exam-controls button { margin-left:0; }
+ .note-label span { display:block; margin:3px 0 0; }
+ .panel p,.steps li { overflow-wrap:break-word; }
+ .katex { overflow-wrap:normal; }
+ .study-route { gap:9px; flex-direction:column; }
+}
+@media print {
+ .menu-toggle,.sheet-tabs,.training-choices,.section-picker,.focus-pager,textarea,.note-label,.check-row { display:none; }
+ .solution { break-inside:auto; }
+ .task-part { break-inside:avoid; }
+}

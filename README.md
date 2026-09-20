@@ -2,7 +2,7 @@
 
 ## Öffentlicher Link
 
-**Online-Version:** [https://nic764fib.github.io/Analysis-2B/](https://nic764fib.github.io/Analysis-2B/)
+**Online-Version:** [https://nic764fib.github.io/Analysis-2B/](https://nic764fib.github.io/Analysis-2B/?v=17ad399)
 
 Direkt im Browser lernen – ohne Installation oder Anmeldung.
 

@@ -22,7 +22,7 @@ theory.set('weierstrass',{id:'weierstrass',kind:'Satz · Majorantentest',title:'
 theory.set('uniform-limit',{id:'uniform-limit',kind:'Satz',title:'Stetigkeit des gleichmäßigen Grenzwerts',text:R`Konvergieren stetige Funktionen $f_n:D\to\mathbb K$ gleichmäßig gegen f, so ist f stetig. Sind alle fₙ gleichmäßig stetig, so ist auch f gleichmäßig stetig.`,source:'B.2.2(b); Grundlage für B.2.1(a)',checks:['Gleichmäßige, nicht nur punktweise Konvergenz.','Alle approximierenden Funktionen besitzen die jeweilige Eigenschaft.']});
 // Die Funktionenfolgen werden auf den Übungsblättern für K = R oder C formuliert.
 theory.get('extrema').kind='Notwendige Bedingung und Rechenkriterium';
-for(const id of ['convergence','uniform-criteria']){const t=theory.get(id);t.text=t.text.replaceAll('D\\to\\mathbb R','D\\to\\mathbb K')+R` Hier ist $\mathbb K\in\{\mathbb R,\mathbb C\}$.`;}
+for(const id of ['convergence','uniform-criteria']){const t=theory.get(id);t.text=R`Sei $D\ne\varnothing$. `+t.text.replaceAll('D\\to\\mathbb R','D\\to\\mathbb K')+R` Hier ist $\mathbb K\in\{\mathbb R,\mathbb C\}$.`;}
 function make(m,ti,ei){return{...m,theory:ti.map(id=>{if(!theory.has(id))throw Error(id);return theory.get(id)}),exercises:ei.map(id=>{if(!exercises.has(id))throw Error(id);return exercises.get(id)})};}
 const secondary=(id,title,description,source,visual,goals)=>({id,title,description,source,visual,priority:'Vertiefung',goals});
 export const modules=[

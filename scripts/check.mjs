@@ -11,6 +11,7 @@ import {emptyState,mergeState} from '../dist/storage.js';
 import {prose,partCard} from '../dist/study-ui.js';
 import './check-math.mjs';
 import './check-theory-names.mjs';
+import './check-labs.mjs';
 const ids=new Set();let formulas=0;
 function strings(obj){if(typeof obj==='string')return[obj];if(Array.isArray(obj))return obj.flatMap(strings);if(obj&&typeof obj==='object')return Object.values(obj).flatMap(strings);return[]}
 for(const m of modules){assert(m.id&&m.theory.length&&m.exercises.length);for(const entry of [...m.theory,...m.exercises]){assert(!ids.has(entry.id),`duplicate ${entry.id}`);ids.add(entry.id);assert(entry.source);if(entry.steps)assert(entry.steps.length>0);}}

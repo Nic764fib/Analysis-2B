@@ -22,7 +22,9 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft, Satzsuche und Zuordnungstraining.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
 - `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Prüfungsmodus und lokaler Lernstand.
-- `dist/plots.js`: kontrollierbare SVG-Grafiken.
+- `dist/plots.js`: zwölf grundlegende SVG-Grafiken.
+- `dist/lab-content.js`, `dist/lab-models.js`, `dist/lab-ui.js`, `dist/labs.css`: 24 geführte Experimente mit Einstellungen, Erklärungen, Verständnisfragen und Aufgabenverweisen.
+- `scripts/check-labs.mjs`: Parameterkombinationen, Formeln und mathematische Grenzfälle der Experimente.
 - `dist/generators.js`: reproduzierbare numerische Aufgabenvarianten und eingeschränkter Zahlenparser ohne eval.
 - `dist/style.css`: gemeinsame Gestaltung und responsive Layouts.
 - `dist/study.css`: Teilaufgaben, Trainingsauswahl und mobiles Menü.
@@ -43,6 +45,12 @@ Theorieeintrag: `{id, kind, title, text, source, checks, note?, intro?, visualLi
 Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Aufgabenabdeckung ist in [COVERAGE.md](COVERAGE.md), der Theorieabgleich in [THEORY_AUDIT.md](THEORY_AUDIT.md) dokumentiert. Alle 46 nummerierten Definitionen und Aussagen der Lecture Notes sind erfasst. Unter „Satz erkennen“ stehen die englischen Skripttitel und beschreibende deutsche Bezeichnungen mit Zuordnungstraining; Rechenhilfen und Blatt-Grundlagen sind getrennt gekennzeichnet. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
 
 Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwert (−4,0), gekennzeichnete Übungsfassung F+(4,0). Weitere Errata unter `content.js`. Freie Beweise werden nicht automatisch als richtig bewertet. Generatoren prüfen Zahlen, nicht Argumentationen. Keine Aussage über garantierte Prüfungsthemen oder eine garantierte Note.
+
+## Interaktive Veranschaulichungen
+
+Jedes Modul enthält zwei Experimente. Zu jedem gehören konkrete Vergleichseinstellungen, ein erklärter Lernzweck, eine Beobachtung, die mathematische Erklärung und eine Verständnisfrage mit begründeter Rückmeldung. Die zweite Ansicht behandelt gezielt einen Grenzfall oder eine wichtige Unterscheidung. Regler funktionieren mit Maus, Touch und Pfeiltasten; „Zurücksetzen“ stellt die Ausgangswerte wieder her.
+
+Experimente lassen sich direkt verlinken, z. B. `#/taylor/grafik/taylor-error` oder `#/implizite-funktionen/grafik/blocks`. Einstellungen bleiben während der geöffneten Sitzung pro Experiment erhalten. Die Beispiele ergänzen die unveränderten Satzformulierungen; sie sind keine zusätzlichen Prüfungsbehauptungen.
 
 ## Zustand und Teilen
 

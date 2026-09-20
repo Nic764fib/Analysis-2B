@@ -58,3 +58,27 @@ Alle 46 nummerierten Einträge (1.1–1.12 und 2.1–2.34) sind in 65 Theorie- u
 - Browserprüfung aller 12 Grafiken, Regler und Formeldarstellung; responsive Ansicht.
 - Unabhängige symbolische Kontrolle der anspruchsvolleren Ableitungen und Taylor-Hesse-Matrizen.
 - Freie Formulierungen und Beweise werden bewusst nicht automatisch benotet.
+
+
+## Geführte Experimente
+
+24 Experimente in den zwölf bestehenden Modulen. Die ursprünglichen zwölf Grafiken haben jetzt Vergleichseinstellungen, mathematische Erklärungen, Verständnisfragen und Aufgabenlinks. Ergänzt wurden:
+
+| Modul | Neues Experiment | Entscheidende Unterscheidung |
+|---|---|---|
+| Kompaktheit | Endliche Teilüberdeckung einer Folgenmenge bauen | Endlich viele Mengen können unendlich viele Punkte abdecken; ohne enthaltenen Grenzwert scheitert eine konkrete Überdeckung. |
+| Ableitungen | Achsentests und normierter Rest | Partielle Ableitungen versus totale Differenzierbarkeit. |
+| Umkehrfunktionen | Gitter unter (x,y) ↦ (x²,y) | Invertierbare Ableitung am Punkt versus zu große Umgebung. |
+| Implizite Funktionen | Variablenblöcke eines Systems wählen | Zwei passende Spalten, singuläre Blöcke und −A⁻¹B. |
+| Höhere Ableitungen | Zwei Schrittweiten im gemischten Differenzenquotienten | Iterierte Grenzwerte und Stetigkeitsvoraussetzung von Schwarz. |
+| Taylor | Gesamtgrad und Fehler bei halbiertem Abstand | Gradfilter, Restordnung und besondere Richtungen. |
+| Gradient | Kleine und große Schritte | Lokale Richtungsableitung versus endlicher Zuwachs. |
+| Extremstellen | Drei Funktionen mit gleicher Hesse-Matrix | Semidefinit kann striktes Minimum, nichtstriktes Minimum oder Sattel bedeuten. |
+| Banach | Negative Faktoren, Grenzfälle und Abstoßen | Fixpunktexistenz, Kontraktion und Konvergenz der Iteration. |
+| Gleichmäßige Stetigkeit | Gemeinsames δ bei der Wurzelfunktion | δ hängt von ε ab, nicht vom Punkt. |
+| Funktionenfolgen | xⁿ auf [0,a] | Gebiet, Supremumsfehler und wandernder Gegenbeispielpunkt. |
+| Grenzübergänge | sin(nx)/n versus sin(nx)/n² | Gleichmäßige Konvergenz der Funktionen versus ihrer Ableitungen. |
+
+Die neuen Beispiele sind als Experimente bzw. eigene Vergleichsbeispiele zu den Quellen gekennzeichnet. Keine neuen allgemeinen Satzformulierungen wurden eingeführt. Numerische Anzeigen sind gerundet; theoretische Schlussfolgerungen stehen getrennt und mit ihren Bedingungen dabei.
+
+Geprüft: 259 Kombinationen von Parametern und Voreinstellungen, 1.693 Formeln in den Experimentdaten und Ausgaben, analytische Identitäten und Grenzfälle (unter anderem A·g′ + B = 0, Banach-Fehlerschranken und Startindizes). Browserprüfung aller 24 Ansichten, sämtlicher neuer Voreinstellungen, Antwort-Rückmeldungen, Zurücksetzen und mobile Darstellung.

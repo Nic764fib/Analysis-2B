@@ -10,6 +10,8 @@ import {practice} from './practice.js';
 import {recipeFor} from './recipes.js';
 import {extraTheory,extraExercises,proofIdeas} from './exam-supplements.js';
 import {worksheets} from './worksheet-data.js';
+import {scriptCompletions} from './script-completions.js';
+import {theoryNames} from './theory-names.js';
 const R=String.raw;
 const base=[compact,derivative,inverse,implicit,higher,taylor,extra];
 const theory=new Map([...base.flatMap(m=>m.theory),...additions,...extraTheory].map(t=>[t.id,{...t,...formal[t.id]}]));
@@ -18,13 +20,14 @@ theory.set('gradient',{...theory.get('gradient'),kind:'Definition · §2.4',text
 theory.set('gradient-theorem',{id:'gradient-theorem',kind:'Satz 2.30',title:'Anstieg und Niveaumengen',text:R`Sei E eine offene Menge in $\mathbb R^n$ und $f:E\to\mathbb R$ in $a\in E$ differenzierbar. Dann gilt:
 1. Ist $\nabla f(a)\ne0$, so gilt für alle $v\in\mathbb R^n$ mit $\|v\|=1$: $$D_vf(a)=v\cdot\nabla f(a)\le\|\nabla f(a)\|,$$ mit Gleichheit genau dann, wenn $v=\nabla f(a)/\|\nabla f(a)\|$. Insbesondere ist $\nabla f(a)$ die Richtung des stärksten Anstiegs und $\max_{\|v\|=1}D_vf(a)=\|\nabla f(a)\|$.
 2. Ist $v\cdot\nabla f(a)>0$, so gibt es $\varepsilon>0$ mit $f(a+tv)>f(a)$ für alle $t\in(0,\varepsilon)$. Für $v\cdot\nabla f(a)<0$ gilt entsprechend $f(a+tv)<f(a)$ für alle hinreichend kleinen positiven t.
-3. Setze $s=f(a)$ und $N_s=\{x\in E:f(x)=s\}$. Ist $\gamma:(\alpha,\beta)\to E$ eine differenzierbare Kurve mit $\gamma(t_0)=a$ und $f(\gamma(t))=s$ für alle t, dann gilt $$\nabla f(a)\cdot\gamma'(t_0)=0.$$`,note:'Korrektur: Richtungsvektoren v liegen in ℝⁿ. Im Skript steht hier irrtümlich v ∈ E. Ein Tangentialraum der Niveaumenge ist an regulären Punkten ∇f(a) ≠ 0 definiert.',source:'Lecture Notes · Satz 2.30, S. 56',checks:['f differenzierbar in a.','Für maximalen Anstieg: Gradient nicht null und |v|=1.','Nur kleine positive Schritte bei Teil 2.','Für Teil 3 liegt die ganze Kurve in derselben Niveaumenge.']});
+3. Setze $s=f(a)$ und $N_s=\{x\in E:f(x)=s\}$. Ist $\gamma:(\alpha,\beta)\to E$ eine differenzierbare Kurve mit $\gamma(t_0)=a$ und $f(\gamma(t))=s$ für alle t, dann gilt $$\nabla f(a)\cdot\gamma'(t_0)=0.$$`,note:'Korrektur: Richtungsvektoren v liegen in ℝⁿ. Im Skript steht hier irrtümlich v ∈ E. Wenn die Niveaumenge dort einen Tangentialraum besitzt, steht der Gradient orthogonal dazu. Die Aussage über differenzierbare Kurven gilt bereits unter den oben genannten Voraussetzungen.',source:'Lecture Notes · Satz 2.30, S. 56',checks:['f differenzierbar in a.','Für maximalen Anstieg: Gradient nicht null und |v|=1.','Nur kleine positive Schritte bei Teil 2.','Für Teil 3 liegt die ganze Kurve in derselben Niveaumenge.']});
 theory.set('homeomorphism',{id:'homeomorphism',kind:'Definition',title:'Homöomorphismus',text:R`Eine Abbildung $f:X\to Y$ heißt Homöomorphismus, wenn f bijektiv und stetig ist und $f^{-1}:Y\to X$ stetig ist.`,source:'Blatt 4 · Anmerkung zu B.4.1',checks:['Bijektion.','f und f⁻¹ stetig.']});
 theory.set('weierstrass',{id:'weierstrass',kind:'Satz · Majorantentest',title:'Gleichmäßig konvergente Reihen',text:R`Seien $f_n:D\to\mathbb K$, $\mathbb K\in\{\mathbb R,\mathbb C\}$, und $|f_n(x)|\le M_n$ für alle $x\in D$, wobei $\sum_{n=1}^\infty M_n<\infty$. Dann konvergiert $\sum_{n=1}^\infty f_n$ auf D gleichmäßig und absolut.`,source:'Benötigter Satz für B.2.4(a)',checks:['Summierbare Schranke Mₙ.','Unabhängig von x.']});
 theory.set('uniform-limit',{id:'uniform-limit',kind:'Satz',title:'Stetigkeit des gleichmäßigen Grenzwerts',text:R`Konvergieren stetige Funktionen $f_n:D\to\mathbb K$ gleichmäßig gegen f, so ist f stetig. Sind alle fₙ gleichmäßig stetig, so ist auch f gleichmäßig stetig.`,source:'B.2.2(b); Grundlage für B.2.1(a)',checks:['Gleichmäßige, nicht nur punktweise Konvergenz.','Alle approximierenden Funktionen besitzen die jeweilige Eigenschaft.']});
 // Die Funktionenfolgen werden auf den Übungsblättern für K = R oder C formuliert.
-theory.get('extrema').kind='Notwendige Bedingung und Rechenkriterium';
-for(const id of ['convergence','uniform-criteria']){const t=theory.get(id);t.text=R`Sei $D\ne\varnothing$. `+t.text.replaceAll('D\\to\\mathbb R','D\\to\\mathbb K')+R` Hier ist $\mathbb K\in\{\mathbb R,\mathbb C\}$.`;}
+theory.get('extrema').kind='Rechenhilfe aus Taylor';
+theory.get('extrema').source='Folgerung aus der Taylorentwicklung · §2.5; Anwendung in B.7.4–B.7.5';
+for(const id of ['convergence','uniform-criteria']){const t=theory.get(id);t.text=R`Sei $D\ne\varnothing$. `+t.text.replaceAll('D\\to\\mathbb R','D\\to\\mathbb K').replace('In $\\mathbb R$','In $\\mathbb K$')+R` Hier ist $\mathbb K\in\{\mathbb R,\mathbb C\}$.`;}
 function make(m,ti,ei){return{...m,theory:ti.map(id=>{if(!theory.has(id))throw Error(id);return theory.get(id)}),exercises:ei.map(id=>{if(!exercises.has(id))throw Error(id);return exercises.get(id)})};}
 const secondary=(id,title,description,source,visual,goals)=>({id,title,description,source,visual,priority:'Vertiefung',goals});
 export const modules=[
@@ -104,10 +107,15 @@ const checksByModule={
 for(const m of modules){
  const add=addTo[m.id]||{};
  m.theory.push(...(add.theory||[]).map(id=>theory.get(id)));
+ m.theory.push(...scriptCompletions.filter(t=>t.module===m.id));
  m.exercises.push(...(add.exercises||[]).map(id=>exercises.get(id)));
  m.priority=['kompaktheit','umkehrfunktionen','implizite-funktionen','taylor'].includes(m.id)?'Schwerpunkt':m.id==='ableitungen'?'Grundlage':m.id==='funktionenfolgen'?'Mit B.3.2':learningGroups[2].ids.includes(m.id)?'Blatt 1–2':'Übungsstoff 3–7';
  m.connection=connections[m.id];
- for(const t of m.theory){if(proofIdeas[t.id])t.proofIdea=proofIdeas[t.id];}
+ for(const t of m.theory){
+   if(!theoryNames[t.id])throw Error('Satzbezeichnung fehlt: '+t.id);
+   Object.assign(t,theoryNames[t.id]);
+   if(proofIdeas[t.id])t.proofIdea=proofIdeas[t.id];
+ }
  for(const e of m.exercises){
    e.checks ||= checksByModule[m.id];
    const match=taskSources[e.id];

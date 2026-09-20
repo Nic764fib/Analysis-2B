@@ -46,6 +46,6 @@ Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwe
 
 Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `analysis2b-v1` und alle bisherigen Inhalts-IDs bleiben erhalten. Notizen, Markierungen, letzte Auswahl und laufende Trainings werden lokal gespeichert. Neuladen erhält auch die Klausuruhr. Export/Import unter „Quellen und Lernstand“ liest weiterhin alte Exporte. Gleiche Originalaufgaben teilen ihre neuen Teilaufgabennotizen zwischen Modul und Blatt. Es gibt keine erfundene offizielle Dauer oder Bestehensgrenze.
 
-Die öffentliche Version läuft über GitHub Pages. Veröffentlicht wird der Inhalt von `dist/` im Wurzelverzeichnis des Branches `gh-pages`. Bei Änderungen an der Lernplattform auch diesen Veröffentlichungsstand aktualisieren. Die bestehende Sites-Konfiguration in `.openai/hosting.json` gehört zur früheren Webadresse.
+Die öffentliche Version läuft über GitHub Pages. Nach dem Commit und Push der Änderungen auf `main` veröffentlicht `node scripts/publish-pages.mjs` den Inhalt von `dist/` auf `gh-pages`. Die Startseite bindet Dateien über ein versionsabhängiges Verzeichnis ein, damit Browser keine alten und neuen Module vermischen. Die öffentliche Adresse bleibt gleich. Die bestehende Sites-Konfiguration in `.openai/hosting.json` gehört zur früheren Webadresse.
 
 Ein Lernstand von der früheren Webadresse lässt sich dort exportieren und unter „Quellen und Lernstand“ in die neue Online-Version importieren.

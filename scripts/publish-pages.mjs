@@ -1,0 +1,20 @@
+import {execFileSync} from 'node:child_process';
+
+const git=(args,input)=>execFileSync('git',args,{encoding:'utf8',input,env:{...process.env,GIT_TERMINAL_PROMPT:'0',GCM_INTERACTIVE:'never'}}).trim();
+if(git(['status','--porcelain']))throw Error('Commit the source changes before publishing.');
+git(['fetch','origin','main','gh-pages']);
+const source=git(['rev-parse','HEAD']);
+if(source!==git(['rev-parse','origin/main']))throw Error('Publish the pushed main revision.');
+const sourceTree=git(['rev-parse','HEAD:dist']);
+const release=`release-${source}`;
+const originalIndex=git(['show','HEAD:dist/index.html']);
+const index=originalIndex.replace(/\b(href|src)="\.\/([^\"]+)"/g,(_,attribute,path)=>`${attribute}="./${release}/${path}"`)+'\n';
+if(index===originalIndex+'\n')throw Error('No local assets found in index.html.');
+const indexBlob=git(['hash-object','-w','--stdin'],index);
+const entries=git(['ls-tree',sourceTree]).split('\n').map(line=>line.endsWith('\tindex.html')?`100644 blob ${indexBlob}\tindex.html`:line);
+entries.push(`040000 tree ${sourceTree}\t${release}`);
+const tree=git(['mktree'],entries.join('\n')+'\n');
+const parent=git(['rev-parse','origin/gh-pages']);
+const commit=git(['commit-tree',tree,'-p',parent,'-m',`Publish learning platform from main ${source}`]);
+git(['push','origin',`${commit}:refs/heads/gh-pages`]);
+console.log(JSON.stringify({source,commit,url:'https://nic764fib.github.io/Analysis-2B/'}));

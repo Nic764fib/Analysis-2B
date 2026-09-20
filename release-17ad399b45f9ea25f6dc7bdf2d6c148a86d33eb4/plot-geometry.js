@@ -1,0 +1,13 @@
+const fmt=n=>Math.abs(n)<1e-12?'0':Math.abs(n)<.001?Number(n).toExponential(2):Number(n).toFixed(3).replace(/\.?0+$/,'');
+function ticks(min,max){const base=10**Math.floor(Math.log10((max-min)/5)),step=[1,2,5,10].map(x=>x*base).find(x=>x>=(max-min)/5),out=[];for(let v=Math.ceil(min/step)*step;v<=max+step*1e-8;v+=step)out.push(Math.abs(v)<1e-10?0:v);return out;}
+export {fmt};
+export function chart(curves,{xMin=-2.5,xMax=2.5,yMin=-2.5,yMax=2.5,points=[],segments=[],circles=[],labels=['x','y'],title='Funktionsgraph'}={}){
+ const px=x=>44+(x-xMin)/(xMax-xMin)*424,py=y=>290-(y-yMin)/(yMax-yMin)*260;
+ const x0=px(Math.min(xMax,Math.max(xMin,0))),y0=py(Math.min(yMax,Math.max(yMin,0)));
+ let grid='';for(const x of ticks(xMin,xMax))grid+=`<path class="grid" d="M${px(x)} 30V290"/><text x="${px(x)}" y="309" text-anchor="middle">${fmt(x)}</text>`;
+ for(const y of ticks(yMin,yMax))grid+=`<path class="grid" d="M44 ${py(y)}H468"/><text x="37" y="${py(y)+4}" text-anchor="end">${fmt(y)}</text>`;
+ const paths=curves.map((curve,i)=>{let d='',move=true;for(let j=0;j<=500;j++){const p=curve(j/500);if(!p||!p.every(Number.isFinite)){move=true;continue;}d+=`${move?'M':'L'}${px(p[0]).toFixed(2)},${py(p[1]).toFixed(2)} `;move=false;}return`<path d="${d}" class="${i?'secondary':'curve'}"/>`}).join('');
+ return`<svg class="plot" viewBox="0 0 500 330" role="img" aria-label="${title}"><title>${title}</title><defs><clipPath id="plotclip"><rect x="44" y="30" width="424" height="260"/></clipPath></defs>${grid}<path class="axis" d="M44 ${y0}H468 M${x0} 30V290"/><text x="481" y="309">${labels[0]}</text><text x="12" y="18">${labels[1]}</text><g clip-path="url(#plotclip)">${circles.map(c=>`<ellipse cx="${px(c.x||0)}" cy="${py(c.y||0)}" rx="${c.r/(xMax-xMin)*424}" ry="${c.r/(yMax-yMin)*260}" fill="${c.fill?'#244cdb10':'none'}" stroke="var(--accent)" stroke-width="2" ${c.open?'stroke-dasharray="5 5"':''}/>`).join('')}${paths}${segments.map(s=>`<path d="M${px(s[0])},${py(s[1])}L${px(s[2])},${py(s[3])}" stroke="${s[4]||'#b9602e'}" stroke-width="2"/>`).join('')}${points.map(p=>`<circle cx="${px(p[0])}" cy="${py(p[1])}" r="${p[4]||4}" fill="${p[3]?'white':p[2]||'var(--accent)'}" stroke="${p[2]||'var(--accent)'}" stroke-width="1.5"/>`).join('')}</g></svg>`;
+}
+export const slider=(label,key,min,max,step,value)=>`<label class="control">${label}<input data-param="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"><output>${value}</output></label>`;
+export const select=(label,key,options)=>`<label class="control">${label}<select data-param="${key}">${options.map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select></label>`;

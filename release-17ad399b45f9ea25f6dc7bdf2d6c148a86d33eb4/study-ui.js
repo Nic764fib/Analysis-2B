@@ -1,0 +1,17 @@
+export const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inline=s=>esc(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+export function prose(s){
+ return String(s??'').split(/(\$\$[\s\S]*?\$\$)/g).map(block=>block.startsWith('$$')?`<div class="formula">${esc(block)}</div>`:block.split(/\n+/).filter(t=>t.trim()).map(t=>`<p>${inline(t)}</p>`).join('')).join('');
+}
+export function sketch(type){
+ const common='viewBox="0 0 460 260" class="region-sketch" role="img"';
+ if(type==='polar-region')return `<figure><svg ${common} aria-label="Abgeschlossener oberer Halbring mit Innenradius 1 und Außenradius 2"><title>Bild von [1,2] × [0,π]</title><path d="M50 214 A180 180 0 0 1 410 214 L320 214 A90 90 0 0 0 140 214 Z" fill="var(--soft)" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 214H440 M230 240V15" class="axis"/><g class="sketch-labels"><text x="430" y="238">u</text><text x="241" y="22">v</text><text x="43" y="236">−2</text><text x="128" y="236">−1</text><text x="318" y="236">1</text><text x="405" y="236">2</text><text x="245" y="64">Radius 2</text><text x="240" y="143">Radius 1</text></g></svg><figcaption>Beide Halbkreise und beide geraden Randstücke gehören zum Bild.</figcaption></figure>`;
+ if(type==='square-region')return `<figure><svg ${common} aria-label="Abgeschlossene obere Halbkreisscheibe mit Radius a², dargestellt für a ungleich null"><title>Bild des ersten Viertels einer Kreisscheibe</title><path d="M50 214 A180 180 0 0 1 410 214 Z" fill="var(--soft)" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 214H440 M230 240V15" class="axis"/><g class="sketch-labels"><text x="430" y="238">u</text><text x="241" y="22">v</text><text x="34" y="236">−a²</text><text x="396" y="236">a²</text><text x="250" y="96">Radius a²</text></g></svg><figcaption>Der Rand ist enthalten. Für a = 0 besteht das Bild nur aus dem Ursprung.</figcaption></figure>`;
+ return '';
+}
+export function solutionContent(part){return (part.solution?prose(part.solution):`<ol class="steps">${(part.steps||[]).map(s=>`<li>${prose(s)}</li>`).join('')}</ol>`)+sketch(part.sketch);}
+export function checklist(items=[]){return items.length?`<div class="solution-check"><p class="small"><strong>Kontrolle</strong></p>${items.map(c=>`<label class="check-row"><input type="checkbox">${esc(c)}</label>`).join('')}</div>`:'';}
+export function partCard(part,{key,state,revealed=true,exam=false}={}){
+ const noteKey=key, label=part.label?`Teil ${part.label}`:'Aufgabe';
+ return `<section class="task-part"><div class="part-label">${esc(label)}</div>${part.prompt?`<div class="statement">${prose(part.prompt)}</div>`:''}<label class="note-label" for="note-${esc(noteKey)}">Eigener Ansatz <span>oder auf Papier</span></label><textarea id="note-${esc(noteKey)}" data-note="${esc(noteKey)}" placeholder="Voraussetzungen, Rechnung, Ergebnis …">${esc(state.notes[noteKey]||'')}</textarea>${revealed?`<details class="solution" ${exam?'open':''}><summary>Lösung${part.label?' '+esc(part.label):''}</summary>${solutionContent(part)}${checklist(part.checks||[])}</details>`:''}</section>`;
+}

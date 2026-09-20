@@ -1,6 +1,6 @@
 # Stoffabgleich
 
-Die sichtbaren Inhalte werden in `dist/curriculum.js` zusammengestellt: 12 Module, 56 Theorieeinträge und 63 Aufgaben. Die Startseite priorisiert die vier Schwerpunkte der aktuellen Prüfungsinformationen. Banach, höhere Ableitungen, Gradient, Extremstellen und B.3.2 gehören ausdrücklich zum weiteren relevanten Übungsstoff. Benötigte Grundlagen sind direkt verlinkt. Modulnummern und vorhandene IDs bleiben erhalten.
+Die sichtbaren Inhalte werden in `dist/curriculum.js` zusammengestellt: 12 Module, 65 Theorieeinträge und 63 Aufgaben. Die Startseite priorisiert die vier Schwerpunkte der aktuellen Prüfungsinformationen. Banach, höhere Ableitungen, Gradient, Extremstellen und B.3.2 gehören ausdrücklich zum weiteren relevanten Übungsstoff. Benötigte Grundlagen sind direkt verlinkt. Modulnummern und vorhandene IDs bleiben erhalten.
 
 Unter „Übungsblätter“ sind alle 48 Aufgaben der Blätter 1–7 mit 105 Angabe-Lösung-Paaren enthalten, einschließlich der T.-Aufgaben. Originalangaben bleiben unverändert; Fehlerkorrekturen stehen getrennt in den Lösungen. Die Module verwenden dieselben Teilaufgabendaten.
 
@@ -45,6 +45,10 @@ Neue Trainings sind eigene Varianten, keine rekonstruierte Originalklausur. Ausg
 ## Formale Fassungen
 
 `dist/formal.js` enthält deutsche Fassungen der einschlägigen Skriptstellen. Sie erhalten E, A, x, ξ, f′, Aₓ/Aᵧ, Nummerierungen und lokale Voraussetzungen. Korrekturen sind in separaten Anmerkungen erläutert. Der Satz von Schwarz (2.26) wird ausdrücklich vom C²-Korollar (2.27) getrennt. Zusätzliche Rechenschemata sind keine als Original ausgegebenen Skriptsätze.
+
+## Theorieabgleich und Satznamen
+
+Alle 46 nummerierten Einträge (1.1–1.12 und 2.1–2.34) sind in 65 Theorie- und Hilfseinträgen abgedeckt. Davon behandeln 45 Einträge Originalaussagen bzw. Begriffe der Lecture Notes; 20 sind als Übungsblatt-Grundlagen, Voraussetzungen oder Folgerungen gekennzeichnet. Vollständige Zuordnung und fachliche Präzisierungen: [THEORY_AUDIT.md](THEORY_AUDIT.md). Die Such- und Abfrageansicht „Satz erkennen“ unterscheidet echte englische Skripttitel von eigenen beschreibenden Überschriften.
 
 ## Prüfung
 

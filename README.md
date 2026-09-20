@@ -18,6 +18,8 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/content.js`: Klausurstruktur, Quellen und Errata.
 - `dist/curriculum.js`: 12 Kapitel, Reihenfolge, Zuordnung der Theorie- und Aufgaben-IDs.
 - `dist/formal.js`: deutsche Skriptfassungen mit Originalnotation und markierten Korrekturen.
+- `dist/script-completions.js`: ergänzende nummerierte Aussagen der Lecture Notes.
+- `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft, Satzsuche und Zuordnungstraining.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
 - `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Prüfungsmodus und lokaler Lernstand.
 - `dist/plots.js`: kontrollierbare SVG-Grafiken.
@@ -38,7 +40,7 @@ Theorieeintrag: `{id, kind, title, text, source, checks, note?, intro?, visualLi
 
 ## Fachliche Entscheidungen
 
-Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Zuordnung ist in COVERAGE.md dokumentiert. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
+Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Aufgabenabdeckung ist in [COVERAGE.md](COVERAGE.md), der Theorieabgleich in [THEORY_AUDIT.md](THEORY_AUDIT.md) dokumentiert. Alle 46 nummerierten Definitionen und Aussagen der Lecture Notes sind erfasst. Unter „Satz erkennen“ stehen die englischen Skripttitel und beschreibende deutsche Bezeichnungen mit Zuordnungstraining; Rechenhilfen und Blatt-Grundlagen sind getrennt gekennzeichnet. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
 
 Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwert (−4,0), gekennzeichnete Übungsfassung F+(4,0). Weitere Errata unter `content.js`. Freie Beweise werden nicht automatisch als richtig bewertet. Generatoren prüfen Zahlen, nicht Argumentationen. Keine Aussage über garantierte Prüfungsthemen oder eine garantierte Note.
 

@@ -73,6 +73,40 @@ figcaption { text-align:center; color:var(--muted); font-size:13px; line-height:
  .katex { overflow-wrap:normal; }
  .study-route { gap:9px; flex-direction:column; }
 }
+.name-caption { color:var(--muted); font-size:14px; line-height:1.6; margin:9px 0 17px; }
+.recognition-hint { margin:18px 0 24px; padding:13px 16px; background:var(--soft); border-radius:8px; }
+.recognition-hint p { font-size:15px; }
+.name-contrast { padding-left:14px; border-left:2px solid var(--accent); }
+.name-examples { margin:0 0 25px; padding:20px 24px; }
+.name-examples dl { margin-bottom:0; }
+.name-examples dl>div { padding:13px 0; border-top:1px solid var(--line); }
+.name-examples dt { font-size:15px; line-height:1.6; }
+.name-examples dd { margin:6px 0 0; font-weight:600; font-size:15px; }
+.name-search { display:block; font-size:14px; font-weight:600; }
+.name-search input { width:100%; margin:8px 0 18px; padding:12px 14px; background:var(--paper); border:1px solid var(--line); border-radius:6px; font-weight:400; }
+.name-filters { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.name-filters label { font-size:14px; }
+.name-filters select { width:100%; min-width:0; }
+.name-results { max-width:800px; }
+.name-result { padding:24px 0; border-top:1px solid var(--line); }
+.name-result h2 { margin:7px 0 0; font-size:20px; line-height:1.5; }
+.name-result h2 a { color:var(--ink); }
+.name-result .name-caption { margin:7px 0 12px; }
+.name-result p { font-size:15px; line-height:1.7; }
+.name-result .meta { font-size:13px; margin-bottom:0; }
+.name-result details { margin:8px 0; font-size:14px; }
+.name-quiz { max-width:790px; margin-top:25px; }
+.name-quiz h2 { margin-top:14px; }
+.recognition-cue { font-size:19px; line-height:1.8; margin:20px 0; }
+@media(max-width:740px) {
+ .name-filters { grid-template-columns:1fr; gap:12px; }
+ .name-result h2 { font-size:18px; }
+ .name-quiz { padding:22px 18px; }
+ .name-quiz h2 { font-size:22px; }
+ .recognition-cue { font-size:17px; }
+ .name-examples { padding:18px; }
+ .name-quiz .focus-pager { flex-wrap:wrap; gap:12px; }
+}
 @media print {
  .menu-toggle,.sheet-tabs,.training-choices,.section-picker,.focus-pager,textarea,.note-label,.check-row { display:none; }
  .solution { break-inside:auto; }

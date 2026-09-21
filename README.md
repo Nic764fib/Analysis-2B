@@ -21,6 +21,7 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/script-completions.js`: ergänzende nummerierte Aussagen der Lecture Notes.
 - `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft, Satzsuche und Zuordnungstraining.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
+- `dist/exam-recall.js`: Auswahl von 20 vorhandenen Karten für „Klausursätze lernen“; Begründung in [EXAM_RECALL.md](EXAM_RECALL.md).
 - `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Prüfungsmodus und lokaler Lernstand.
 - `dist/plots.js`: zwölf grundlegende SVG-Grafiken.
 - `dist/lab-content.js`, `dist/lab-models.js`, `dist/lab-ui.js`, `dist/labs.css`: 24 geführte Experimente mit Einstellungen, Erklärungen, Verständnisfragen und Aufgabenverweisen.

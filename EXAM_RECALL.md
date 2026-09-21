@@ -1,17 +1,17 @@
 # Auswahl für „Klausursätze lernen“
 
-Stand: 21. September 2026. Der Filter verwendet 21 der 65 bestehenden Karten unverändert. Er fügt keine Aussagen hinzu und teilt Notizen, Selbsteinschätzung und Wiederholungszeiten mit der regulären Abfrage.
+Stand: 21. September 2026. Der Filter verwendet 22 der 65 bestehenden Karten unverändert. Er fügt keine Aussagen hinzu und teilt Notizen, Selbsteinschätzung und Wiederholungszeiten mit der regulären Abfrage.
 
 ## Auswahlregel
 
-Aufgenommen werden ausdrücklich verlangte Satzformulierungen und Definitionen aus der Altklausur 2025 sowie den Theorieaufgaben T.1.1–T.7.2. Die Definition der Kontraktion wird als unmittelbare Voraussetzung des explizit gefragten Banachschen Fixpunktsatzes zusätzlich ausgewählt. Kombinierte Karten bleiben vollständig erhalten, etwa Folgenkompaktheit/Äquivalenz und Cauchy-Folge/Vollständigkeit/Banach-/Hilbertraum. Quellen je Karten-ID: `dist/exam-recall.js`.
+Aufgenommen werden ausdrücklich verlangte Satzformulierungen und Definitionen aus der Altklausur 2025 sowie den Theorieaufgaben T.1.1–T.7.2. Die Definitionen der Kontraktion und der totalen Differenzierbarkeit (Definition 2.1) sowie der Schrankensatz (Satz 2.11) werden als zentrale Grundlagen der Lecture Notes bzw. Altklausur zusätzlich ausgewählt. Kombinierte Karten bleiben vollständig erhalten, etwa Folgenkompaktheit/Äquivalenz und Cauchy-Folge/Vollständigkeit/Banach-/Hilbertraum. Quellen je Karten-ID: `dist/exam-recall.js`.
 
 Die Dozentenmail nennt den gesamten Vorlesungsstoff als grundsätzlich möglich und betont Kompaktheit, Umkehrsatz, implizite Funktionen und Taylor. Der Erinnerungsbericht 2026 ist keine verbindliche Stoffabgrenzung. Kein Modul ist nachweislich ausgeschlossen. Deshalb bleiben explizite Theoriefragen aus Blatt 1–2 im Filter; ihre Module stehen am Ende der vorhandenen Lernreihenfolge.
 
 | Modul | Enthaltene bestehende Karten | Grundlage |
 |---|---|---|
 | Kompaktheit | Überdeckungskompaktheit; Folgenkompaktheit und Äquivalenz; Heine–Borel; Cantor | T.3.2, T.4.1 |
-| Ableitungen | Kettenregel; Schrankensatz (Mittelwertungleichung) | Altklausur 1(a,b) |
+| Ableitungen | Differenzierbarkeit und totale Ableitung; Kettenregel; Schrankensatz (Mittelwertungleichung) | Definition 2.1 (Lecture Notes S. 12–13), Altklausur 1(a,b) |
 | Umkehrfunktionen | Diffeomorphismus; Umkehrsatz | T.5.1, T.4.2, Altklausur 2(a) |
 | Implizite Funktionen | Allgemeiner Satz über implizite Funktionen | T.5.2, Altklausur 3(a) |
 | Höhere Ableitungen | Höhere Ableitungen/Cᵏ/C∞; Schwarz; Divergenz; Laplace | T.6.1, T.7.1, Altklausur 4(a,b) |

@@ -6,6 +6,7 @@ export const examRecallSources = Object.freeze({
  sequential: 'T.3.2(b)',
  'heine-borel': 'T.4.1(b); Prüfungsbericht 2026',
  cantor: 'T.4.1(a)',
+ total: 'Definition 2.1: Totale Differenzierbarkeit (Lecture Notes, S. 12–13)',
  chain: 'Altklausur 2025, 1(a)',
  mean: 'Altklausur 2025, 1(b): Schrankensatz, Aussage und Beweis',
  diffeo: 'T.5.1',

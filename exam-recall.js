@@ -7,6 +7,7 @@ export const examRecallSources = Object.freeze({
  'heine-borel': 'T.4.1(b); Prüfungsbericht 2026',
  cantor: 'T.4.1(a)',
  chain: 'Altklausur 2025, 1(a)',
+ mean: 'Altklausur 2025, 1(b): Schrankensatz, Aussage und Beweis',
  diffeo: 'T.5.1',
  'inverse-theorem': 'T.4.2; Altklausur 2025, 2(a)',
  'implicit-theorem': 'T.5.2; Altklausur 2025, 3(a)',

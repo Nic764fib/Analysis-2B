@@ -1,30 +1,34 @@
 # Auswahl für „Klausursätze lernen“
 
-Stand: 21. September 2026. Der Filter verwendet 22 der 65 bestehenden Karten unverändert. Er fügt keine Aussagen hinzu und teilt Notizen, Selbsteinschätzung und Wiederholungszeiten mit der regulären Abfrage.
+Stand: 22. September 2026. Die vereinbarte Sicherheitsliste verwendet 28 der 65 bestehenden Karten: alle bisherigen 22 plus Stabilität, partielle Ableitungen/Jacobi-Matrix, C¹-Kriterium, Hesse-Matrix, Gradientensatz und Laplace-Invarianz. Keine Kopien; Notizen und Lernstände werden weiter geteilt.
 
-## Auswahlregel
+## Schwerpunktmarkierung
 
-Aufgenommen werden ausdrücklich verlangte Satzformulierungen und Definitionen aus der Altklausur 2025 sowie den Theorieaufgaben T.1.1–T.7.2. Die Definitionen der Kontraktion und der totalen Differenzierbarkeit (Definition 2.1) sowie der Schrankensatz (Satz 2.11) werden als zentrale Grundlagen der Lecture Notes bzw. Altklausur zusätzlich ausgewählt. Kombinierte Karten bleiben vollständig erhalten, etwa Folgenkompaktheit/Äquivalenz und Cauchy-Folge/Vollständigkeit/Banach-/Hilbertraum. Quellen je Karten-ID: `dist/exam-recall.js`.
+Vier Karten tragen „★ Schwerpunkt · zuerst lernen“: Heine–Borel, Umkehrsatz, impliziter Satz und Taylor. Grundlage sind die Dozentenmail, der Erinnerungsbericht 2026 und die aktuellen Theorieaufgaben. Im Bericht ist nur Heine–Borel ausdrücklich als Formulierungsfrage überliefert; die Erinnerung an Umkehrfunktionen ist unsicher. Die Markierung ist eine Lernpriorität und keine Prüfungsgarantie.
 
-Die Dozentenmail nennt den gesamten Vorlesungsstoff als grundsätzlich möglich und betont Kompaktheit, Umkehrsatz, implizite Funktionen und Taylor. Der Erinnerungsbericht 2026 ist keine verbindliche Stoffabgrenzung. Kein Modul ist nachweislich ausgeschlossen. Deshalb bleiben explizite Theoriefragen aus Blatt 1–2 im Filter; ihre Module stehen am Ende der vorhandenen Lernreihenfolge.
+## Auswahl nach Modul
 
-| Modul | Enthaltene bestehende Karten | Grundlage |
-|---|---|---|
-| Kompaktheit | Überdeckungskompaktheit; Folgenkompaktheit und Äquivalenz; Heine–Borel; Cantor | T.3.2, T.4.1 |
-| Ableitungen | Differenzierbarkeit und totale Ableitung; Kettenregel; Schrankensatz (Mittelwertungleichung) | Definition 2.1 (Lecture Notes S. 12–13), Altklausur 1(a,b) |
-| Umkehrfunktionen | Diffeomorphismus; Umkehrsatz | T.5.1, T.4.2, Altklausur 2(a) |
-| Implizite Funktionen | Allgemeiner Satz über implizite Funktionen | T.5.2, Altklausur 3(a) |
-| Höhere Ableitungen | Höhere Ableitungen/Cᵏ/C∞; Schwarz; Divergenz; Laplace | T.6.1, T.7.1, Altklausur 4(a,b) |
-| Taylor | Satz von Taylor mit Restglied | T.7.2 |
-| Gradient und Richtungen | Keine | Keine eigenständige Formulierungsfrage in den geprüften Aufgaben |
-| Extremstellen | Keine | Keine eigenständige Formulierungsfrage in den geprüften Aufgaben |
-| Vollständigkeit und Fixpunkte | Cauchy-Folge/Vollständigkeit/Banach-/Hilbertraum; Kontraktion; Banach | T.2.1, T.3.1, benötigte Definition 1.2 |
-| Gleichmäßige Stetigkeit | Keine | Anwendungen auf Blatt 1, keine eigene Theoriefrage |
-| Funktionenfolgen | Punktweise/gleichmäßige Konvergenz; Konvergenzkriterien | T.1.1–T.1.2 |
-| Grenzübergänge | Integral und Grenzwert; Differentiation eines Funktionenlimes | T.2.2 |
+| Modul | Karten |
+|---|---|
+| Kompaktheit | Überdeckungskompaktheit; Folgenkompaktheit/Äquivalenz; Heine–Borel; Cantor; Stabilität |
+| Ableitungen | Totale Differenzierbarkeit; partielle Ableitungen/Jacobi-Matrix; C¹/Kriterium; Kettenregel; Schrankensatz |
+| Umkehrfunktionen | Diffeomorphismus; Umkehrsatz |
+| Implizite Funktionen | Allgemeiner impliziter Satz |
+| Höhere Ableitungen | Cᵏ/C∞; Schwarz; Hesse-Matrix; Divergenz; Laplace; Laplace-Invarianz |
+| Taylor | Allgemeiner Satz mit Restglied |
+| Gradient | Satz 2.30, alle drei Teile |
+| Extremstellen | Keine zusätzliche Karte |
+| Fixpunkte | Cauchy/Vollständigkeit/Banach-/Hilbertraum; Kontraktion; Banach |
+| Gleichmäßige Stetigkeit | Keine zusätzliche Karte |
+| Funktionenfolgen | Punktweise/gleichmäßige Konvergenz; Konvergenzkriterien |
+| Grenzübergänge | Integral/Grenzwert; Differentiation eines Funktionenlimes |
 
-## Bewusst außerhalb dieses Filters
+Die vier Karten aus Blatt 1–2 bleiben als nachrangige Absicherung enthalten. Schrankensatz und Laplace-Invarianz mit Beweis lernen; die Abfrage verlinkt die vorhandenen Beweise.
 
-Rechenschemata, Matrixinversion, Taylor-Reihen und Spezialfälle bleiben in ihren Modulen. Die C²-Folgerung von Schwarz wird nicht zusätzlich abgefragt; ausgewählt ist die genaue Skriptfassung von Satz 2.26. Auch Hilfslemmata und weitere Grundlagen werden nicht pauschal aufgenommen, nur weil sie im Skript stehen.
+## Formulierungen
 
-Der Schrankensatz (Mittelwertungleichung, Satz 2.11) ist zusätzlich ausdrücklich ausgewählt, weil er in Klausur 1(b) bewiesen werden musste. Neben der Aussage ist sein Beweis zu lernen. Die Orthogonalitätsinvarianz des Laplace-Operators aus 4(c) bleibt eine **Beweisaufgabe** im Klausurtraining. Der Filter für Satzformulierungen ersetzt dieses Training nicht. Nichtauswahl ist keine Behauptung, dass ein Thema nicht geprüft werden kann.
+Die vorhandenen deutschen Skriptfassungen behalten Voraussetzungen, Notation und Struktur der Lecture Notes. Die sechs Ergänzungen wurden mit den jeweiligen Skriptstellen bzw. der Altklausur abgeglichen. Mathematische Präzisierungen bleiben sichtbar (etwa Richtungsvektoren in ℝⁿ bei Satz 2.30). Laplace-Invarianz stammt aus Klausur 2025, 4(c), nicht aus einem eigenen Skriptsatz. Blatt 1–2 sind eigenständig gekennzeichnet; für gliedweise Differentiation verwendet die Website die C¹-Fassung. Es werden keine zusätzlichen Karten oder Theoreme erfunden.
+
+## Wiederholung
+
+Nicht gewusst: 1 Minute. Grob gewusst: 10 Minuten. Vollständig: 1 Tag, beim nächsten fälligen Erfolg 2 Tage, danach jeweils 3 Tage. Unvollständige Antworten setzen die Tagesfolge zurück. Vorzeitiges Wiederholen erhöht die Stufe nicht. Fällige Karten werden vor neuen abgefragt; Schwerpunktkarten haben unter neuen Karten Vorrang. Eine leere Warteschlange wird bei Fälligkeit automatisch aktualisiert, ohne laufende Antworten zu unterbrechen.

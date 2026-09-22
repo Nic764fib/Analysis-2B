@@ -21,7 +21,8 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/script-completions.js`: ergänzende nummerierte Aussagen der Lecture Notes.
 - `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft, Satzsuche und Zuordnungstraining.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
-- `dist/exam-recall.js`: Auswahl von 22 vorhandenen Karten für „Klausursätze lernen“; Begründung in [EXAM_RECALL.md](EXAM_RECALL.md).
+- `dist/exam-recall.js`: Auswahl von 28 vorhandenen Karten mit vier markierten Schwerpunkten für „Klausursätze lernen“; Begründung in [EXAM_RECALL.md](EXAM_RECALL.md).
+- `dist/review.js`: Wiederholungsplan (1 Minute / 10 Minuten / 1, 2, 3 Tage), fällige Karten und Migration alter Termine.
 - `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Prüfungsmodus und lokaler Lernstand.
 - `dist/plots.js`: zwölf grundlegende SVG-Grafiken.
 - `dist/lab-content.js`, `dist/lab-models.js`, `dist/lab-ui.js`, `dist/labs.css`: 24 geführte Experimente mit Einstellungen, Erklärungen, Verständnisfragen und Aufgabenverweisen.
@@ -60,3 +61,7 @@ Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `an
 Die öffentliche Version läuft über GitHub Pages. Nach dem Commit und Push der Änderungen auf `main` veröffentlicht `node scripts/publish-pages.mjs` den Inhalt von `dist/` auf `gh-pages`. Die Startseite bindet Dateien über ein versionsabhängiges Verzeichnis ein, damit Browser keine alten und neuen Module vermischen. Die öffentliche Adresse bleibt gleich. Die bestehende Sites-Konfiguration in `.openai/hosting.json` gehört zur früheren Webadresse.
 
 Ein Lernstand von der früheren Webadresse lässt sich dort exportieren und unter „Quellen und Lernstand“ in die neue Online-Version importieren.
+
+## Wiederholungsplan
+
+Drei Bewertungen: Nicht gewusst → 1 Minute, grob gewusst → 10 Minuten, vollständig → bei aufeinanderfolgenden fälligen Erfolgen 1, 2, dann jeweils 3 Tage. Eine unvollständige Antwort setzt die Tagesfolge zurück. Vorzeitiges Wiederholen sicherer Karten verlängert keinen Termin. Fällige Wiederholungen kommen vor neuen Karten; neue Schwerpunktkarten zuerst. Während eine Antwort bearbeitet wird, bleibt sie stehen. Ist die Warteschlange leer, erscheint die nächste fällige Karte automatisch. Alte 1/3/7-Tage-Termine werden einmalig auf 1/2/3 Tage umgestellt, unter Beibehaltung ihres ursprünglichen Startzeitpunkts. Export/Import erhält den Plan.

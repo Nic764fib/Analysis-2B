@@ -8,7 +8,10 @@ export function mergeState(target,saved,moduleIds){
   for(const [key,value]of Object.entries(saved[field])){
    if(!allowedKey(key))continue;
    if(['known','done'].includes(field)&&typeof value==='boolean'||field==='notes'&&typeof value==='string'||field==='scores'&&Number.isFinite(value)&&value>=0&&value<=10||field==='positions'&&Number.isInteger(value)&&value>=0&&value<200)target[field][key]=value;
-   if(field==='reviews'&&map(value)&&Number.isFinite(value.due)&&Number.isInteger(value.level)&&value.level>=0&&value.level<=3)target.reviews[key]={due:value.due,level:value.level};
+   if(field==='reviews'&&map(value)&&Number.isFinite(value.due)&&Number.isInteger(value.level)&&value.level>=0&&value.level<=3){
+    target.reviews[key]={due:value.due,level:value.level};
+    if(value.schedule===2)target.reviews[key].schedule=2;
+   }
   }
  }
  for(const id of ['fokus-a','fokus-b','werkzeuge','2025']){

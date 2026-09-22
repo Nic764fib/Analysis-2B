@@ -1,0 +1,83 @@
+.practice-view{max-width:880px;margin:0 auto}
+.practice-view .lead{max-width:660px;margin-bottom:24px}
+.practice-settings{margin:0 0 26px;padding:0 0 18px;border-bottom:1px solid var(--line)}
+.practice-settings>summary{color:var(--muted);font-size:14px}
+.practice-settings[open]>summary{margin-bottom:20px}
+.practice-settings label{display:block;line-height:1.6}
+.practice-settings select{margin-top:8px}
+.practice-progress{list-style:none;padding:0;margin:20px 0 24px}
+.practice-progress li{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.practice-progress li span:last-child{color:var(--muted);text-align:right}
+.practice-task,.practice-solution{padding:32px 36px;border-radius:12px}
+.practice-task-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
+.practice-task-head h2{margin:0;font-size:24px;letter-spacing:-.6px}
+.practice-task-head .meta{font-size:12px}
+.practice-view p{line-height:1.85}
+.practice-statement section{position:relative;margin:24px 0}
+.practice-statement h3{font-size:15px;margin:0 0 6px;color:var(--muted)}
+.practice-task>details,.practice-help>details{border-top:1px solid var(--line);padding:17px 0;margin:0}
+.practice-task summary{font-size:14px;line-height:1.6;font-weight:500}
+.practice-task details[open]>summary{margin-bottom:20px}
+.practice-help{margin-top:10px}
+.practice-hints{border-top:1px solid var(--line);padding:15px 0}
+.practice-view .quiet{background:transparent;border-color:transparent;font-size:14px;padding:8px 0;color:var(--accent);text-align:left}
+.practice-view .quiet:hover{text-decoration:underline}
+.practice-view button:focus-visible,.practice-view summary:focus-visible,.practice-view select:focus-visible,.practice-view input:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.practice-question{border:0;padding:0;margin:0 0 24px;min-width:0}
+.practice-question legend{font-weight:550;font-size:16px;margin-bottom:16px;line-height:1.65}
+.practice-options{display:grid;gap:10px}
+.practice-options button{text-align:left;border-radius:8px;padding:13px 17px;line-height:1.7;white-space:normal;min-width:0}
+.practice-options button p{margin:0;line-height:1.65}
+.practice-options button:disabled{opacity:1;cursor:default;color:var(--muted)}
+.practice-options .chosen{border-color:var(--accent);background:var(--soft);color:var(--ink)!important}
+.practice-options button>span{display:block;margin-top:6px;color:var(--good)}
+.practice-feedback{padding:18px 22px;background:#f4f7fb;border-left:3px solid #9aaecf;margin-top:20px;border-radius:0 6px 6px 0}
+.practice-feedback p:last-child{margin-bottom:0}
+.practice-recipe{padding:22px 24px;background:#f5f8f8;border-radius:8px}
+.practice-recipe h3{font-size:17px;margin:0 0 16px}
+.practice-series{margin-top:26px;padding-top:20px;border-top:1px solid #dce6e6}
+.practice-series table{background:var(--paper)}
+.practice-series td p{margin:0}
+.practice-series th{font-size:12px}
+.practice-view .steps{padding-left:24px;margin:0}
+.practice-view .steps li{padding:0 0 14px 5px}
+.practice-view .steps li::marker{font-weight:600;color:var(--muted)}
+.practice-view .steps p{margin:5px 0 12px}
+.practice-view .steps li:last-child{padding-bottom:0}
+.practice-main-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+.practice-main-actions button{padding:12px 18px;min-height:46px}
+.practice-source{padding-bottom:0!important}
+.practice-source>summary{font-weight:400;font-size:12px;color:var(--muted)}
+.practice-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px 0}
+.practice-inputs label{display:flex;flex-direction:column;gap:8px;min-width:0}
+.practice-inputs label p{margin:0;font-size:14px}
+.practice-inputs label input{width:100%;min-height:44px}
+.practice-inputs label>span{font-size:12px;color:var(--muted)}
+.practice-solution{margin-top:28px}
+.practice-solution>.meta{margin-top:-12px;margin-bottom:24px}
+.practice-solution-part{padding:5px 0 24px}
+.practice-solution-part+.practice-solution-part{border-top:1px solid var(--line);padding-top:26px}
+.practice-solution-part h3{font-size:16px;color:var(--muted);margin-bottom:20px}
+.practice-view .formula{margin:18px 0}
+.practice-view .katex-display{padding:10px 2px;margin:12px 0;max-width:100%}
+.practice-assessment{border-top:1px solid var(--line);padding-top:26px;margin-top:6px}
+.practice-assessment h3{margin-bottom:8px}
+.practice-ratings{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.practice-ratings button{font-size:14px;min-height:44px}
+.practice-ratings .selected{background:var(--soft);border-color:var(--accent)}
+.practice-legacy{border-top:1px solid var(--line);margin-top:24px;padding-top:16px}
+.practice-legacy details{margin:15px 0}
+#practice-task-heading,#solution-heading{scroll-margin-top:24px}
+@media(max-width:740px){
+ .practice-task,.practice-solution{padding:23px 20px}
+ .practice-task-head{align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+ .practice-inputs{grid-template-columns:1fr}
+ .practice-progress li{display:block}
+ .practice-progress li span{display:block;text-align:left!important}
+ .practice-recipe,.practice-feedback{padding:17px 16px}
+ .practice-main-actions{flex-direction:column}
+ .practice-main-actions button{width:100%}
+ .practice-ratings{flex-direction:column;align-items:stretch}
+ .practice-view .steps{padding-left:19px}
+ .practice-view .steps li{padding-left:2px}
+}

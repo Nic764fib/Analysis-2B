@@ -1,6 +1,7 @@
+import {emptyPractice,cleanPractice} from './practice-engine.js';
 const map=value=>value&&typeof value==='object'&&!Array.isArray(value);
 const allowedKey=key=>!['__proto__','constructor','prototype'].includes(key);
-export function emptyState(){return {known:{},done:{},notes:{},scores:{},reviews:{},positions:{},examSessions:{},selectedExam:'fokus-a',last:'kompaktheit'};}
+export function emptyState(){return {known:{},done:{},notes:{},scores:{},reviews:{},positions:{},examSessions:{},selectedExam:'fokus-a',last:'kompaktheit',practice:emptyPractice()};}
 export function mergeState(target,saved,moduleIds){
  if(!map(saved))return target;
  for(const field of ['known','done','notes','scores','reviews','positions']){
@@ -24,5 +25,6 @@ export function mergeState(target,saved,moduleIds){
  }
  if(['fokus-a','fokus-b','werkzeuge','2025'].includes(saved.selectedExam))target.selectedExam=saved.selectedExam;
  if(moduleIds.includes(saved.last))target.last=saved.last;
+ if(map(saved.practice))target.practice=cleanPractice(saved.practice);
  return target;
 }

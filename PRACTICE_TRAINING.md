@@ -1,0 +1,94 @@
+# Klausurtraining: Auswahl, Lernablauf und Prüfung
+
+Stand: 22. September 2026. 32 kuratierte Aufgaben, 12 Verfahren, jeweils acht Aufgaben aus vier Schwerpunkten. Die Zahl ist ein Inhaltsumfang und kein Pflichtpensum. Theorieabfrage und ihre 24 ausgewählten Karten bleiben unverändert.
+
+## Quellen und Grenzen
+
+Die Dozenten-Mail nennt Kompaktheit, Umkehrfunktionen, implizite Funktionen und Taylor als Schwerpunkte, ohne die anderen Vorlesungsthemen auszuschließen. Der Bericht 2026 erinnert Aufgaben aus diesen Bereichen; die Erinnerung an Umkehrfunktionen ist ausdrücklich unsicher. Er ist keine Originalklausur und begründet keine Prozentprognosen. Darauf folgen die aktuellen Lecture Notes, passende Blattaufgaben 3–7 und ergänzend die Originalklausur 2025. Einzelfragen aus dem Chat haben die Verteilung nicht bestimmt.
+
+Gelesen und abgeglichen: Lecture Notes 1.11–1.12, 2.17, 2.21, Beispiel 9–10 und 2.29; Blätter 3, 4, 5, 7; die relevanten Rechenrezepte und Beispiele im bestehenden 26-seitigen Rechenguide. Die Rezeptseiten sind 2–5, 6–12, 13–17 und 18–26. Original-PDFs und private Nachrichten werden nicht in `dist` veröffentlicht.
+
+Umfangreiche allgemeine Beweise (etwa Beweis des Umkehrsatzes oder Banach) sind kein eigener Trainingsstrang. Notwendige Begründungen der konkreten Aufgaben sind vollständig enthalten. Die übrigen Themen bleiben in ihren bisherigen Modulen zugänglich. Die Fokussierung ist keine amtliche Stoffabgrenzung.
+
+## Mathematische Quellenkorrekturen
+
+- B.3.4(d): Die Quotientenmenge muss ohne zusätzliche Bedingung nicht kompakt sein. `k-operations` enthält das Gegenbeispiel und die hinreichende Zusatzannahme `0 ∉ A`.
+- B.3.3: Ein Schnitt einer Familie kompakter Mengen benötigt für die allgemeine Stabilitätsaussage eine nichtleere Indexmenge. Das konkrete Training verwendet `n ≥ 1`.
+- B.5.3: Die dritte Komponente ist im Original `r cos ψ`, nicht `r cos φ`. Die Aufgabe verwendet die tatsächliche Angabe samt passender Determinante.
+- Klausur 2025, Aufgabe 3(b): Der Originalpunkt liefert `(-4,0)`. `p-exam` kennzeichnet in der Aufgabenstellung die Korrektur `+4` in der ersten Komponente.
+- B.7.1(a): Der Punkt `(0,1)` liegt nicht im ursprünglich genannten positiven Quadranten. `t-log-shift` bezeichnet ausdrücklich die glatte Fortsetzung auf `1+x+y>0`.
+- B.7.2 und B.7.3: Natürliche Definitionsmengen statt der zu weit gefassten Angabe des gesamten euklidischen Raums.
+
+## Lernablauf
+
+Eine Aufgabe ist sofort sichtbar. Ansatzfrage, schrittweise Hinweise, passendes Rezept, kurze Zahlenfelder und Notiz sind freiwillig. Die Musterlösung ist jederzeit erreichbar. Keine Uhr, Pflichtreihenfolge, Freischaltung oder automatische Note. Die Aufgabenstellung bleibt über der Lösung erhalten; ein Sprunglink führt zurück. Die Rezepte folgen dem Rechenguide; für Taylor werden zusätzlich nur die benötigten Standardreihen eingeblendet.
+
+Alle Aufgaben haben eine konkrete Auswahlfrage mit erklärenden Rückmeldungen zu sämtlichen Optionen. Die Position der richtigen Antwort wird pro Bearbeitung reproduzierbar gemischt. Der erste Versuch bleibt gespeichert. Eine Auswahlantwort gilt allein nie als vollständige Lösung. Numerische Prüfungen unterscheiden exakte rationale Werte; `0,5`, `1/2` und `2/4` sind gleichwertig. Bei ungültigen und leeren Eingaben wird keine mathematische Fehlleistung unterstellt. Symbolische Beweise und längere Ausdrücke werden nicht automatisch benotet.
+
+Die drei Gesamtbewertungen sind explizite Selbsteinschätzungen. Hinweise, geöffnetes Rezept, erste Ansatzfehler und korrigierte Zahlenfehler werden zusätzlich dokumentiert. Wer trotz Hilfen „selbstständig“ angibt, behält seine Angabe; sie wird im Lernstand mit dem Hilfevermerk versehen und von der Auswahlregel nicht als unbeeinflusster Erfolg behandelt. Lösungsvergleich allein ist keine behauptete Fehlleistung.
+
+## Auswahlregel
+
+`practice-engine.js` wählt aus einem festen, mathematisch geprüften Bestand. Quellenbasierte Anfängerbeispiele beginnen den Ablauf; anfangs werden alle vier Themen angeboten. Neue Verfahren und unbekannte Varianten erhalten Vorrang vor unnötiger Wiederholung. Schwierige Verfahren erhalten nach mindestens zwei anderen Bearbeitungen einen Bonus für eine verwandte Variante. Wiederholte identische Varianten werden abgewertet. Ein zunächst selbstständig gelöstes Verfahren wird zunächst zurückgestellt und nach einem Tag wieder stärker berücksichtigt. Die Zeit wird nur für die Wiederholung verwendet, nicht als Bearbeitungszeit gemessen oder angezeigt.
+
+Bei gemischter Auswahl werden zuletzt vernachlässigte Themen berücksichtigt. Es gibt keine starre vierteilige Rotationsfolge. Eine einzelne Schwäche darf kein Thema dauerhaft verdrängen. Die Gewichtungen sind nachvollziehbare Gestaltungsentscheidungen, kein wissenschaftlich kalibrierter Beherrschungswert. Eine ungeöffnete Hilfe, bloßes Lesen oder Überspringen ist keine Bewertung. Freie Themen-, Verfahrens- und Aufgabenwahl bleibt möglich.
+
+## Daten und Erhalt
+
+Der bestehende Schlüssel `analysis2b-v1` bleibt bestehen. Der neue Bereich liegt getrennt in `state.practice`. Bisherige Notizen, Markierungen, Sätze-Wiederholungen und `examSessions` bleiben erhalten. Sie werden nicht in neue Erfolgsbewertungen umgerechnet. Alte Trainingsnotizen bleiben unter „Auswahl und Lernstand“ les- und editierbar. Frühere neue Bearbeitungen lassen sich dort einschließlich eigener Notizen erneut öffnen.
+
+Gespeichert werden konkrete Aufgaben-ID, Bearbeitungs-ID, Eingaben, erste Ansatzantwort, numerische Teilergebnisse, Hilfen, offene Bereiche, Notiz und ausdrücklich abgegebene Bewertung. Eine neue Bearbeitung überschreibt keine frühere. Export/Import umfasst den neuen Bereich. Import validiert IDs, Felder und Datentypen. Veraltete Links zu `#/satznamen` führen zur Satzabfrage; Erkennungshinweise und englische Titel auf Theoriekarten bleiben erhalten.
+
+## Wissenschaftliche Grundlage
+
+- Der [IES-Leitfaden](https://ies.ed.gov/ncee/wwc/PracticeGuide/1) empfiehlt zeitlich verteiltes Lernen, aktives Abrufen und den Wechsel zwischen ausgearbeiteten Beispielen und eigenständigem Lösen. Die freiwilligen Hilfen und erneuten Anwendungen setzen diese Grundprinzipien um.
+- [Butler & Roediger (2008)](https://pubmed.ncbi.nlm.nih.gov/18491500/) untersuchten korrigierende Rückmeldung nach Auswahlfragen. Deshalb werden falsche Optionen unmittelbar erklärt und nicht als ungeklärte Alternativen stehen gelassen.
+- [Rohrer, Dedrick & Burgess (2014)](https://pubmed.ncbi.nlm.nih.gov/24578089/) fanden Vorteile gemischten Mathematikübens in einer Schulstudie. Dies begründet das Üben der Verfahrenswahl; es beweist keine bestimmte Zeitersparnis im Hochschulkurs.
+
+## Prüfung
+
+- `node scripts/check.mjs`: vorhandene Modul-, Theorie-, Wiederholungs- und Mathematikprüfungen plus neuer Aufgabenbestand, 1.013 Aufgabenformeln, Antwortparser, Import, Verfahrenabdeckung und Variantenzugänglichkeit. Simuliert Überspringen, selbstständiges Lösen und dauerhafte Schwierigkeiten in einem Thema.
+- `python scripts/verify-practice-math.py` mit SymPy nach dem Node-Check: unabhängige symbolische Ableitungen, Nullstellen, Matrixinversionen, Blockgleichungen und Taylorpolynome. Alle 21 Aufgaben mit Zahlenfeldern werden gegen die tatsächlich ausgelieferte Datenbank geprüft. Die acht Taylorpolynome werden über eine unabhängige eindimensionale Hilfsvariable entwickelt.
+- `node scripts/check-practice-browser.mjs` mit Playwright/Edge: alle 32 Aufgaben mit offenen Hilfen und Lösung auf 1400 und 390 Pixel Breite, KaTeX-Fehler, Seitenüberlauf, Unterbrechung/Neuladen, Eingaben, falsche/unbekannte/richtige Ansätze, Bewertung, Überspringen, Alt-Daten und Theorieabfrage. `CHECK_URL` erlaubt denselben Test gegen die veröffentlichte Version; `PLAYWRIGHT_PATH` erlaubt einen vorhandenen lokalen Playwright-Pfad.
+- Visuelle Prüfung von Einstiegsansicht, Hinweisen, Rezept und ausführlichen Lösungen: Kompaktheit, inverse Ableitung, mehrspaltige implizite Ableitung und verschobenes Taylorpolynom. Lange Matrizen dürfen auf schmalen Displays innerhalb ihrer Formel horizontal gescrollt werden; die Seite selbst bleibt innerhalb des Bildschirms.
+
+Die Kompaktheitsargumente wurden inhaltlich geprüft: durch stetige Urbilder, Normschranken, explizite Folgen innerhalb der Menge, endliche Teilüberdeckung bei Folge plus Grenzpunkt, stetige Bilder kompakter Ausgangsmengen und konkrete Mengenidentitäten. Endliche Stichproben werden nicht als Beweis von Kompaktheit ausgegeben.
+
+## Aufgabenbestand
+
+Die folgende Tabelle wird aus dem ausgelieferten Bestand erzeugt. „Stufe“ dient nur der anfänglichen Auswahl; es gibt keine gesperrten Stufen in der Oberfläche.
+
+| ID | Verfahren | Quelle | Lernzweck |
+|---|---|---|---|
+| k-annulus | closed | Eigene Anwendung · Lecture Notes 1.11; Rechenguide S. 2–4; Grundaufgabentyp im Erinnerungsbericht 2026 | Mehrere abgeschlossene Bedingungen und eine gemeinsame Normschranke verbinden. |
+| k-ellipse | closed | Eigene Anwendung · Lecture Notes 1.11; Rechenguide S. 2–4; Grundaufgabentyp im Erinnerungsbericht 2026 | Auch ohne unmittelbar vorgegebene Normquadratschranke eine einfache Schranke gewinnen. |
+| k-open | noncompact | Eigene Anwendung · Lecture Notes 1.11; Rechenguide S. 2–4; Grundaufgabentyp im Erinnerungsbericht 2026 | Einen fehlenden Randpunkt durch eine konkrete Folge nachweisen. |
+| k-hyperbola | noncompact | Eigene Variante · Kompaktheit und stetigen Bildern | Unbeschränktheit von fehlender Abgeschlossenheit unterscheiden. |
+| k-sequence | noncompact | Eigene Variante · Lecture Notes Beispiel 3, Satz 1.11; Rechenguide S. 4 | Dieselbe beschränkte Punktmenge mit und ohne ihren Grenzpunkt vergleichen. |
+| k-graph | images | Eigene Anwendung · Lecture Notes 1.12; Rechenguide S. 5 | Einen Graphen unmittelbar als stetiges Bild eines kompakten Intervalls erkennen. |
+| k-operations | images | Anwendung von B.3.4(a,c,d) · Quotientenbedingung ausdrücklich korrigiert | Das stetige-Bild-Rezept anwenden und die notwendige Nennerbedingung prüfen. |
+| k-unions | images | Eigene konkrete Variante · B.3.3; Lecture Notes 1.12 | Endliche und unendliche Vereinigung sowie einen Schnitt unterscheiden. |
+| i-powers | local | Originaltyp · B.5.2; Lecture Notes 2.17 | Variable Exponenten richtig ableiten und die Menge aller regulären Punkte bestimmen. |
+| i-space | local | Originalaufgabe · Übungsblatt 5 · B.5.3 | Das lokale Kriterium auf eine konkrete 3×3-Jacobi-Matrix übertragen; die tatsächliche Formel lesen. |
+| i-polar | image | Originaltyp · B.4.3; Lecture Notes 2.17 | Radius, Winkel und mitgenommene Randstücke in die Bildmenge übertragen. |
+| i-square-image | image | Zahlenvariante · B.4.4 mit Radius 2 | Veränderten Radius und verdoppelten Winkel gemeinsam berücksichtigen. |
+| i-exp | image | B.4.5 / Lecture Notes Beispiel 9; Zusatzfrage zum erweiterten Gebiet | Lokale Umkehrbarkeit, globale Injektivität und vollständige Bildbeschreibung verbinden. |
+| i-triangle | inverseDerivative | Eigene Variante · Variante zum Umkehrsatz | Globale Inverse durch Auflösen finden und die inverse Ableitung kontrollieren. |
+| i-double | inverseDerivative | Eigene Variante · B.4.5 | Das Verfahren bei verändertem innerem Winkel vollständig anwenden. |
+| i-square-inverse | inverseDerivative | Eigene Kombination · B.4.4–B.4.5; Lecture Notes 2.17 | Eine zulässige Inversenverzweigung erkennen, das Urbild lösen und die Zahlenmatrix invertieren. |
+| p-exp | scalar | Originaltyp · B.5.4(a); Lecture Notes 2.21 | Nullstelle, passende partielle Ableitung und Ableitungsquotient der Reihe nach prüfen. |
+| p-ellipse | scalar | Eigene Variante · B.5.4 | Den Ableitungsquotienten an die tatsächlich gesuchte Variable anpassen. |
+| p-circle | scalar | Eigene Variante · B.5.4(b); Lecture Notes 2.21 | Bei verschwindender partieller Ableitung den Satz korrekt einordnen und die andere Richtung prüfen. |
+| p-system | system | Eigene Variante · Lecture Notes 2.21; B.5.5 | Eine vollständige Blockrechnung mit übersichtlichen Zahlen durchführen. |
+| p-sheet | system | Originalaufgabe · Übungsblatt 5 · B.5.5 | Mit unbekannter Funktion und vorgegebenem Df statt einer expliziten Formel arbeiten. |
+| p-exam | system | Altklausur 2025, Aufgabe 3(b) · ausdrücklich korrigierte Übungsfassung: +4 in F₁ | Eine vollständige mehrteilige Klausuranwendung mit Nullstellencheck, Jacobi-Matrix und Lösungsableitung. |
+| p-multifree | multifree | Eigene Variante · Lecture Notes · Example 10 | Beide Spalten einer Lösungsableitung berechnen statt nur einer Richtung. |
+| p-multifree-shift | multifree | Eigene Variante · Lecture Notes 2.21 und Beispiel 10 | Am Punkt auswerten und das Minus bei einem negativen freien Block richtig behandeln. |
+| t-logexp | series | Originalaufgabe · Übungsblatt 7 · B.7.2 | Standardreihen einsetzen, nach Gesamtgrad kürzen und durch direkte Ableitungen kontrollieren. |
+| t-product | series | Originaltyp · B.7.1(b); Lecture Notes 2.29 | Die Ordnung eines inneren Produkts nutzen, um unnötige Potenzen wegzulassen. |
+| t-log-shift | shift | B.7.1(a) · korrigiert auf der natürlichen offenen Definitionsmenge | Einen verschobenen Punkt und eine Entwicklung dritter Ordnung behandeln. |
+| t-shift | shift | Eigene Variante · B.7.1–B.7.2 | Verschiebung, Einsetzen und Hesse-Matrix in einer zusammenhängenden Aufgabe verbinden. |
+| t-exp-shift | shift | Eigene Variante · B.7.1–B.7.2; Lecture Notes 2.29 | Einen verschobenen Punkt mit einfachen Standardreihen einüben; auch den Zusatzterm verschieben. |
+| t-fraction | hessian | Originalaufgabe · Übungsblatt 7 · B.7.3 | Die vollständige dreidimensionale Blattaufgabe einschließlich unabhängiger Ableitungskontrolle lösen. |
+| t-read | hessian | Eigene Anwendung · B.7.2(b–d); Lecture Notes 2.25–2.29 | Den Faktor 1/2 bei reinen und gemischten quadratischen Termen richtig behandeln. |
+| t-read-shift | hessian | Eigene Variante · B.7.1–B.7.2; Lecture Notes 2.29 | Die Ableitungen am richtigen Entwicklungspunkt aus einer zusammengesetzten Reihe ablesen. |

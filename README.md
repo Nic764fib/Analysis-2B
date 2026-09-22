@@ -19,11 +19,11 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/curriculum.js`: 12 Kapitel, Reihenfolge, Zuordnung der Theorie- und Aufgaben-IDs.
 - `dist/formal.js`: deutsche Skriptfassungen mit Originalnotation und markierten Korrekturen.
 - `dist/script-completions.js`: ergänzende nummerierte Aussagen der Lecture Notes.
-- `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft, Satzsuche und Zuordnungstraining.
+- `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft und Erkennungshinweise direkt bei den Theoriekarten.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
 - `dist/exam-recall.js`: Auswahl von 24 vorhandenen Definitionen und Satzaussagen mit vier markierten Schwerpunkten für „Klausursätze lernen“; Begründung in [EXAM_RECALL.md](EXAM_RECALL.md).
 - `dist/review.js`: Wiederholungsplan (1 Minute / 10 Minuten / 1, 2, 3 Tage), fällige Karten und Migration alter Termine.
-- `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Prüfungsmodus und lokaler Lernstand.
+- `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Klausurtraining und lokaler Lernstand.
 - `dist/plots.js`: zwölf grundlegende SVG-Grafiken.
 - `dist/lab-content.js`, `dist/lab-models.js`, `dist/lab-ui.js`, `dist/labs.css`: 24 geführte Experimente mit Einstellungen, Erklärungen, Verständnisfragen und Aufgabenverweisen.
 - `scripts/check-labs.mjs`: Parameterkombinationen, Formeln und mathematische Grenzfälle der Experimente.
@@ -32,7 +32,8 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/study.css`: Teilaufgaben, Trainingsauswahl und mobiles Menü.
 - `dist/worksheet-data.js`: 48 Originalaufgaben mit 105 Angabe-Lösung-Paaren.
 - `dist/exam-supplements.js`: ergänzte Skriptaussagen und Anwendungen.
-- `dist/training.js`, `dist/exam-ui.js`: zwei Schwerpunktsets, weiterer Übungsstoff und Altklausur 2025.
+- `dist/practice-*.js`, `dist/practice.css`: fortlaufendes Klausurtraining mit 32 kuratierten Aufgaben, 12 Verfahren, freiwilligen Hilfen, ausgearbeiteten Lösungen und gespeicherten Bearbeitungen. Auswahl und Quellen: [PRACTICE_TRAINING.md](PRACTICE_TRAINING.md).
+- `dist/training.js`, `dist/exam-ui.js`: vorhandene Aufgaben als wiederverwendete Quelle; der Einstieg ruft das neue Training auf.
 - `dist/study-ui.js`, `dist/storage.js`: gemeinsame Aufgabenansicht und validierte Übernahme alter Lernstände.
 - `scripts/check.mjs`: Datenreferenzen, Formeln und Generatoren prüfen: `node scripts/check.mjs`.
 
@@ -44,7 +45,7 @@ Theorieeintrag: `{id, kind, title, text, source, checks, note?, intro?, visualLi
 
 ## Fachliche Entscheidungen
 
-Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Aufgabenabdeckung ist in [COVERAGE.md](COVERAGE.md), der Theorieabgleich in [THEORY_AUDIT.md](THEORY_AUDIT.md) dokumentiert. Alle 46 nummerierten Definitionen und Aussagen der Lecture Notes sind erfasst. Unter „Satz erkennen“ stehen die englischen Skripttitel und beschreibende deutsche Bezeichnungen mit Zuordnungstraining; Rechenhilfen und Blatt-Grundlagen sind getrennt gekennzeichnet. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
+Primärquelle: Lecture Notes 2026. Dazu die aktuellen Übungsblätter 1–7 und Prüfungsinformationen. Die Altklausur 2025 ergänzt das Training; der Bericht 2026 bleibt als Erinnerungsbericht eingeordnet. Die Aufgabenabdeckung ist in [COVERAGE.md](COVERAGE.md), der Theorieabgleich in [THEORY_AUDIT.md](THEORY_AUDIT.md) dokumentiert. Alle 46 nummerierten Definitionen und Aussagen der Lecture Notes sind erfasst. Englische Skripttitel und Erkennungshinweise stehen weiterhin bei den einzelnen Theoriekarten. Der separate Bereich „Satz erkennen“ entfällt; alte Links führen zur Satzabfrage. Alle Originalaufgaben sind je Teilaufgabe mit einer einzeln aufklappbaren Lösung vorhanden. Originaldateien und private Nachrichten sind nicht im Web-Verzeichnis.
 
 Der Fehler in Klausuraufgabe 3 wird nicht stillschweigend korrigiert: Originalwert (−4,0), gekennzeichnete Übungsfassung F+(4,0). Weitere Errata unter `content.js`. Freie Beweise werden nicht automatisch als richtig bewertet. Generatoren prüfen Zahlen, nicht Argumentationen. Keine Aussage über garantierte Prüfungsthemen oder eine garantierte Note.
 
@@ -56,7 +57,7 @@ Experimente lassen sich direkt verlinken, z. B. `#/taylor/grafik/taylor-error` o
 
 ## Zustand und Teilen
 
-Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `analysis2b-v1` und alle bisherigen Inhalts-IDs bleiben erhalten. Notizen, Markierungen, letzte Auswahl und laufende Trainings werden lokal gespeichert. Neuladen erhält auch die Klausuruhr. Export/Import unter „Quellen und Lernstand“ liest weiterhin alte Exporte. Gleiche Originalaufgaben teilen ihre neuen Teilaufgabennotizen zwischen Modul und Blatt. Es gibt keine erfundene offizielle Dauer oder Bestehensgrenze.
+Hash-URLs machen Module und einzelne Aufgaben direkt teilbar. Der Schlüssel `analysis2b-v1` und alle bisherigen Inhalts-IDs bleiben erhalten. Notizen, Markierungen, letzte Auswahl und laufende Trainings werden lokal gespeichert. Das neue Klausurtraining läuft ohne Uhr und erhält beim Neuladen Eingaben, Hinweise und den Bearbeitungsstand. Alte Trainingsnotizen sind unter „Auswahl und Lernstand“ zugänglich. Export/Import unter „Quellen und Lernstand“ liest weiterhin alte Exporte. Gleiche Originalaufgaben teilen ihre neuen Teilaufgabennotizen zwischen Modul und Blatt. Es gibt keine erfundene offizielle Dauer oder Bestehensgrenze.
 
 Die öffentliche Version läuft über GitHub Pages. Nach dem Commit und Push der Änderungen auf `main` veröffentlicht `node scripts/publish-pages.mjs` den Inhalt von `dist/` auf `gh-pages`. Die Startseite bindet Dateien über ein versionsabhängiges Verzeichnis ein, damit Browser keine alten und neuen Module vermischen. Die öffentliche Adresse bleibt gleich. Die bestehende Sites-Konfiguration in `.openai/hosting.json` gehört zur früheren Webadresse.
 

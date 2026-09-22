@@ -6,13 +6,16 @@ import {examRecallSources,examFocus,isExamRecall,isExamFocus} from '../dist/exam
 
 const now=1800000000000,day=86400000;
 const cards=modules.flatMap(m=>m.theory);
-assert.equal(cards.filter(isExamRecall).length,28);
-assert.equal(Object.keys(examRecallSources).length,28);
+assert.equal(cards.filter(isExamRecall).length,24);
+assert.equal(Object.keys(examRecallSources).length,24);
 assert.equal(cards.filter(isExamFocus).length,4);
 assert(Object.keys(examFocus).every(id=>isExamRecall({id})));
-const original=['compact-def','sequential','heine-borel','cantor','total','chain','mean','diffeo','inverse-theorem','implicit-theorem','ck','schwarz','divergence','laplace','taylor-theorem','complete','contraction','banach','convergence','uniform-criteria','integral-limit','derivative-limit'];
-assert(original.every(id=>isExamRecall({id})));
-for(const id of ['stability','jacobi','c1','hessian','orthogonal','gradient-theorem'])assert(isExamRecall({id}));
+const selected=['compact-def','sequential','heine-borel','cantor','stability','total','jacobi','c1','chain','mean','diffeo','inverse-theorem','implicit-theorem','ck','schwarz','hessian','divergence','laplace','taylor-theorem','gradient-theorem','critical-definition','complete','contraction','banach'];
+assert.deepEqual(cards.filter(isExamRecall).map(t=>t.id).sort(),selected.sort());
+for(const id of ['orthogonal','convergence','uniform-criteria','integral-limit','derivative-limit']){
+ assert(!isExamRecall({id}),`${id} must stay outside exam recall`);
+ assert(cards.some(t=>t.id===id),`${id} must remain available in its module`);
+}
 
 assert.deepEqual(nextReview(null,'again',now),{level:0,due:now+60000,schedule:2});
 assert.deepEqual(nextReview(null,'partial',now),{level:0,due:now+600000,schedule:2});
@@ -47,4 +50,4 @@ assert.deepEqual(reviewQueue(queueCards,reviews,{},'due',focused,now).map(t=>t.i
 assert.equal(reviewQueue(queueCards,reviews,{},'due',focused,now+60000).length,5);
 assert.equal(reviewQueue(queueCards,reviews,{due:true},'open',focused,now).length,4);
 assert.equal(reviewQueue(queueCards,reviews,{},'all',focused,now).length,5);
-console.log(JSON.stringify({examRecall:28,focus:4,reviewIntervals:'1m / 10m / 1d / 2d / 3d',migration:'passed',queue:'passed'}));
+console.log(JSON.stringify({examRecall:24,focus:4,reviewIntervals:'1m / 10m / 1d / 2d / 3d',migration:'passed',queue:'passed'}));

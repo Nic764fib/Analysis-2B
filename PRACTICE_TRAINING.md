@@ -45,9 +45,19 @@ Gespeichert werden konkrete Aufgaben-ID, Bearbeitungs-ID, Eingaben, erste Ansatz
 - [Butler & Roediger (2008)](https://pubmed.ncbi.nlm.nih.gov/18491500/) untersuchten korrigierende Rückmeldung nach Auswahlfragen. Deshalb werden falsche Optionen unmittelbar erklärt und nicht als ungeklärte Alternativen stehen gelassen.
 - [Rohrer, Dedrick & Burgess (2014)](https://pubmed.ncbi.nlm.nih.gov/24578089/) fanden Vorteile gemischten Mathematikübens in einer Schulstudie. Dies begründet das Üben der Verfahrenswahl; es beweist keine bestimmte Zeitersparnis im Hochschulkurs.
 
+## Abgleich mit dem finalen Rechenguide
+
+Alle 32 Aufgaben wurden mit `Analysis_IIb_Rechenguide_Implizite_Matrixformel.pdf` abgeglichen. Aufgaben- und Verfahrens-IDs, Angaben, Auswahl, Zahlenantworten und Lernstand bleiben erhalten. Die Seitenverweise beziehen sich auf die gedruckten Seitenlabels des Guides, einschließlich der eingefügten Buchstabenseiten.
+
+- Lokale Umkehrbarkeit und Umkehrableitung verwenden dasselbe durchgehende Rezept: Punkt klären, Voraussetzungen und Jacobi-Matrix prüfen, bei reiner Existenzfrage aufhören, sonst dieselbe Zahlenmatrix invertieren.
+- Die Polaraufgaben führen von der Norm der Ausgabe über die möglichen Radien und Winkel zur Mengenformel, einschließlich Rändern und Nachweis, dass alle genannten Punkte erreicht werden. Die Injektivitätsbeweise vergleichen ausdrücklich zwei beliebige zulässige Eingaben.
+- Implizite Systeme verwenden einheitlich die 2×2-Inversionsformel und danach `A⁻¹(−B)`. B.5.5 unterscheidet den Funktionswert von den erst in Teil (b) gegebenen Ableitungsdaten. Die korrigierte Klausuraufgabe zeigt Nullstellencheck, sämtliche partiellen Ableitungen, Spaltenwahl, Determinante, Inversion und Matrix-Vektor-Produkt.
+- Taylor ergänzt fehlende Schritte beim Gesamtgrad und beim Ablesen der Hesse-Matrix. Die ursprünglichen direkten Ableitungskontrollen B.7.2(d)/B.7.3(d) und die bestehenden Restabschätzungen bleiben erhalten. Kompaktheit ergänzt die Ausgangsmenge bei stetigen Bildern und den vollständigen Quotienten-Gegenbeispielnachweis.
+- `practice-worked.js` ergänzt nur die Trainingslösungen übernommener Aufgaben. Beim Zusammenführen ersetzt ein solcher Rechenweg die Kurzlösung; die Originalangaben und die Lösungen im Bereich „Übungsblätter“ bleiben unverändert.
+
 ## Prüfung
 
-- `node scripts/check.mjs`: vorhandene Modul-, Theorie-, Wiederholungs- und Mathematikprüfungen plus neuer Aufgabenbestand, 1.013 Aufgabenformeln, Antwortparser, Import, Verfahrenabdeckung und Variantenzugänglichkeit. Simuliert Überspringen, selbstständiges Lösen und dauerhafte Schwierigkeiten in einem Thema.
+- `node scripts/check.mjs`: vorhandene Modul-, Theorie-, Wiederholungs- und Mathematikprüfungen plus Aufgabenbestand, sämtliche Aufgabenformeln, Antwortparser, Import, Verfahrenabdeckung und Variantenzugänglichkeit. Simuliert Überspringen, selbstständiges Lösen und dauerhafte Schwierigkeiten in einem Thema.
 - `python scripts/verify-practice-math.py` mit SymPy nach dem Node-Check: unabhängige symbolische Ableitungen, Nullstellen, Matrixinversionen, Blockgleichungen und Taylorpolynome. Alle 21 Aufgaben mit Zahlenfeldern werden gegen die tatsächlich ausgelieferte Datenbank geprüft. Die acht Taylorpolynome werden über eine unabhängige eindimensionale Hilfsvariable entwickelt.
 - `node scripts/check-practice-browser.mjs` mit Playwright/Edge: alle 32 Aufgaben mit offenen Hilfen und Lösung auf 1400 und 390 Pixel Breite, KaTeX-Fehler, Seitenüberlauf, Unterbrechung/Neuladen, Eingaben, falsche/unbekannte/richtige Ansätze, Bewertung, Überspringen, Alt-Daten und Theorieabfrage. `CHECK_URL` erlaubt denselben Test gegen die veröffentlichte Version; `PLAYWRIGHT_PATH` erlaubt einen vorhandenen lokalen Playwright-Pfad.
 - Visuelle Prüfung von Einstiegsansicht, Hinweisen, Rezept und ausführlichen Lösungen: Kompaktheit, inverse Ableitung, mehrspaltige implizite Ableitung und verschobenes Taylorpolynom. Lange Matrizen dürfen auf schmalen Displays innerhalb ihrer Formel horizontal gescrollt werden; die Seite selbst bleibt innerhalb des Bildschirms.
@@ -65,7 +75,7 @@ Die folgende Tabelle wird aus dem ausgelieferten Bestand erzeugt. „Stufe“ di
 | k-open | noncompact | Eigene Anwendung · Lecture Notes 1.11; Rechenguide S. 2–4; Grundaufgabentyp im Erinnerungsbericht 2026 | Einen fehlenden Randpunkt durch eine konkrete Folge nachweisen. |
 | k-hyperbola | noncompact | Eigene Variante · Kompaktheit und stetigen Bildern | Unbeschränktheit von fehlender Abgeschlossenheit unterscheiden. |
 | k-sequence | noncompact | Eigene Variante · Lecture Notes Beispiel 3, Satz 1.11; Rechenguide S. 4 | Dieselbe beschränkte Punktmenge mit und ohne ihren Grenzpunkt vergleichen. |
-| k-graph | images | Eigene Anwendung · Lecture Notes 1.12; Rechenguide S. 5 | Einen Graphen unmittelbar als stetiges Bild eines kompakten Intervalls erkennen. |
+| k-graph | images | Eigene Anwendung · Lecture Notes 1.12; stetige Bilder kompakter Mengen | Einen Graphen unmittelbar als stetiges Bild eines kompakten Intervalls erkennen. |
 | k-operations | images | Anwendung von B.3.4(a,c,d) · Quotientenbedingung ausdrücklich korrigiert | Das stetige-Bild-Rezept anwenden und die notwendige Nennerbedingung prüfen. |
 | k-unions | images | Eigene konkrete Variante · B.3.3; Lecture Notes 1.12 | Endliche und unendliche Vereinigung sowie einen Schnitt unterscheiden. |
 | i-powers | local | Originaltyp · B.5.2; Lecture Notes 2.17 | Variable Exponenten richtig ableiten und die Menge aller regulären Punkte bestimmen. |

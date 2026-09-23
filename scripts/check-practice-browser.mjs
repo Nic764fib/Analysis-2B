@@ -79,7 +79,7 @@ try{
  await page.screenshot({path:'tmp/practice-mobile.png',fullPage:true});
  await page.locator('#practice-hint').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.practice-hints li').count(),1);
  await page.locator('[data-practice-open="approach"]>summary').click();await page.locator('[data-choice="0:0"]').click();assert.match(await page.locator('#choice-feedback-0').innerText(),/Das passt/);
- await page.goto(base+'#/satznamen');await page.waitForURL('**/#/abfragen');await page.locator('#recall-module').selectOption('klausur');assert.equal(await page.locator('.recall-overview li').count(),24);
+ await page.goto(base+'#/satznamen');await page.waitForURL('**/#/abfragen');await page.locator('#recall-module').selectOption('klausur');assert.equal(await page.locator('.recall-overview li').count(),31);
  await page.goto(base+'#/kompaktheit/theorie/heine-borel');assert.equal(await page.locator('.name-caption').count(),1);assert.equal(await page.locator('.recognition-hint').count(),1);
  assert.deepEqual(errors,[]);
  console.log(JSON.stringify({browser:'passed',tasks:32,viewports:[1400,390],persistence:'passed',legacyAndRecall:'preserved',keyboard:'passed',pageErrors:errors}));

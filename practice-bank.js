@@ -13,6 +13,6 @@ export function readableMath(value){
 }
 export const practiceBank=[...compactTasks,...inverseTasks,...implicitTasks,...taylorTasks].map(task=>readableMath({
  ...task,topic:families[task.family].topic,recipe:families[task.family].recipe,fields:task.fields||[],intro:task.intro||'',
- parts:task.parts.map((p,i)=>({...p,...(workedSteps[task.id]?.[i]?{steps:workedSteps[task.id][i]}:{})}))
+ parts:task.parts.map((p,i)=>({...p,...(workedSteps[task.id]?.[i]?{solution:undefined,steps:workedSteps[task.id][i]}:{})}))
 }));
 export const taskById=Object.fromEntries(practiceBank.map(t=>[t.id,t]));

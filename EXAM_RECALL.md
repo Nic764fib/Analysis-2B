@@ -1,6 +1,6 @@
 # Auswahl für „Klausursätze lernen“
 
-Stand: 22. September 2026. Der Klausurfilter verwendet 24 der 65 bestehenden Karten. Er fragt vollständige Definitionen und Satzaussagen ab: Voraussetzungen, Aussage und Formel. Keine Kopien; Notizen und Lernstände bleiben an die bestehenden Karten-IDs gebunden.
+Stand: 23. September 2026. Der Klausurfilter verwendet 24 der 65 bestehenden Theoriekarten und sieben zusätzliche Taylorreihenkarten, insgesamt 31 Karten. Er fragt vollständige Definitionen und Satzaussagen ab: Voraussetzungen, Aussage und Formel. Keine Kopien; Notizen und Lernstände bleiben an die bestehenden Karten-IDs gebunden.
 
 ## Schwerpunktmarkierung
 
@@ -38,3 +38,7 @@ Die vorhandenen deutschen Skriptfassungen behalten Voraussetzungen, Notation und
 ## Wiederholung
 
 Nicht gewusst: 1 Minute. Grob gewusst: 10 Minuten. Vollständig: 1 Tag, beim nächsten fälligen Erfolg 2 Tage, danach jeweils 3 Tage. Unvollständige Antworten setzen die Tagesfolge zurück. Vorzeitiges Wiederholen erhöht die Stufe nicht. Fällige Karten werden vor neuen abgefragt; Schwerpunktkarten haben unter neuen Karten Vorrang. Die Auswahl verändert keine vorhandenen Notizen, Bewertungen oder Wiederholungstermine.
+
+## Taylorreihen auswendig lernen
+
+Sieben zusätzliche Karten zeigen vorne nur die Funktion: eˣ, ln(1+x), sin x, cos x, 1/(1−x), 1/(1+x), √(1+x). Die aufgedeckte Lösung enthält drei ausdrücklich beschriftete Zeilen: „Bis Grad 1“, „Bis Grad 2“, „Bis Grad 3“, jeweils mit dem vollständigen Taylorpolynom um 0. Sie sind zusätzlich über „Taylorreihen · 7 Karten“ einzeln abfragbar und verwenden dieselbe Speicherung und Wiederholung wie die Theoriekarten.

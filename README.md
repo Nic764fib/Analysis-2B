@@ -22,6 +22,7 @@ Minimalistische, statische Lernplattform zur Klausur am 30.09.2026. Keine extern
 - `dist/theory-names.js`, `dist/theory-name-ui.js`: Originalbezeichnungen, Herkunft und Erkennungshinweise direkt bei den Theoriekarten.
 - `dist/practice.js` und `dist/recipes.js`: weitere Übungsaufgaben und allgemeine Lösungsmethoden.
 - `dist/exam-recall.js`: Auswahl von 24 vorhandenen Definitionen und Satzaussagen mit vier markierten Schwerpunkten für „Klausursätze lernen“; Begründung in [EXAM_RECALL.md](EXAM_RECALL.md).
+- `dist/taylor-recall.js`: sieben zusätzliche Funktionskarten mit den vollständigen Taylorpolynomen bis Grad 1, 2 und 3; einzeln oder in der Klausurauswahl (31 Karten).
 - `dist/review.js`: Wiederholungsplan (1 Minute / 10 Minuten / 1, 2, 3 Tage), fällige Karten und Migration alter Termine.
 - `dist/app.js`: Navigation, Theorie, Aufgaben, Abfrage, Klausurtraining und lokaler Lernstand.
 - `dist/plots.js`: zwölf grundlegende SVG-Grafiken.

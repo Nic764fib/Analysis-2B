@@ -8,7 +8,7 @@ import {renderExam} from './exam-ui.js';
 import {emptyState,mergeState} from './storage.js';
 import {nameCaption,recognitionHint} from './theory-name-ui.js';
 import {originLabels} from './theory-names.js';
-import {examRecallSources,isExamRecall,examFocus,isExamFocus} from './exam-recall.js';
+import {examRecallSources,isExamRecall,examFocus,isExamFocus,examRecallCard} from './exam-recall.js';
 import {nextReview,reviewLabel,migrateReviews,reviewQueue} from './review.js';
 import {taylorRecallCards,isTaylorRecall} from './taylor-recall.js';
 
@@ -74,7 +74,7 @@ function worksheetPage(sheetValue='3',number){
 
 function newVariant(type){variant=generate(type,Math.floor(Math.random()*4294967296));renderVariant();}
 function renderVariant(){const host=document.querySelector('#variant');if(!host)return;host.innerHTML=`<p>${esc(variant.prompt)}</p><div class="answer-grid">${variant.fields.map((f,i)=>`<label>${f.label}${f.options?`<select data-answer="${i}"><option value="">Auswählen</option>${f.options.map(o=>`<option value="${o.value}">${o.label}</option>`).join('')}</select>`:`<input type="text" inputmode="text" data-answer="${i}" autocomplete="off" placeholder="Ergebnis">`}</label>`).join('')}</div><div class="actions"><button class="primary" id="check-variant">Ergebnisse prüfen</button><button id="next-variant">Neue Variante</button></div><div id="variant-status" class="status" role="status"></div><details class="rule"><summary>Lösungsweg anzeigen</summary><p>${esc(variant.solution)}</p></details><p class="meta">Variante ${variant.seed}</p>`;math(host);host.querySelector('#next-variant').onclick=()=>newVariant(variant.type);host.querySelector('#check-variant').onclick=()=>{let missing=false,count=0;host.querySelectorAll('[data-answer]').forEach((input,i)=>{const v=parseNumber(input.value),ok=Number.isFinite(v)&&Math.abs(v-variant.fields[i].answer)<=1e-6*Math.max(1,Math.abs(variant.fields[i].answer));if(!Number.isFinite(v))missing=true;input.classList.toggle('input-good',ok);input.classList.toggle('input-bad',!ok);input.setAttribute('aria-invalid',String(!ok));if(ok)count++;});const status=host.querySelector('#variant-status');status.className='status '+(count===variant.fields.length?'good':'');status.textContent=missing?'Bitte alle Felder mit Zahlen oder Brüchen ausfüllen.':count===variant.fields.length?'Alle Ergebnisse stimmen. Prüfe jetzt noch deine Voraussetzungen und Begründung.':`${count} von ${variant.fields.length} Ergebnissen stimmen. Überprüfe die markierten Felder oder öffne den Lösungsweg.`;};}
-function recallScope(){return allRecall.filter(t=>recallModule==='all'||(recallModule==='klausur'?isExamRecall(t)||isTaylorRecall(t):recallModule==='taylorreihen'?isTaylorRecall(t):t.module===recallModule));}
+function recallScope(){return allRecall.filter(t=>recallModule==='all'||(recallModule==='klausur'?isExamRecall(t)||isTaylorRecall(t):recallModule==='taylorreihen'?isTaylorRecall(t):t.module===recallModule)).map(t=>recallModule==='klausur'?examRecallCard(t):t);}
 function recallCards(){return reviewQueue(recallScope(),state.reviews,state.known,recallOnly,isExamFocus);}
 function recall(){
  clearTimer();

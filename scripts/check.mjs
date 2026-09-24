@@ -9,6 +9,7 @@ import {trainingSets} from '../dist/training.js';
 import {examSets} from '../dist/exam-ui.js';
 import {emptyState,mergeState} from '../dist/storage.js';
 import {prose,partCard} from '../dist/study-ui.js';
+import {isExamRecall,examRecallCard} from '../dist/exam-recall.js';
 import './check-math.mjs';
 import './check-theory-names.mjs';
 import './check-labs.mjs';
@@ -17,7 +18,7 @@ import './check-practice.mjs';
 const ids=new Set();let formulas=0;
 function strings(obj){if(typeof obj==='string')return[obj];if(Array.isArray(obj))return obj.flatMap(strings);if(obj&&typeof obj==='object')return Object.values(obj).flatMap(strings);return[]}
 for(const m of modules){assert(m.id&&m.theory.length&&m.exercises.length);for(const entry of [...m.theory,...m.exercises]){assert(!ids.has(entry.id),`duplicate ${entry.id}`);ids.add(entry.id);assert(entry.source);if(entry.steps)assert(entry.steps.length>0);}}
-for(const s of strings([modules,errata,worksheets,trainingSets])){const re=/\$\$([\s\S]*?)\$\$|\$([^$]*?)\$/g;let match;while((match=re.exec(s))){katex.renderToString(match[1]??match[2],{throwOnError:true,strict:'ignore'});formulas++;}}
+for(const s of strings([modules,errata,worksheets,trainingSets,modules.flatMap(m=>m.theory).filter(isExamRecall).map(examRecallCard)])){const re=/\$\$([\s\S]*?)\$\$|\$([^$]*?)\$/g;let match;while((match=re.exec(s))){katex.renderToString(match[1]??match[2],{throwOnError:true,strict:'ignore'});formulas++;}}
 for(const part of examInfo.parts){for(const id of [...part.ids,...part.theoryIds])assert(ids.has(id));}
 for(const m of modules.filter(m=>m.generator))for(let seed=1;seed<=100;seed++){const g=generate(m.generator,seed);assert.deepEqual(g,generate(m.generator,seed));for(const f of g.fields)assert(Number.isFinite(f.answer));for(const s of strings(g)){const re=/\$\$([\s\S]*?)\$\$|\$([^$]*?)\$/g;let r;while((r=re.exec(s)))katex.renderToString(r[1]??r[2],{throwOnError:true,strict:'ignore'});}}
 assert.equal(parseNumber('2/3'),2/3);assert.equal(parseNumber('-0,5'),-.5);assert(Number.isNaN(parseNumber('')));assert(Number.isNaN(parseNumber('1/0')));assert(Number.isNaN(parseNumber('alert(1)')));

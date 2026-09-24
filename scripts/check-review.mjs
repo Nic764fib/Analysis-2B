@@ -10,9 +10,9 @@ assert.equal(cards.filter(isExamRecall).length,24);
 assert.equal(Object.keys(examRecallSources).length,24);
 assert.equal(cards.filter(isExamFocus).length,4);
 assert(Object.keys(examFocus).every(id=>isExamRecall({id})));
-const selected=['compact-def','sequential','heine-borel','cantor','stability','total','jacobi','c1','chain','mean','diffeo','inverse-theorem','implicit-theorem','ck','schwarz','hessian','divergence','laplace','taylor-theorem','gradient-theorem','critical-definition','complete','contraction','banach'];
+const selected=['compact-def','sequential','heine-borel','cantor','stability','total','jacobi','c1','chain','mean','diffeo','inverse-theorem','implicit-theorem','ck','schwarz','hessian','divergence','laplace','taylor-theorem','gradient','critical-definition','complete','contraction','banach'];
 assert.deepEqual(cards.filter(isExamRecall).map(t=>t.id).sort(),selected.sort());
-for(const id of ['orthogonal','convergence','uniform-criteria','integral-limit','derivative-limit']){
+for(const id of ['gradient-theorem','orthogonal','convergence','uniform-criteria','integral-limit','derivative-limit']){
  assert(!isExamRecall({id}),`${id} must stay outside exam recall`);
  assert(cards.some(t=>t.id===id),`${id} must remain available in its module`);
 }

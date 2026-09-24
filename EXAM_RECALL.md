@@ -1,6 +1,6 @@
 # Auswahl für „Klausursätze lernen“
 
-Stand: 23. September 2026. Der Klausurfilter verwendet 24 der 65 bestehenden Theoriekarten und sieben zusätzliche Taylorreihenkarten, insgesamt 31 Karten. Er fragt vollständige Definitionen und Satzaussagen ab: Voraussetzungen, Aussage und Formel. Keine Kopien; Notizen und Lernstände bleiben an die bestehenden Karten-IDs gebunden.
+Stand: 24. September 2026. Der Klausurfilter verwendet 24 der 65 bestehenden Theoriekarten und sieben zusätzliche Taylorreihenkarten, insgesamt 31 Karten. Er fragt Definitionen und Satzaussagen mit Voraussetzungen, Aussage und Formel ab. Notizen und Lernstände bleiben an die bestehenden Karten-IDs gebunden.
 
 ## Schwerpunktmarkierung
 
@@ -16,7 +16,7 @@ Vier Karten tragen „★ Schwerpunkt · zuerst lernen“: Heine–Borel, Umkehr
 | Implizite Funktionen | Allgemeiner impliziter Satz |
 | Höhere Ableitungen | Cᵏ/C∞; Schwarz; Hesse-Matrix; Divergenz; Laplace |
 | Taylor | Allgemeiner Satz mit Restglied |
-| Gradient | Satz 2.30, alle drei Teile |
+| Gradient | Gradient und Richtungsableitung, einschließlich Zusammenhang bei totaler Differenzierbarkeit |
 | Extremstellen | Notwendige Bedingung für innere Extremstellen; kritische Punkte und Werte (eine bestehende Karte) |
 | Fixpunkte | Cauchy/Vollständigkeit/Banach-/Hilbertraum; Kontraktion; Banach |
 | Gleichmäßige Stetigkeit | Keine Karte im Klausurfilter |
@@ -33,7 +33,11 @@ Vier Karten tragen „★ Schwerpunkt · zuerst lernen“: Heine–Borel, Umkehr
 
 ## Formulierungen
 
-Die vorhandenen deutschen Skriptfassungen behalten Voraussetzungen, Notation und Struktur der Lecture Notes. Es werden keine neuen Sätze oder gekürzten Ersatzfassungen eingeführt. Mathematische Präzisierungen bleiben sichtbar. Beweisaufforderungen und Beweislinks sind aus „Sätze abfragen“ entfernt; die regulären Aufgaben bleiben erhalten.
+Nur im Klausurfilter haben vier Karten die vereinbarten Lernfassungen: Jacobi-Matrix in Matrixschreibweise statt Basisvektorsumme; Cᵏ/C∞ ohne den langen rekursiven Aufbau, mit Dᵢⱼ-Notation; Divergenz ohne erneute Grenzwertdefinition; Gradient und Richtungsableitung statt des vollständigen Satzes 2.30. Die Voraussetzungen bleiben erhalten. Die übrigen 20 Theorie- und sieben Taylorreihenkarten sowie sämtliche Themenmodule sind unverändert.
+
+Die Grundlagenkarte `gradient` verwendet ihren eigenen vorhandenen Lernstand. Der Lernstand von `gradient-theorem` bleibt bei der vollständigen Satzkarte im Themenmodul erhalten und wird nicht auf andere Inhalte übertragen. Die anderen drei überarbeiteten Karten behalten ihre IDs. Es gibt keine Änderung oder Zurücksetzung gespeicherter Notizen, Bewertungen oder Termine. Satz 2.30 und die Rechenregeln zum stärksten Anstieg bleiben in Theorie und Aufgabentraining verfügbar. Die Auswahl ist keine Zusicherung, dass der vollständige Satz nicht geprüft wird.
+
+Beweisaufforderungen und Beweislinks sind aus „Sätze abfragen“ entfernt; die regulären Aufgaben bleiben erhalten.
 
 ## Wiederholung
 

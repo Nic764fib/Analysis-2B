@@ -2,6 +2,8 @@
 
 Stand: 22. September 2026. 32 kuratierte Aufgaben, 12 Verfahren, jeweils acht Aufgaben aus vier Schwerpunkten. Die Zahl ist ein Inhaltsumfang und kein Pflichtpensum. Theorieabfrage und ihre 24 ausgewählten Karten bleiben unverändert.
 
+Aktualisierung der Musterlösungen am 25. September 2026: Alle 32 Aufgaben mit 50 Teilaufgaben verwenden kompakte Klausurfassungen aus `practice-worked.js`. Grundlage ist der inzwischen 44-seitige Rechenguide `Analysis_IIb_Rechenguide_Injektivitaet_vereinfacht.pdf`. Rechnung und notwendige Begründung stehen in der Musterlösung; ausführliche Lernhilfen bleiben im Rezept. Einzelabgleich und Prüfumfang: [EXAM_SOLUTIONS_AUDIT.md](EXAM_SOLUTIONS_AUDIT.md).
+
 ## Quellen und Grenzen
 
 Die Dozenten-Mail nennt Kompaktheit, Umkehrfunktionen, implizite Funktionen und Taylor als Schwerpunkte, ohne die anderen Vorlesungsthemen auszuschließen. Der Bericht 2026 erinnert Aufgaben aus diesen Bereichen; die Erinnerung an Umkehrfunktionen ist ausdrücklich unsicher. Er ist keine Originalklausur und begründet keine Prozentprognosen. Darauf folgen die aktuellen Lecture Notes, passende Blattaufgaben 3–7 und ergänzend die Originalklausur 2025. Einzelfragen aus dem Chat haben die Verteilung nicht bestimmt.

@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import katex from '../dist/vendor/katex/katex.mjs';
 import {practiceBank,taskById,topics,families,readableMath} from '../dist/practice-bank.js';
+import {workedSteps} from '../dist/practice-worked.js';
 import {emptyPractice,cleanPractice,ensureAttempt,startAttempt,advance,rateAttempt,chooseTask,checkNumber,optionsFor,independent,familyProgress} from '../dist/practice-engine.js';
 import {emptyState,mergeState} from '../dist/storage.js';
 import {modules} from '../dist/curriculum.js';
 assert.equal(practiceBank.length,32);assert.equal(new Set(practiceBank.map(t=>t.id)).size,32);
+assert.deepEqual(Object.keys(workedSteps).sort(),practiceBank.map(t=>t.id).sort(),'Every training task has an explicit exam solution');
 let formulas=0;
 function* strings(x){if(typeof x==='string')yield x;else if(x&&typeof x==='object')for(const v of Object.values(x))yield* strings(v);}
 for(const topic of Object.keys(topics))assert.equal(practiceBank.filter(t=>t.topic===topic).length,8);
@@ -15,6 +17,8 @@ assert.equal(readableMath(String.raw`$u^2/8+v^2/2$`),String.raw`$u^2/8+v^2/2$`,'
 assert.equal(readableMath(String.raw`$$\begin{pmatrix}-2/3&1/3\\1/3&-2/3\end{pmatrix}$$`),String.raw`$$\begin{pmatrix}-\frac{2}{3}&\frac{1}{3}\\\frac{1}{3}&-\frac{2}{3}\end{pmatrix}$$`);
 assert.equal(readableMath('1/2'),'1/2','Numerical input expectations remain plain numbers');
 for(const t of practiceBank){
+ assert.equal(workedSteps[t.id].length,t.parts.length,t.id+' complete solution for every part');
+ assert(t.parts.every(p=>!p.solution&&p.steps?.length),t.id+' uses the reviewed exam version');
  assert(t.source&&t.purpose&&t.title&&t.parts.length&&t.hints.length>=3&&t.recipe.length>=4,t.id);
  assert(t.questions.length>=1&&t.questions.length<=2,t.id);
  for(const part of t.parts)assert((t.intro||part.prompt)&&(part.solution||part.steps?.length>=1),t.id);

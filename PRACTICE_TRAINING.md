@@ -69,6 +69,8 @@ Aufgabenstellungen, IDs, Zahlenantworten, Lernstand und Theorieabfrage bleiben u
 
 ## Prüfung
 
+Die Trainingsaufgabe `i-square-image` verwendet den algebraischen Bildbeweis: Ausgabekomponenten ablesen, `u²+v²` ausmultiplizieren, die Eingabeschranke einsetzen, `v=2xy ≥ 0` prüfen und die Erreichbarkeit jedes oberen Halbkreises begründen. Die Skizzen zeigen die Viertelscheibe mit Radius 2 und die obere Halbkreisscheibe mit Radius 4. Das aufgabenspezifische Rezept und die Hinweise folgen demselben Weg; alle anderen Aufgaben verwenden weiterhin ihre bisherigen Rezepte. Aufgaben-ID und Angaben bleiben erhalten. Der Originaltext von B.4.4 im Bereich Übungsblätter bleibt unverändert.
+
 - `node scripts/check.mjs`: vorhandene Modul-, Theorie-, Wiederholungs- und Mathematikprüfungen plus Aufgabenbestand, sämtliche Aufgabenformeln, Antwortparser, Import, Verfahrenabdeckung und Variantenzugänglichkeit. Simuliert Überspringen, selbstständiges Lösen und dauerhafte Schwierigkeiten in einem Thema.
 - `python scripts/verify-practice-math.py` mit SymPy nach dem Node-Check: unabhängige symbolische Ableitungen, Nullstellen, Matrixinversionen, Blockgleichungen und Taylorpolynome. Alle 21 Aufgaben mit Zahlenfeldern werden gegen die tatsächlich ausgelieferte Datenbank geprüft. Die acht Taylorpolynome werden über eine unabhängige eindimensionale Hilfsvariable entwickelt.
 - `node scripts/check-practice-browser.mjs` mit Playwright/Edge: alle 32 Aufgaben mit offenen Hilfen und Lösung auf 1400 und 390 Pixel Breite, KaTeX-Fehler, Seitenüberlauf, Unterbrechung/Neuladen, Eingaben, falsche/unbekannte/richtige Ansätze, Bewertung, Überspringen, Alt-Daten und Theorieabfrage. `CHECK_URL` erlaubt denselben Test gegen die veröffentlichte Version; `PLAYWRIGHT_PATH` erlaubt einen vorhandenen lokalen Playwright-Pfad.
@@ -93,7 +95,7 @@ Die folgende Tabelle wird aus dem ausgelieferten Bestand erzeugt. „Stufe“ di
 | i-powers | local | Originaltyp · B.5.2; Lecture Notes 2.17 | Variable Exponenten richtig ableiten und die Menge aller regulären Punkte bestimmen. |
 | i-space | local | Originalaufgabe · Übungsblatt 5 · B.5.3 | Das lokale Kriterium auf eine konkrete 3×3-Jacobi-Matrix übertragen; die tatsächliche Formel lesen. |
 | i-polar | image | Originaltyp · B.4.3; Lecture Notes 2.17 | Radius, Winkel und mitgenommene Randstücke in die Bildmenge übertragen. |
-| i-square-image | image | Zahlenvariante · B.4.4 mit Radius 2 | Veränderten Radius und verdoppelten Winkel gemeinsam berücksichtigen. |
+| i-square-image | image | Zahlenvariante · B.4.4 mit Radius 2 | Die Bildmenge durch Ausmultiplizieren, Norm und Vorzeichen bestimmen und ihre Vollständigkeit begründen. |
 | i-exp | image | B.4.5 / Lecture Notes Beispiel 9; Zusatzfrage zum erweiterten Gebiet | Lokale Umkehrbarkeit, globale Injektivität und vollständige Bildbeschreibung verbinden. |
 | i-triangle | inverseDerivative | Eigene Variante · Variante zum Umkehrsatz | Globale Inverse durch Auflösen finden und die inverse Ableitung kontrollieren. |
 | i-double | inverseDerivative | Eigene Variante · B.4.5 | Das Verfahren bei verändertem innerem Winkel vollständig anwenden. |

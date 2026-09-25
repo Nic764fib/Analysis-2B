@@ -33,6 +33,9 @@ textarea { min-height:106px; resize:vertical; line-height:1.7; }
 .region-sketch { display:block; width:100%; max-width:470px; margin:auto; background:var(--bg); border:1px solid var(--line); border-radius:6px; }
 .region-sketch .axis { fill:none; stroke:var(--muted); stroke-width:1; }
 .sketch-labels { fill:var(--ink); font-size:14px; }
+.region-sketch-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin:26px 0 16px; }
+.region-sketch-pair figure { margin:0; min-width:0; }
+@media(max-width:620px) { .region-sketch-pair { grid-template-columns:1fr; } }
 figcaption { text-align:center; color:var(--muted); font-size:13px; line-height:1.6; margin-top:12px; }
 .sheet-tabs,.training-choices { display:flex; flex-wrap:wrap; gap:8px; margin:25px 0; }
 .sheet-tabs a { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid var(--line); border-radius:6px; color:var(--ink); background:var(--paper); }

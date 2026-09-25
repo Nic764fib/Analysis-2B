@@ -55,6 +55,18 @@ Alle 32 Aufgaben wurden mit `Analysis_IIb_Rechenguide_Implizite_Matrixformel.pdf
 - Taylor ergänzt fehlende Schritte beim Gesamtgrad und beim Ablesen der Hesse-Matrix. Die ursprünglichen direkten Ableitungskontrollen B.7.2(d)/B.7.3(d) und die bestehenden Restabschätzungen bleiben erhalten. Kompaktheit ergänzt die Ausgangsmenge bei stetigen Bildern und den vollständigen Quotienten-Gegenbeispielnachweis.
 - `practice-worked.js` ergänzt nur die Trainingslösungen übernommener Aufgaben. Beim Zusammenführen ersetzt ein solcher Rechenweg die Kurzlösung; die Originalangaben und die Lösungen im Bereich „Übungsblätter“ bleiben unverändert.
 
+### Kompaktheit: Abgleich mit den ergänzten Musterlösungen
+
+Die acht Kompaktheitsaufgaben wurden zusätzlich mit `Analysis_IIb_Rechenguide_Kompaktheit_Aufgabentypen.pdf` (S. 2–4e) geprüft:
+
+- `k-operations` trennt Ausgangsmenge, stetige Abbildung und Bildgleichheit für Summe und Produkt. Das Quotienten-Gegenbeispiel verwendet wie der Guide das kompakte Intervall `[0,1]` und die Quotienten `1/(1/n)=n`. Die Zusatzannahme `0 ∉ A` bleibt eine hinreichende Bedingung; ihr Fehlen behauptet nicht in jedem Einzelfall Nichtkompaktheit.
+- `k-unions` begründet die Mengenidentitäten für Schnitt, endliche und unendliche Vereinigung jeweils vor der Kompaktheitsentscheidung.
+- Halbring und Ellipse folgen „Urbild → abgeschlossen, Norm → beschränkt, Heine–Borel → kompakt“. Beim unbeschränkten Hyperbelgraphen wird Abgeschlossenheit über `q(x,y)=xy`, `p(x,y)=x` und die abgeschlossenen Zielmengen `{1}`, `[0,1]` gezeigt. Der kompakte Graph folgt dem vollständigen Bildbeweis auf S. 2b.
+- Die korrekten Folgenbeweise bei `k-open` und `k-sequence` bleiben erhalten. Die Rezepte und betroffenen Hinweise entsprechen den überarbeiteten Lösungen.
+- Auch die vier Lösungen von B.3.4 in den Übungsblättern und den daraus gespeisten Modulaufgaben verwenden diese Muster. B.3.3 bleibt im allgemeinen metrischen Raum formuliert; dort wird Heine–Borel nicht unzulässig eingesetzt.
+
+Aufgabenstellungen, IDs, Zahlenantworten, Lernstand und Theorieabfrage bleiben unverändert.
+
 ## Prüfung
 
 - `node scripts/check.mjs`: vorhandene Modul-, Theorie-, Wiederholungs- und Mathematikprüfungen plus Aufgabenbestand, sämtliche Aufgabenformeln, Antwortparser, Import, Verfahrenabdeckung und Variantenzugänglichkeit. Simuliert Überspringen, selbstständiges Lösen und dauerhafte Schwierigkeiten in einem Thema.
@@ -76,7 +88,7 @@ Die folgende Tabelle wird aus dem ausgelieferten Bestand erzeugt. „Stufe“ di
 | k-hyperbola | noncompact | Eigene Variante · Kompaktheit und stetigen Bildern | Unbeschränktheit von fehlender Abgeschlossenheit unterscheiden. |
 | k-sequence | noncompact | Eigene Variante · Lecture Notes Beispiel 3, Satz 1.11; Rechenguide S. 4 | Dieselbe beschränkte Punktmenge mit und ohne ihren Grenzpunkt vergleichen. |
 | k-graph | images | Eigene Anwendung · Lecture Notes 1.12; stetige Bilder kompakter Mengen | Einen Graphen unmittelbar als stetiges Bild eines kompakten Intervalls erkennen. |
-| k-operations | images | Anwendung von B.3.4(a,c,d) · Quotientenbedingung ausdrücklich korrigiert | Das stetige-Bild-Rezept anwenden und die notwendige Nennerbedingung prüfen. |
+| k-operations | images | Anwendung von B.3.4(a,c,d) · Rechenguide S. 4a–4b | Stetige Bilder kompakter Mengen verwenden und beim Quotienten die Zusatzbedingung am Nenner prüfen. |
 | k-unions | images | Eigene konkrete Variante · B.3.3; Lecture Notes 1.12 | Endliche und unendliche Vereinigung sowie einen Schnitt unterscheiden. |
 | i-powers | local | Originaltyp · B.5.2; Lecture Notes 2.17 | Variable Exponenten richtig ableiten und die Menge aller regulären Punkte bestimmen. |
 | i-space | local | Originalaufgabe · Übungsblatt 5 · B.5.3 | Das lokale Kriterium auf eine konkrete 3×3-Jacobi-Matrix übertragen; die tatsächliche Formel lesen. |

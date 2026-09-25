@@ -445,25 +445,25 @@ export const worksheets = {
       {
         "label": "a",
         "prompt": "$S=\\{x+y;x,y\\in A\\}$,",
-        "solution": "Nach Theorem 1.12 ist $A\\times A$ kompakt.\n\n$S$ ist das Bild von $A\\times A$ unter der stetigen Abbildung $(x,y)\\mapsto x+y$ und daher kompakt.",
+        "solution": "Da $A$ kompakt ist, ist auch $K=A\\times A$ kompakt.\n\nDefiniere $f:\\mathbb R^2\\to\\mathbb R$ durch $f(x,y)=x+y$. Die Funktion $f$ ist stetig, und es gilt\n\n$$S=\\{x+y:x,y\\in A\\}=f(K).$$\n\nAls stetiges Bild der kompakten Menge $K$ ist $S$ kompakt.",
         "sketch": null
       },
       {
         "label": "b",
         "prompt": "$D=\\{x-y;x,y\\in A\\}$,",
-        "solution": "$D$ ist das Bild von $A\\times A$ unter $(x,y)\\mapsto x-y$ und daher kompakt.",
+        "solution": "Da $A$ kompakt ist, ist auch $K=A\\times A$ kompakt.\n\nDefiniere $f:\\mathbb R^2\\to\\mathbb R$ durch $f(x,y)=x-y$. Die Funktion $f$ ist stetig, und es gilt\n\n$$D=\\{x-y:x,y\\in A\\}=f(K).$$\n\nAls stetiges Bild der kompakten Menge $K$ ist $D$ kompakt.",
         "sketch": null
       },
       {
         "label": "c",
         "prompt": "$P=\\{x\\cdot y;x,y\\in A\\}$,",
-        "solution": "$P$ ist das Bild von $A\\times A$ unter $(x,y)\\mapsto xy$ und daher kompakt.",
+        "solution": "Da $A$ kompakt ist, ist auch $K=A\\times A$ kompakt.\n\nDefiniere $f:\\mathbb R^2\\to\\mathbb R$ durch $f(x,y)=xy$. Die Funktion $f$ ist stetig, und es gilt\n\n$$P=\\{xy:x,y\\in A\\}=f(K).$$\n\nAls stetiges Bild der kompakten Menge $K$ ist $P$ kompakt.",
         "sketch": null
       },
       {
         "label": "d",
         "prompt": "$Q=\\left\\{\\frac xy;x,y\\in A,\\ y\\ne0\\right\\}$.",
-        "solution": "Die Behauptung ist falsch. Die Menge\n\n$$\nA=\\{0\\}\\cup\\left\\{\\frac1n:n\\in\\mathbb N\\right\\}\n$$\n\nist abgeschlossen und beschränkt, also kompakt. Da $1\\in A$ und $1/n\\in A\\setminus\\{0\\}$, gilt $n=1/(1/n)\\in Q$ für jedes $n$. Somit ist $Q$ unbeschränkt und nicht kompakt.\n\nMit der zusätzlichen Voraussetzung $0\\notin A$ wäre die Behauptung richtig: Dann ist $(x,y)\\mapsto x/y$ auf $A\\times A$ stetig und $Q$ ein stetiges Bild einer kompakten Menge.",
+        "solution": "**Gegenbeispiel:** Wähle $A=[0,1]$. Dieses Intervall ist abgeschlossen und beschränkt, also nach Heine–Borel kompakt.\n\nFür jedes $n\\ge1$ liegen $x=1$ und $y=1/n$ in $A$, und $y\\ne0$. Daher gilt\n\n$$\\frac{x}{y}=\\frac{1}{1/n}=n\\in Q.$$\n\nSomit ist $Q$ unbeschränkt und nicht kompakt. Die Behauptung gilt also nicht für jedes kompakte $A$.\n\n**Mit der Zusatzannahme $0\\notin A$ ist $Q$ kompakt:** Die Menge $K=A\\times A$ ist kompakt. Weil kein Nenner null ist, ist\n\n$$q:K\\to\\mathbb R,\\qquad q(x,y)=\\frac{x}{y}$$\n\nauf ganz $K$ definiert und stetig. Wegen $Q=q(K)$ ist $Q$ als stetiges Bild einer kompakten Menge kompakt.",
         "sketch": null
       }
     ]

@@ -607,7 +607,7 @@ export const worksheets = {
       {
         "label": "a",
         "prompt": "Zeigen Sie, dass $f$ injektiv auf der Menge $A:=\\mathbb R\\times(0,2\\pi)$ ist.\n\nHinweis: Wenn $f(x,y)=f(a,b)$, dann $\\|f(x,y)\\|=\\|f(a,b)\\|$.",
-        "solution": "Sei $f(x,y)=f(a,b)$ mit $y,b\\in(0,2\\pi)$. Aus\n\n$$\ne^x=\\|f(x,y)\\|=\\|f(a,b)\\|=e^a\n$$\n\nfolgt $x=a$. Damit gelten $\\cos y=\\cos b$ und $\\sin y=\\sin b$, also $y-b\\in2\\pi\\mathbb Z$. Wegen $y,b\\in(0,2\\pi)$ folgt $y=b$. Somit ist $f|_A$ injektiv.",
+        "solution": "Sei $f(x,y)=f(a,b)$ mit $y,b\\in(0,2\\pi)$. Aus\n\n$$\ne^x=\\|f(x,y)\\|=\\|f(a,b)\\|=e^a\n$$\n\nfolgt $x=a$. Setze nun $a=x$ in die beiden ursprünglichen Komponentengleichungen ein:\n\n$$e^x\\cos y=e^x\\cos b\\quad\\Longrightarrow\\quad\\cos y=\\cos b.$$\n\n$$e^x\\sin y=e^x\\sin b\\quad\\Longrightarrow\\quad\\sin y=\\sin b.$$\n\nDu darfst jeweils durch $e^x$ teilen, weil $e^x>0$. Kosinus und Sinus sind die beiden Koordinaten eines Punktes auf dem Einheitskreis. Stimmen beide überein, zeigen die Winkel auf denselben Punkt. Innerhalb von $(0,2\\pi)$ kommt jeder solche Punkt höchstens einmal vor. Wegen $y,b\\in(0,2\\pi)$ folgt also $y=b$. Somit stimmen beide Eingaben überein und $f|_A$ ist injektiv. Entscheidend sind beide Gleichungen zusammen und der vorgegebene Winkelbereich.",
         "sketch": null
       },
       {

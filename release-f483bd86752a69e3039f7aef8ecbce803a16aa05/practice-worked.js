@@ -112,41 +112,78 @@ export const workedSteps={
   R`$$A^{-1}=-\frac13\begin{pmatrix}1&-2\\-2&1\end{pmatrix}.$$ Da $-B=I_2$, folgt $$\begin{aligned}Dg(2,2)&=A^{-1}(-B)=-\frac13\begin{pmatrix}1&-2\\-2&1\end{pmatrix}I_2\\&=\begin{pmatrix}-1/3&2/3\\2/3&-1/3\end{pmatrix}.\end{aligned}$$ Die Zeilen gehören zu $(u,v)$, die Spalten zu $(s,t)$.`
  ]],
  't-logexp':[
-  [R`$f$ ist nahe $(0,0)$ glatt. Setze $\rho=\|(x,y)\|$. Mit $\ln(1+w)=w-w^2/2+O(w^3)$ und $w=x+y^2$ gilt $$\begin{aligned}&\ \ln(1+x+y^2)\\&=x+y^2-\frac12(x^2+2xy^2+y^4)+O(\rho^3)\\&=x+y^2-\frac{x^2}{2}+O(\rho^3).\end{aligned}$$ Außerdem $e^{xy}=1+xy+O(\rho^4)$. Addieren liefert $$\begin{gathered}\boxed{T_2(x,y)=1+x-\frac{x^2}{2}+xy+y^2},\\f=T_2+O(\rho^3).\end{gathered}$$`],
-  [R`Aus dem Polynom: $f(0)=1$, $\nabla f(0)=(1,0)^T$. Mit $h=(x,y)^T$ lautet die Matrixform $$\begin{aligned}f(x,y)&=1+(1,0)h\\&\quad+\frac12h^T\begin{pmatrix}-1&1\\1&2\end{pmatrix}h+R_2(x,y),\end{aligned}$$ wobei $R_2(x,y)=O(\|h\|^3)$.`],
-  [R`Vergleich mit $\frac12H_{11}x^2+H_{12}xy+\frac12H_{22}y^2$ ergibt $$H_{11}=-1,\quad H_{12}=H_{21}=1,\quad H_{22}=2.$$ Also $$\boxed{H_f(0,0)=\begin{pmatrix}-1&1\\1&2\end{pmatrix}.}$$`],
-  [R`Setze $q=1+x+y^2$. Dann $$f_x=\frac1q+ye^{xy},\qquad f_y=\frac{2y}q+xe^{xy}.$$ Weiter gilt $$\begin{aligned}f_{xx}&=-\frac1{q^2}+y^2e^{xy},\\f_{xy}=f_{yx}&=-\frac{2y}{q^2}+(1+xy)e^{xy},\\f_{yy}&=\frac2q-\frac{4y^2}{q^2}+x^2e^{xy}.\end{aligned}$$ Bei $(0,0)$ ist $q=1$, also $$\begin{gathered}f_{xx}(0,0)=-1,\quad f_{xy}(0,0)=1,\\f_{yy}(0,0)=2.\end{gathered}$$ Das bestätigt die Hesse-Matrix.`]
- ],
- 't-product':[[
-  R`Setze $\rho=\|(x,y,z)\|$. Die Reihen liefern $$\begin{aligned}e^{yz}&=1+yz+O(\rho^4),\\\cos x+\sin z&=1+z-\frac{x^2}{2}+O(\rho^3).\end{aligned}$$`,
-  R`Multiplizieren ergibt $$\begin{aligned}&\ (1+yz)(1+z-x^2/2)\\&=1+z-x^2/2+yz+yz^2-x^2yz/2.\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4. Daher $$\boxed{T_2=1+z-\frac{x^2}{2}+yz}.$$ Da $f$ glatt ist, gilt $f=T_2+R_2$ mit $|R_2|\le C\rho^3$ nahe 0 für eine Konstante $C>0$.`
- ]],
- 't-log-shift':[[
-  R`Setze $u=x$, $v=y-1$ und $\rho=\|(u,v)\|$. Dann $$\begin{aligned}f(x,y)&=\ln(2+u+v)\\&=\ln2+\ln\!\left(1+\frac{u+v}{2}\right).\end{aligned}$$ Mit $w=(u+v)/2$ und $\ln(1+w)=w-w^2/2+w^3/3+O(w^4)$ folgt $$\begin{aligned}f(x,y)&=\ln2+\frac{u+v}{2}-\frac{(u+v)^2}{8}\\&\quad+\frac{(u+v)^3}{24}+O(\rho^4).\end{aligned}$$`,
-  R`Zurücksetzen ergibt $$\boxed{\begin{aligned}T_3(x,y)&=\ln2+\frac{x+y-1}{2}\\&\quad-\frac{(x+y-1)^2}{8}\\&\quad+\frac{(x+y-1)^3}{24}.\end{aligned}}$$ Da $f$ nahe $(0,1)$ glatt ist, gilt $f=T_3+R_3$ mit $R_3=O(\|(x,y)-(0,1)\|^4)$.`
- ]],
+  [
+    "Verwende für den Logarithmus das Polynom $w-w^2/2$ mit $w=x+y^2$. Einsetzen und Ausmultiplizieren ergibt $$\\begin{aligned}&\\ (x+y^2)-\\frac12(x+y^2)^2\\\\&=x+y^2-\\frac{x^2}{2}-xy^2-\\frac{y^4}{2}.\\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4. Für $e^{xy}$ genügt das Polynom $1+xy$, denn $(xy)^2$ hat schon Grad 4. Addieren der Terme bis Grad 2 liefert $$\\boxed{T_2(x,y)=1+x-\\frac{x^2}{2}+xy+y^2}.$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_2(x,y)+R_2(x,y),\\\\\n|R_2(x,y)|\\le C\\|(x,y)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$."
+  ],
+  [
+    "Aus dem Polynom: $f(0)=1$, $\\nabla f(0)=(1,0)^T$. Mit $h=(x,y)^T$ lautet die Matrixform $$\\begin{aligned}f(x,y)&=1+(1,0)h\\\\&\\quad+\\frac12h^T\\begin{pmatrix}-1&1\\\\1&2\\end{pmatrix}h+R_2(x,y).\\end{aligned}$$ Wie in Teil a gilt nahe 0 $|R_2(x,y)|\\le C\\|(x,y)\\|^3$ für eine feste Konstante $C>0$, weil $f\\in C^3$ nahe 0 ist."
+  ],
+  [
+    "Vergleich mit $\\frac12H_{11}x^2+H_{12}xy+\\frac12H_{22}y^2$ ergibt $$H_{11}=-1,\\quad H_{12}=H_{21}=1,\\quad H_{22}=2.$$ Also $$\\boxed{H_f(0,0)=\\begin{pmatrix}-1&1\\\\1&2\\end{pmatrix}.}$$"
+  ],
+  [
+    "Setze $q=1+x+y^2$. Dann $$f_x=\\frac1q+ye^{xy},\\qquad f_y=\\frac{2y}q+xe^{xy}.$$ Weiter gilt $$\\begin{aligned}f_{xx}&=-\\frac1{q^2}+y^2e^{xy},\\\\f_{xy}=f_{yx}&=-\\frac{2y}{q^2}+(1+xy)e^{xy},\\\\f_{yy}&=\\frac2q-\\frac{4y^2}{q^2}+x^2e^{xy}.\\end{aligned}$$ Bei $(0,0)$ ist $q=1$, also $$\\begin{gathered}f_{xx}(0,0)=-1,\\quad f_{xy}(0,0)=1,\\\\f_{yy}(0,0)=2.\\end{gathered}$$ Das bestätigt die Hesse-Matrix."
+  ]
+],
+ 't-product':[
+  [
+    "Bis Gesamtgrad 2 brauchen wir die Taylorpolynome der beiden Faktoren: $$\\begin{aligned}T_2(e^{yz};0)&=1+yz,\\\\T_2(\\cos x+\\sin z;0)&=1+z-\\frac{x^2}{2}.\\end{aligned}$$ Denn $(yz)^2$ hat bereits Grad 4; die nächsten Sinus- und Kosinusterme haben Grad 3 bzw. 4.",
+    "Multiplizieren ergibt $$\\begin{aligned}&\\ (1+yz)(1+z-x^2/2)\\\\&=1+z-x^2/2+yz+yz^2-x^2yz/2.\\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4 und gehören zum Rest. Daher $$\\boxed{T_2(x,y,z)=1+z-\\frac{x^2}{2}+yz}.$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\nf(x,y,z)=T_2(x,y,z)+R_2(x,y,z),\\\\\n|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$."
+  ]
+],
+ 't-log-shift':[
+  [
+    "Setze $u=x$, $v=y-1$. Dann $$\\begin{aligned}f(x,y)&=\\ln(2+u+v)\\\\&=\\ln2+\\ln\\!\\left(1+\\frac{u+v}{2}\\right).\\end{aligned}$$ Setze $w=(u+v)/2$ in das Logarithmuspolynom $w-w^2/2+w^3/3$ ein. Damit $$T_3=\\ln2+\\frac{u+v}{2}-\\frac{(u+v)^2}{8}+\\frac{(u+v)^3}{24}.$$",
+    "Zurücksetzen ergibt $$\\boxed{\\begin{aligned}T_3(x,y)&=\\ln2+\\frac{x+y-1}{2}\\\\&\\quad-\\frac{(x+y-1)^2}{8}\\\\&\\quad+\\frac{(x+y-1)^3}{24}.\\end{aligned}}$$",
+    "Da $f\\in C^{4}$ in einer offenen Umgebung von $(0,1)$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_3(x,y)+R_3(x,y),\\\\\n|R_3(x,y)|\\le C\\|(x,y)-(0,1)\\|^{4}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $(0,1)$ für eine feste Konstante $C>0$."
+  ]
+],
  't-shift':[
-  [R`Setze $u=x-1$, $v=y$, $\rho=\|(u,v)\|$. Dann $$\begin{aligned}&\ \ln(2+u+v^2)\\&=\ln2+\ln\!\left(1+\frac{u+v^2}{2}\right)\\&=\ln2+\frac{u+v^2}{2}-\frac{(u+v^2)^2}{8}+O(\rho^3)\\&=\ln2+\frac u2+\frac{v^2}{2}-\frac{u^2}{8}+O(\rho^3),\end{aligned}$$ denn $(u+v^2)^2=u^2+2uv^2+v^4$. Außerdem $e^{uv}=1+uv+O(\rho^4)$.`,
-   R`Addieren und Zurücksetzen liefert $$\boxed{\begin{aligned}T_2(x,y)&=1+\ln2+\frac{x-1}{2}-\frac{(x-1)^2}{8}\\&\quad+(x-1)y+\frac{y^2}{2}.\end{aligned}}$$ Da $f$ nahe $a=(1,0)$ glatt ist, gilt $f=T_2+R_2$ mit $R_2=O(\|(x,y)-a\|^3)$.`],
-  [R`Koeffizientenvergleich in $(u,v)$ liefert $$\nabla f(a)=\binom{1/2}0,\qquad H_f(a)=\begin{pmatrix}-1/4&1\\1&1\end{pmatrix}.$$ Die Diagonaleinträge sind $2(-1/8)=-1/4$ und $2(1/2)=1$, der gemischte Eintrag ist 1. Mit $h=(u,v)^T$ gilt $$\begin{aligned}f(a+h)&=1+\ln2+(1/2,0)h\\&\quad+\frac12h^TH_f(a)h+R_2(a+h),\end{aligned}$$ wobei $R_2(a+h)=O(\|h\|^3)$.`]
- ],
- 't-exp-shift':[[
-  R`Setze $u=x-1$, $v=y+1$ und $\rho=\|(u,v)\|$. Dann $$xy=(1+u)(-1+v)=-1-u+v+uv,$$ $$\begin{aligned}&\ e^{x+y}=e^{u+v}\\&=1+u+v+\frac12(u^2+2uv+v^2)+O(\rho^3).\end{aligned}$$ Addieren ergibt $f(x,y)=2v+u^2/2+2uv+v^2/2+O(\rho^3)$.`,
-  R`Somit $$\boxed{\begin{aligned}T_2(x,y)&=2(y+1)+\frac{(x-1)^2}{2}\\&\quad+2(x-1)(y+1)+\frac{(y+1)^2}{2},\end{aligned}}$$ $$\nabla f(a)=\binom02,\qquad H_f(a)=\begin{pmatrix}1&2\\2&1\end{pmatrix}.$$ Für $f=T_2+R_2$ gilt $R_2=O(\|(x,y)-a\|^3)$, da $f$ glatt ist.`
- ]],
+  [
+    "Setze $u=x-1$, $v=y$. Dann $$\\ln(2+u+v^2)=\\ln2+\\ln\\!\\left(1+\\frac{u+v^2}{2}\\right).$$ Das Logarithmuspolynom liefert nach Einsetzen $$\\begin{aligned}&\\ \\ln2+\\frac{u+v^2}{2}-\\frac{(u+v^2)^2}{8}\\\\&=\\ln2+\\frac u2+\\frac{v^2}{2}-\\frac{u^2}{8}-\\frac{uv^2}{4}-\\frac{v^4}{8}.\\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4. Für $e^{uv}$ genügt das Polynom $1+uv$.",
+    "Addieren der Terme bis Grad 2 und Zurücksetzen liefert $$\\boxed{\\begin{aligned}T_2(x,y)&=1+\\ln2+\\frac{x-1}{2}-\\frac{(x-1)^2}{8}\\\\&\\quad+(x-1)y+\\frac{y^2}{2}.\\end{aligned}}$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $(1,0)$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_2(x,y)+R_2(x,y),\\\\\n|R_2(x,y)|\\le C\\|(x,y)-(1,0)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $(1,0)$ für eine feste Konstante $C>0$."
+  ],
+  [
+    "Koeffizientenvergleich in $(u,v)$ liefert $$\\nabla f(a)=\\binom{1/2}0,\\qquad H_f(a)=\\begin{pmatrix}-1/4&1\\\\1&1\\end{pmatrix}.$$ Die Diagonaleinträge sind $2(-1/8)=-1/4$ und $2(1/2)=1$, der gemischte Eintrag ist 1. Mit $h=(u,v)^T$ gilt $$\\begin{aligned}f(a+h)&=1+\\ln2+(1/2,0)h\\\\&\\quad+\\frac12h^TH_f(a)h+R_2(a+h).\\end{aligned}$$ Wie in Teil a gilt $|R_2(a+h)|\\le C\\|h\\|^3$ für kleine $h$ und eine feste Konstante $C>0$, weil $f\\in C^3$ nahe $a$ ist."
+  ]
+],
+ 't-exp-shift':[
+  [
+    "Setze $u=x-1$, $v=y+1$. Dann $$xy=(1+u)(-1+v)=-1-u+v+uv.$$ Für $e^{x+y}=e^{u+v}$ verwenden wir das Polynom $$1+u+v+\\frac12(u^2+2uv+v^2).$$ Addieren von $xy$ ergibt $$T_2=2v+\\frac{u^2}{2}+2uv+\\frac{v^2}{2}.$$",
+    "Somit $$\\boxed{\\begin{aligned}T_2(x,y)&=2(y+1)+\\frac{(x-1)^2}{2}\\\\&\\quad+2(x-1)(y+1)+\\frac{(y+1)^2}{2},\\end{aligned}}$$ $$\\nabla f(a)=\\binom02,\\qquad H_f(a)=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}.$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $(1,-1)$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_2(x,y)+R_2(x,y),\\\\\n|R_2(x,y)|\\le C\\|(x,y)-(1,-1)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $(1,-1)$ für eine feste Konstante $C>0$."
+  ]
+],
  't-fraction':[
-  [R`$f$ ist nahe 0 glatt. Setze $\rho=\|(x,y,z)\|$. Die Reihen liefern $$e^{x+y}-1=x+y+\frac{(x+y)^2}{2}+O(\rho^3),$$ $$\frac1{1-z}=1+z+O(\rho^2).$$ Da der Zähler bei Grad 1 beginnt, genügt dies bis Gesamtgrad 2. Multiplizieren ergibt $$\begin{aligned}&\ \frac{e^{x+y}-1}{1-z}\\&=x+y+\frac{(x+y)^2}{2}+(x+y)z+O(\rho^3)\\&=x+y+\frac{x^2}{2}+xy+\frac{y^2}{2}\\&\quad+xz+yz+O(\rho^3).\end{aligned}$$`,
-   R`Die übrigen Terme sind $$\begin{gathered}\sin(xz)=xz+O(\rho^6),\\y^2e^z=y^2+O(\rho^3).\end{gathered}$$ Addieren ergibt $$\boxed{T_2=x+y+\frac{x^2}{2}+xy+\frac32y^2+2xz+yz},$$ mit $f=T_2+R_2$ und $R_2=O(\rho^3)$.`],
-  [R`Aus dem Polynom folgen $f(0)=0$ und $\nabla f(0)=(1,1,0)^T$. Mit $h=(x,y,z)^T$ gilt $$\begin{aligned}f(x,y,z)&=(1,1,0)h\\&\quad+\frac12h^T\begin{pmatrix}1&1&2\\1&3&1\\2&1&0\end{pmatrix}h\\&\quad+R_2(x,y,z),\end{aligned}$$ wobei $R_2(x,y,z)=O(\|h\|^3)$.`],
-  [R`Die reinen quadratischen Koeffizienten werden verdoppelt, die gemischten direkt übernommen: $$\begin{gathered}H_{11}=1,\quad H_{22}=3,\quad H_{33}=0,\\H_{12}=1,\quad H_{13}=2,\quad H_{23}=1.\end{gathered}$$ Mit $H_{ij}=H_{ji}$ folgt $$\boxed{H_f(0)=\begin{pmatrix}1&1&2\\1&3&1\\2&1&0\end{pmatrix}.}$$`],
-  [R`Setze $A=e^{x+y}$ und $d=1-z$. Die ersten Ableitungen sind $$\begin{aligned}f_x&=\frac Ad+z\cos(xz),\\f_y&=\frac Ad+2ye^z,\\f_z&=\frac{A-1}{d^2}+x\cos(xz)+y^2e^z.\end{aligned}$$ Weiter gilt $$\begin{aligned}f_{xx}&=\frac Ad-z^2\sin(xz),\\f_{xy}&=\frac Ad,\\f_{xz}&=\frac A{d^2}+\cos(xz)-xz\sin(xz),\\f_{yy}&=\frac Ad+2e^z,\\f_{yz}&=\frac A{d^2}+2ye^z,\\f_{zz}&=\frac{2(A-1)}{d^3}-x^2\sin(xz)+y^2e^z.\end{aligned}$$ Bei 0 ist $A=d=1$. Somit $$\begin{gathered}f_{xx}(0)=1,\quad f_{yy}(0)=3,\quad f_{zz}(0)=0,\\f_{xy}(0)=1,\quad f_{xz}(0)=2,\quad f_{yz}(0)=1.\end{gathered}$$ Wegen $f\in C^2$ stimmen die vertauschten gemischten Ableitungen überein. Das bestätigt die Hesse-Matrix.`]
- ],
- 't-read':[[
-  R`Der Term $x^3$ hat Grad 3. Daher $$\begin{gathered}T_2=3+2x-y+4x^2-3xy+5y^2,\\R_2=x^3.\end{gathered}$$ Insbesondere $|R_2|\le\|(x,y)\|^3$.`,
-  R`Koeffizientenvergleich liefert $$\begin{gathered}\nabla f(0)=\binom2{-1},\\H_f(0)=\begin{pmatrix}2\cdot4&-3\\-3&2\cdot5\end{pmatrix}=\begin{pmatrix}8&-3\\-3&10\end{pmatrix}.\end{gathered}$$ Direkte Kontrolle: $$\begin{gathered}f_x=2+8x-3y+3x^2\\\Longrightarrow\quad f_{xy}(0)=-3.\end{gathered}$$`
- ]],
- 't-read-shift':[[
-  R`Setze $u=x-1$, $v=y-2$ und $\rho=\|(u,v)\|$. Dann $$\begin{aligned}e^{u^2+2v}&=1+(u^2+2v)+\frac12(u^2+2v)^2\\&\quad+O(\rho^3)\\&=1+u^2+2v+2v^2+O(\rho^3),\end{aligned}$$ denn $(u^2+2v)^2=u^4+4u^2v+4v^2$. Mit dem zusätzlichen Term $uv$ folgt $$\boxed{\begin{aligned}T_2(x,y)&=1+2(y-2)+(x-1)^2\\&\quad+(x-1)(y-2)+2(y-2)^2.\end{aligned}}$$`,
-  R`Aus den Koeffizienten in $(u,v)$ erhält man $$\nabla f(a)=\binom02,\qquad H_f(a)=\begin{pmatrix}2&1\\1&4\end{pmatrix}.$$ Da $f$ glatt ist, gilt $f=T_2+R_2$ mit $R_2=O(\|(x,y)-a\|^3)$.`
- ]],
+  [
+    "Für den Zähler verwenden wir das Polynom $x+y+(x+y)^2/2$, für den Faktor $(1-z)^{-1}$ das Polynom $1+z$. Dessen Term $z^2$ erzeugt mit dem Zähler erst Terme ab Grad 3. Multiplizieren ergibt $$\\begin{aligned}&\\ \\left(x+y+\\frac{(x+y)^2}{2}\\right)(1+z)\\\\&=x+y+\\frac{(x+y)^2}{2}\\\\&\\quad+(x+y)z+\\frac{(x+y)^2z}{2}.\\end{aligned}$$ Der letzte Term hat Grad 3 und gehört zum Rest.",
+    "Aus $\\sin(xz)$ bleibt bis Grad 2 der Term $xz$, aus $y^2e^z$ der Term $y^2$. Addieren ergibt $$\\boxed{T_2=x+y+\\frac{x^2}{2}+xy+\\frac32y^2+2xz+yz}.$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\nf(x,y,z)=T_2(x,y,z)+R_2(x,y,z),\\\\\n|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$."
+  ],
+  [
+    "Aus dem Polynom folgen $f(0)=0$ und $\\nabla f(0)=(1,1,0)^T$. Mit $h=(x,y,z)^T$ gilt $$\\begin{aligned}f(x,y,z)&=(1,1,0)h\\\\&\\quad+\\frac12h^T\\begin{pmatrix}1&1&2\\\\1&3&1\\\\2&1&0\\end{pmatrix}h\\\\&\\quad+R_2(x,y,z).\\end{aligned}$$ Wie in Teil a gilt nahe 0 $|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^3$ für eine feste Konstante $C>0$, weil $f\\in C^3$ nahe 0 ist."
+  ],
+  [
+    "Die reinen quadratischen Koeffizienten werden verdoppelt, die gemischten direkt übernommen: $$\\begin{gathered}H_{11}=1,\\quad H_{22}=3,\\quad H_{33}=0,\\\\H_{12}=1,\\quad H_{13}=2,\\quad H_{23}=1.\\end{gathered}$$ Mit $H_{ij}=H_{ji}$ folgt $$\\boxed{H_f(0)=\\begin{pmatrix}1&1&2\\\\1&3&1\\\\2&1&0\\end{pmatrix}.}$$"
+  ],
+  [
+    "Setze $A=e^{x+y}$ und $d=1-z$. Die ersten Ableitungen sind $$\\begin{aligned}f_x&=\\frac Ad+z\\cos(xz),\\\\f_y&=\\frac Ad+2ye^z,\\\\f_z&=\\frac{A-1}{d^2}+x\\cos(xz)+y^2e^z.\\end{aligned}$$ Weiter gilt $$\\begin{aligned}f_{xx}&=\\frac Ad-z^2\\sin(xz),\\\\f_{xy}&=\\frac Ad,\\\\f_{xz}&=\\frac A{d^2}+\\cos(xz)-xz\\sin(xz),\\\\f_{yy}&=\\frac Ad+2e^z,\\\\f_{yz}&=\\frac A{d^2}+2ye^z,\\\\f_{zz}&=\\frac{2(A-1)}{d^3}-x^2\\sin(xz)+y^2e^z.\\end{aligned}$$ Bei 0 ist $A=d=1$. Somit $$\\begin{gathered}f_{xx}(0)=1,\\quad f_{yy}(0)=3,\\quad f_{zz}(0)=0,\\\\f_{xy}(0)=1,\\quad f_{xz}(0)=2,\\quad f_{yz}(0)=1.\\end{gathered}$$ Wegen $f\\in C^2$ stimmen die vertauschten gemischten Ableitungen überein. Das bestätigt die Hesse-Matrix."
+  ]
+],
+ 't-read':[
+  [
+    "Der Term $x^3$ hat Grad 3. Daher $$\\begin{gathered}T_2(x,y)=3+2x-y+4x^2-3xy+5y^2,\\\\f(x,y)=T_2(x,y)+R_2(x,y),\\\\R_2(x,y)=x^3.\\end{gathered}$$ Hier kennen wir den Rest exakt: $$|R_2(x,y)|=|x|^3\\le\\|(x,y)\\|^3.$$ Damit genügt sogar $C=1$.",
+    "Koeffizientenvergleich liefert $$\\begin{gathered}\\nabla f(0)=\\binom2{-1},\\\\H_f(0)=\\begin{pmatrix}2\\cdot4&-3\\\\-3&2\\cdot5\\end{pmatrix}=\\begin{pmatrix}8&-3\\\\-3&10\\end{pmatrix}.\\end{gathered}$$ Direkte Kontrolle: $$\\begin{gathered}f_x=2+8x-3y+3x^2\\\\\\Longrightarrow\\quad f_{xy}(0)=-3.\\end{gathered}$$"
+  ]
+],
+ 't-read-shift':[
+  [
+    "Setze $u=x-1$, $v=y-2$. Einsetzen von $w=u^2+2v$ in das Exponentialpolynom $1+w+w^2/2$ ergibt $$\\begin{aligned}&\\ 1+(u^2+2v)+\\frac12(u^2+2v)^2\\\\&=1+u^2+2v+\\frac{u^4}{2}+2u^2v+2v^2.\\end{aligned}$$ Die Terme $u^4/2$ und $2u^2v$ haben Grad 4 bzw. 3 und gehören zum Rest. Mit dem zusätzlichen Term $uv$ folgt $$\\boxed{\\begin{aligned}T_2(x,y)&=1+2(y-2)+(x-1)^2\\\\&\\quad+(x-1)(y-2)+2(y-2)^2.\\end{aligned}}$$",
+    "Aus den Koeffizienten in $(u,v)$ erhält man $$\\nabla f(a)=\\binom02,\\qquad H_f(a)=\\begin{pmatrix}2&1\\\\1&4\\end{pmatrix}.$$",
+    "Da $f\\in C^{3}$ in einer offenen Umgebung von $(1,2)$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_2(x,y)+R_2(x,y),\\\\\n|R_2(x,y)|\\le C\\|(x,y)-(1,2)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $(1,2)$ für eine feste Konstante $C>0$."
+  ]
+],
 };

@@ -922,7 +922,7 @@ export const worksheets = {
       {
         "label": "",
         "prompt": "",
-        "solution": "**Mehrdimensionaler Satz von Taylor (Theorem 2.29).** Sei $E\\subset\\mathbb R^n$ offen, $f\\in C^{k+1}(E)$ und $x\\in E$. Für $\\xi\\in\\mathbb R^n$ liege die gesamte Strecke $x+t\\xi$, $0\\le t\\le1$, in $E$. Dann existiert $\\theta\\in[0,1]$ mit\n\n$$\nf(x+\\xi)=\\sum_{|\\alpha|\\le k}\\frac{D^\\alpha f(x)}{\\alpha!}\\xi^\\alpha\n+\\sum_{|\\alpha|=k+1}\\frac{D^\\alpha f(x+\\theta\\xi)}{\\alpha!}\\xi^\\alpha.\n$$\n\nDabei bezeichnet $\\alpha=(\\alpha_1,\\ldots,\\alpha_n)\\in\\mathbb N_0^n$ einen Multiindex mit\n\n$$\n|\\alpha|=\\sum_{i=1}^n\\alpha_i,\\qquad\n\\alpha!=\\prod_{i=1}^n\\alpha_i!,\\qquad\n\\xi^\\alpha=\\prod_{i=1}^n\\xi_i^{\\alpha_i},\\qquad\nD^\\alpha=D_1^{\\alpha_1}\\cdots D_n^{\\alpha_n}.\n$$\n\nDie erste Summe ist das Taylorpolynom vom Grad höchstens $k$, die zweite der Restterm. Lokal ist dieser von Ordnung $O(\\|\\xi\\|^{k+1})$, da die Ableitungen der Ordnung $k+1$ auf einer hinreichend kleinen abgeschlossenen Kugel beschränkt sind. Für $k=2$ lautet die Formel\n\n$$\nf(x+\\xi)=f(x)+\\nabla f(x)\\cdot\\xi+\\frac12\\xi^\\top H_f(x)\\xi+R_2(\\xi),\n\\qquad R_2(\\xi)=O(\\|\\xi\\|^3).\n$$",
+        "solution": "**Mehrdimensionaler Satz von Taylor (Theorem 2.29).** Sei $E\\subset\\mathbb R^n$ offen, $f\\in C^{k+1}(E)$ und $x\\in E$. Für $\\xi\\in\\mathbb R^n$ liege die gesamte Strecke $x+t\\xi$, $0\\le t\\le1$, in $E$. Dann existiert $\\theta\\in[0,1]$ mit\n\n$$f(x+\\xi)=T_k(f;x)(x+\\xi)+R_k(x+\\xi),$$\n\n$$T_k(f;x)(x+\\xi)=\\sum_{|\\alpha|\\le k}\\frac{D^\\alpha f(x)}{\\alpha!}\\xi^\\alpha,$$\n\n$$R_k(x+\\xi)=\\sum_{|\\alpha|=k+1}\\frac{D^\\alpha f(x+\\theta\\xi)}{\\alpha!}\\xi^\\alpha.$$\n\nDabei ist $\\alpha=(\\alpha_1,\\ldots,\\alpha_n)\\in\\mathbb N_0^n$ ein Multiindex mit\n\n$$\\begin{gathered}|\\alpha|=\\sum_{i=1}^n\\alpha_i,\\qquad\\alpha!=\\prod_{i=1}^n\\alpha_i!,\\\\\\xi^\\alpha=\\prod_{i=1}^n\\xi_i^{\\alpha_i},\\qquad D^\\alpha=D_1^{\\alpha_1}\\cdots D_n^{\\alpha_n}.\\end{gathered}$$\n\nDer Rest erfüllt lokal $|R_k(x+\\xi)|\\le C\\|\\xi\\|^{k+1}$ für eine feste Konstante $C>0$: Die Ableitungen der Ordnung $k+1$ sind auf einer hinreichend kleinen abgeschlossenen Kugel beschränkt. Für $k=2$ lautet die Formel\n\n$$\\begin{aligned}f(x+\\xi)&=f(x)+\\nabla f(x)\\cdot\\xi\\\\&\\quad+\\frac12\\xi^\\top H_f(x)\\xi+R_2(x+\\xi).\\end{aligned}$$\n\nDa hier $f\\in C^3$ nahe $x$ ist, gilt\n\n$$|R_2(x+\\xi)|\\le C\\|\\xi\\|^3$$\n\nfür kleine $\\xi$ und eine feste Konstante $C>0$.",
         "sketch": null
       }
     ]
@@ -937,13 +937,13 @@ export const worksheets = {
       {
         "label": "a",
         "prompt": "$f:(0,\\infty)\\times(0,\\infty)\\to\\mathbb R$, $f(x,y)=\\log(1+x+y)$, mit $n=3$ und $a=(0,1)$;",
-        "solution": "Der Entwicklungspunkt $(0,1)$ liegt nicht im angegebenen Definitionsbereich $(0,\\infty)^2$. Für die glatte Fortsetzung $f(x,y)=\\ln(1+x+y)$ auf $\\{1+x+y>0\\}$ ist die Entwicklung jedoch definiert.\n\nSetze $u=x$, $v=y-1$ und $\\rho=\\sqrt{u^2+v^2}$. Mit\n\n$$\n\\ln(2+t)=\\ln2+\\frac t2-\\frac{t^2}8+\\frac{t^3}{24}+O(t^4)\n$$\n\nfolgt für $t=u+v$ das Taylorpolynom\n\n$$\n\\boxed{T_3(f;(0,1))(x,y)=\\ln2+\\frac{x+y-1}2\n-\\frac{(x+y-1)^2}8+\\frac{(x+y-1)^3}{24}.}\n$$\n\nDer Restterm ist $O(\\rho^4)$.",
+        "solution": "Der Entwicklungspunkt $(0,1)$ liegt nicht im angegebenen Definitionsbereich $(0,\\infty)^2$. Wir verwenden die glatte Fortsetzung von $f(x,y)=\\ln(1+x+y)$ auf $\\{1+x+y>0\\}$.\n\nSetze $u=x$, $v=y-1$. Dann $$\\begin{aligned}f(x,y)&=\\ln(2+u+v)\\\\&=\\ln2+\\ln\\!\\left(1+\\frac{u+v}{2}\\right).\\end{aligned}$$ Setze $w=(u+v)/2$ in das Logarithmuspolynom $w-w^2/2+w^3/3$ ein. Damit $$T_3=\\ln2+\\frac{u+v}{2}-\\frac{(u+v)^2}{8}+\\frac{(u+v)^3}{24}.$$\n\nZurücksetzen ergibt $$\\boxed{\\begin{aligned}T_3(x,y)&=\\ln2+\\frac{x+y-1}{2}\\\\&\\quad-\\frac{(x+y-1)^2}{8}\\\\&\\quad+\\frac{(x+y-1)^3}{24}.\\end{aligned}}$$\n\nDa $f\\in C^{4}$ in einer offenen Umgebung von $(0,1)$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_3(x,y)+R_3(x,y),\\\\\n|R_3(x,y)|\\le C\\|(x,y)-(0,1)\\|^{4}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $(0,1)$ für eine feste Konstante $C>0$.",
         "sketch": null
       },
       {
         "label": "b",
         "prompt": "$g:\\mathbb R^3\\to\\mathbb R$, $g(x,y,z)=e^{yz}(\\cos x+\\sin z)$, mit $n=2$ und $a=(0,0,0)$.",
-        "solution": "Setze $\\rho=\\sqrt{x^2+y^2+z^2}$. Es gilt\n\n$$\ne^{yz}=1+yz+O(\\rho^4),\\qquad\n\\cos x+\\sin z=1+z-\\frac{x^2}2+O(\\rho^3).\n$$\n\nMultiplikation und Zusammenfassen aller Terme bis zum Gesamtgrad $2$ ergeben\n\n$$\ng(x,y,z)=1+z-\\frac{x^2}2+yz+O(\\rho^3),\\qquad\n\\boxed{T_2(g;0)(x,y,z)=1+z-\\frac{x^2}2+yz.}\n$$",
+        "solution": "Bis Gesamtgrad 2 brauchen wir die Taylorpolynome der beiden Faktoren: $$\\begin{aligned}T_2(e^{yz};0)&=1+yz,\\\\T_2(\\cos x+\\sin z;0)&=1+z-\\frac{x^2}{2}.\\end{aligned}$$ Denn $(yz)^2$ hat bereits Grad 4; die nächsten Sinus- und Kosinusterme haben Grad 3 bzw. 4.\n\nMultiplizieren ergibt $$\\begin{aligned}&\\ (1+yz)(1+z-x^2/2)\\\\&=1+z-x^2/2+yz+yz^2-x^2yz/2.\\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4 und gehören zum Rest. Daher $$\\boxed{T_2(x,y,z)=1+z-\\frac{x^2}{2}+yz}.$$\n\nDa $g\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\ng(x,y,z)=T_2(x,y,z)+R_2(x,y,z),\\\\\n|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$.",
         "sketch": null
       }
     ]
@@ -958,13 +958,13 @@ export const worksheets = {
       {
         "label": "a",
         "prompt": "Berechnen Sie die Taylor-Entwicklung zweiter Ordnung von $f$ im Punkt $(0,0)$ unter Verwendung bekannter Taylor-Entwicklungen für eine Variable.",
-        "solution": "Der natürliche Definitionsbereich ist $D=\\{(x,y):1+x+y^2>0\\}$; er enthält eine offene Umgebung von $(0,0)$.\n\nMit $\\rho=\\sqrt{x^2+y^2}$ gilt\n\n$$\n\\begin{aligned}\n\\ln(1+x+y^2)\n&=(x+y^2)-\\frac12(x+y^2)^2+O(\\rho^3)\n=x+y^2-\\frac{x^2}2+O(\\rho^3),\\\\\ne^{xy}&=1+xy+O(\\rho^4).\n\\end{aligned}\n$$\n\nDamit lautet die Entwicklung\n\n$$\n\\boxed{f(x,y)=1+x-\\frac{x^2}2+xy+y^2+R_2(x,y),\\qquad R_2(x,y)=O(\\rho^3).}\n$$",
+        "solution": "Der natürliche Definitionsbereich ist $D=\\{(x,y):1+x+y^2>0\\}$; er enthält eine offene Umgebung von $(0,0)$.\n\nVerwende für den Logarithmus das Polynom $w-w^2/2$ mit $w=x+y^2$. Einsetzen und Ausmultiplizieren ergibt $$\\begin{aligned}&\\ (x+y^2)-\\frac12(x+y^2)^2\\\\&=x+y^2-\\frac{x^2}{2}-xy^2-\\frac{y^4}{2}.\\end{aligned}$$ Die letzten beiden Terme haben Grad 3 bzw. 4. Für $e^{xy}$ genügt das Polynom $1+xy$, denn $(xy)^2$ hat schon Grad 4. Addieren der Terme bis Grad 2 liefert $$\\boxed{T_2(x,y)=1+x-\\frac{x^2}{2}+xy+y^2}.$$\n\nDa $f\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\nf(x,y)=T_2(x,y)+R_2(x,y),\\\\\n|R_2(x,y)|\\le C\\|(x,y)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$.",
         "sketch": null
       },
       {
         "label": "b",
         "prompt": "Schreiben Sie die Entwicklung in der Form\n\n$$\nf(x,y)=f(0,0)+\\nabla f(0,0)\\cdot(x,y)+\\frac12(x,y)H_f(0,0)(x,y)^\\top+R_2(x,y),\n$$\n\nwobei $R_2(x,y)$ den Restterm bezeichnet.",
-        "solution": "In Matrixform:\n\n$$\nf(x,y)=1+\\begin{pmatrix}1&0\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix}\n+\\frac12\\begin{pmatrix}x&y\\end{pmatrix}\n\\begin{pmatrix}-1&1\\\\1&2\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix}+R_2(x,y).\n$$",
+        "solution": "Aus dem Polynom: $f(0)=1$, $\\nabla f(0)=(1,0)^T$. Mit $h=(x,y)^T$ lautet die Matrixform $$\\begin{aligned}f(x,y)&=1+(1,0)h\\\\&\\quad+\\frac12h^T\\begin{pmatrix}-1&1\\\\1&2\\end{pmatrix}h+R_2(x,y).\\end{aligned}$$ Wie in Teil a gilt nahe 0 $|R_2(x,y)|\\le C\\|(x,y)\\|^3$ für eine feste Konstante $C>0$, weil $f\\in C^3$ nahe 0 ist.",
         "sketch": null
       },
       {
@@ -991,13 +991,13 @@ export const worksheets = {
       {
         "label": "a",
         "prompt": "Berechnen Sie die Taylor-Entwicklung zweiter Ordnung von $f$ im Punkt $(0,0,0)$ unter Verwendung bekannter Taylor-Entwicklungen für eine Variable.",
-        "solution": "Die Funktion ist auf $D=\\{(x,y,z):z\\ne1\\}$ definiert und in einer Umgebung von $0$ glatt.\n\nSetze $\\rho=\\sqrt{x^2+y^2+z^2}$. Die eindimensionalen Entwicklungen liefern\n\n$$\n\\begin{aligned}\ne^{x+y}-1&=x+y+\\frac12(x+y)^2+O(\\rho^3),\\\\\n\\frac1{1-z}&=1+z+z^2+O(\\rho^3),\\\\\n\\sin(xz)&=xz+O(\\rho^6),\\\\\ny^2e^z&=y^2+O(\\rho^3).\n\\end{aligned}\n$$\n\nSomit\n\n$$\n\\frac{e^{x+y}-1}{1-z}=x+y+\\frac{x^2}2+xy+\\frac{y^2}2+xz+yz+O(\\rho^3),\n$$\n\nund insgesamt\n\n$$\n\\boxed{f(x,y,z)=x+y+\\frac{x^2}2+xy+\\frac32y^2+2xz+yz+R_2(x,y,z),}\n\\qquad R_2(x,y,z)=O(\\rho^3).\n$$",
+        "solution": "Die Funktion ist auf $D=\\{(x,y,z):z\\ne1\\}$ definiert und in einer Umgebung von $0$ glatt.\n\nFür den Zähler verwenden wir das Polynom $x+y+(x+y)^2/2$, für den Faktor $(1-z)^{-1}$ das Polynom $1+z$. Dessen Term $z^2$ erzeugt mit dem Zähler erst Terme ab Grad 3. Multiplizieren ergibt $$\\begin{aligned}&\\ \\left(x+y+\\frac{(x+y)^2}{2}\\right)(1+z)\\\\&=x+y+\\frac{(x+y)^2}{2}\\\\&\\quad+(x+y)z+\\frac{(x+y)^2z}{2}.\\end{aligned}$$ Der letzte Term hat Grad 3 und gehört zum Rest.\n\nAus $\\sin(xz)$ bleibt bis Grad 2 der Term $xz$, aus $y^2e^z$ der Term $y^2$. Addieren ergibt $$\\boxed{T_2=x+y+\\frac{x^2}{2}+xy+\\frac32y^2+2xz+yz}.$$\n\nDa $f\\in C^{3}$ in einer offenen Umgebung von $0$ ist, gilt\n$$\\begin{gathered}\nf(x,y,z)=T_2(x,y,z)+R_2(x,y,z),\\\\\n|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^{3}.\n\\end{gathered}$$\nDie Abschätzung gilt nahe $0$ für eine feste Konstante $C>0$.",
         "sketch": null
       },
       {
         "label": "b",
         "prompt": "Schreiben Sie die Entwicklung in der Form\n\n$$\nf(x,y,z)=f(0,0,0)+\\nabla f(0,0,0)\\cdot(x,y,z)+\\frac12(x,y,z)H_f(0,0,0)(x,y,z)^\\top+R_2(x,y,z),\n$$\n\nwobei $R_2(x,y,z)$ den Restterm bezeichnet.",
-        "solution": "In Matrixform:\n\n$$\nf(x,y,z)=\\begin{pmatrix}1&1&0\\end{pmatrix}\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix}\n+\\frac12\\begin{pmatrix}x&y&z\\end{pmatrix}\n\\begin{pmatrix}1&1&2\\\\1&3&1\\\\2&1&0\\end{pmatrix}\n\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix}+R_2(x,y,z).\n$$",
+        "solution": "Aus dem Polynom folgen $f(0)=0$ und $\\nabla f(0)=(1,1,0)^T$. Mit $h=(x,y,z)^T$ gilt $$\\begin{aligned}f(x,y,z)&=(1,1,0)h\\\\&\\quad+\\frac12h^T\\begin{pmatrix}1&1&2\\\\1&3&1\\\\2&1&0\\end{pmatrix}h\\\\&\\quad+R_2(x,y,z).\\end{aligned}$$ Wie in Teil a gilt nahe 0 $|R_2(x,y,z)|\\le C\\|(x,y,z)\\|^3$ für eine feste Konstante $C>0$, weil $f\\in C^3$ nahe 0 ist.",
         "sketch": null
       },
       {

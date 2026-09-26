@@ -2,10 +2,11 @@ import {esc,prose,solutionContent} from './study-ui.js';
 import {practiceBank,taskById,topics,families} from './practice-bank.js';
 import {ensureAttempt,startAttempt,advance,rateAttempt,optionsFor,checkNumber,familyProgress,usedHelp} from './practice-engine.js';
 import {standardSeries,neededSeries} from './practice-shared.js';
+import {remainderGuide} from './taylor-remainder.js';
 const ratingNames={independent:'Selbstständig geschafft',helped:'Mit Hilfe geschafft',again:'Noch nicht geschafft'};
 function seriesTable(task){
  const keys=neededSeries[task.id];if(!keys)return '';
- return `<div class="practice-series"><h3>Passende Standardreihen</h3><p class="small">Um $w=0$. Setze für $w$ den gesamten inneren Ausdruck ein.</p><div class="table-wrap"><table><thead><tr><th>Funktion</th><th>Polynom bis Grad 3 in $w$</th></tr></thead><tbody>${keys.map(key=>`<tr>${standardSeries[key].map(v=>`<td>${prose(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="small">Jeweils gilt: Funktion = Polynom $+R_3(w)$, mit $R_3(w)=O(|w|^4)$. Für Grad 2 fällt der kubische Term weg. Nach dem Einsetzen zählt der Gesamtgrad in deinen Variablen; etwa hat $(xy)^2$ schon Grad 4.</p></div>`;
+ return `<div class="practice-series"><h3>Passende Standardreihen</h3><p class="small">Um $w=0$. Setze für $w$ den gesamten inneren Ausdruck ein.</p><div class="table-wrap"><table><thead><tr><th>Funktion</th><th>Polynom bis Grad 3 in $w$</th></tr></thead><tbody>${keys.map(key=>`<tr>${standardSeries[key].map(v=>`<td>${prose(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="small">Jeweils gilt: Funktion = Polynom $+R_3(w)$, mit $|R_3(w)|\\le C|w|^4$ nahe 0. Jede Funktion hat ihren eigenen Rest und ihre eigene Konstante $C>0$. Für Grad 2 fällt der kubische Term weg; der gesamte Rest heißt dann $R_2(w)$ und erfüllt $|R_2(w)|\\le C|w|^3$ nahe 0. Nach dem Einsetzen zählt der Gesamtgrad in deinen Variablen; etwa hat $(xy)^2$ schon Grad 4.</p><details class="rule"><summary>Restabschätzung: Vorlage und Bedeutung von C</summary>${prose(remainderGuide)}</details></div>`;
 }
 function legacyContent(state){
  const notes=Object.entries(state.notes).filter(([k])=>k.startsWith('exam-'));

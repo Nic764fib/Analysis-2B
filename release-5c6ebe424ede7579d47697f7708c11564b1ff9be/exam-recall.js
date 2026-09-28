@@ -28,6 +28,37 @@ export const examRecallSources = Object.freeze({
 });
 export const isExamRecall = card => Object.hasOwn(examRecallSources, card.id);
 
+// Lernempfehlung aus den bereitgestellten Quellen, keine Eintrittswahrscheinlichkeiten.
+export const examPriority = Object.freeze([
+ ['heine-borel', 'In der Dozentenmail hervorgehoben; im Bericht 2026 ausdrücklich als Theoriefrage genannt.'],
+ ['implicit-theorem', 'Schwerpunkt der Dozentenmail; Thema im Bericht 2026; Satzaussage in der Altklausur 2025.'],
+ ['inverse-theorem', 'Schwerpunkt der Dozentenmail; Satzaussage 2025; im Bericht 2026 unter Vorbehalt genannt.'],
+ ['taylor-theorem', 'Schwerpunkt der Dozentenmail und Thema im Bericht 2026. Voraussetzungen und Restterm mitlernen.'],
+ ['compact-def', 'Die Definition gehört zum Schwerpunkt Kompaktheit und wird in T.3.2(a) abgefragt.'],
+ ['stability', 'Stetige Bilder und Produkte kompakter Mengen werden für die Kompaktheitsaufgaben gebraucht.'],
+ ['sequential', 'Folgenkompaktheit ist ein zentraler Zugang zu Kompaktheit; Theorieaufgabe T.3.2(b).'],
+ ['jacobi', 'Die Jacobi-Matrix wird in beiden Umkehrsätzen und den zugehörigen Rechnungen gebraucht.'],
+ ['c1', 'Stetige Differenzierbarkeit gehört zu den Voraussetzungen beider Umkehrsätze.'],
+ ['total', 'Grundbegriff für Ableitung, Kettenregel und Umkehrsätze.'],
+ ['diffeo', 'Beschreibt die differenzierbare Umkehrbarkeit; Theorieaufgabe T.5.1.'],
+ ['hessian', 'Die Hesse-Matrix wird für Taylorpolynome zweiten Grades und Extremstellen gebraucht.'],
+ ['ck', 'Die Klassen C^k beschreiben die Glattheitsvoraussetzungen von Taylor und Schwarz.'],
+ ['schwarz', 'Satzaussage in der Altklausur 2025; wichtig für gemischte Ableitungen und die Hesse-Matrix.'],
+ ['chain', 'Satzaussage in der Altklausur 2025; auch für Ableitungen von Umkehrfunktionen wichtig.'],
+ ['mean', 'In der Altklausur 2025 als Beweisaufgabe zur Kettenregel verwendet.'],
+ ['gradient', 'Wird für Richtungsableitungen, Taylor und Extremstellen gebraucht; B.7.5(a).'],
+ ['critical-definition', 'Ergänzt Taylor und die Extremstellenaufgaben B.7.4–B.7.5.'],
+ ['cantor', 'Weiterer Satz im Schwerpunkt Kompaktheit; Theorieaufgabe T.4.1(a).'],
+ ['laplace', 'Definition in der Altklausur 2025; von der Dozentenmail nicht eigens hervorgehoben.'],
+ ['banach', 'Eigene Theorieaufgabe T.3.1(b); außerhalb der vier ausdrücklich genannten Schwerpunkte.'],
+ ['complete', 'Voraussetzung des Banachschen Fixpunktsatzes; T.2.1 und T.3.1(a).'],
+ ['contraction', 'Voraussetzung des Banachschen Fixpunktsatzes; Definition 1.2.'],
+ ['divergence', 'Theorieaufgabe T.6.1(b); in den bereitgestellten Klausurhinweisen nicht eigens hervorgehoben.'],
+].map(([id,reason],i)=>Object.freeze({id,rank:i+1,reason})));
+const priorityById = new Map(examPriority.map(item=>[item.id,item]));
+export const priorityOf = card => priorityById.get(card.id);
+export const orderExamRecall = cards => [...cards].sort((a,b)=>(priorityOf(a)?.rank??Infinity)-(priorityOf(b)?.rank??Infinity));
+
 // Nur die Klausurabfrage verwendet diese vier Fassungen. Die Themenmodule
 // behalten ihre vollständigen Skriptfassungen, einschließlich Satz 2.30.
 const R=String.raw;

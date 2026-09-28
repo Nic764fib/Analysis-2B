@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import {nextReview,reviewLabel,migrateReviews,reviewQueue} from '../dist/review.js';
-import {emptyState,mergeState} from '../dist/storage.js';
+import {emptyState,mergeState,resetKnowledge} from '../dist/storage.js';
 import {modules} from '../dist/curriculum.js';
-import {examRecallSources,examFocus,isExamRecall,isExamFocus} from '../dist/exam-recall.js';
+import {examRecallSources,examFocus,isExamRecall,isExamFocus,examPriority,orderExamRecall} from '../dist/exam-recall.js';
 
 const now=1800000000000,day=86400000;
 const cards=modules.flatMap(m=>m.theory);
@@ -12,6 +12,11 @@ assert.equal(cards.filter(isExamFocus).length,4);
 assert(Object.keys(examFocus).every(id=>isExamRecall({id})));
 const selected=['compact-def','sequential','heine-borel','cantor','stability','total','jacobi','c1','chain','mean','diffeo','inverse-theorem','implicit-theorem','ck','schwarz','hessian','divergence','laplace','taylor-theorem','gradient','critical-definition','complete','contraction','banach'];
 assert.deepEqual(cards.filter(isExamRecall).map(t=>t.id).sort(),selected.sort());
+assert.deepEqual(examPriority.map(p=>p.id).sort(),selected.sort());
+assert.equal(new Set(examPriority.map(p=>p.id)).size,24);
+assert.deepEqual(examPriority.map(p=>p.rank),Array.from({length:24},(_,i)=>i+1));
+assert(examPriority.every(p=>p.reason.length>20));
+assert.deepEqual(orderExamRecall(cards.filter(isExamRecall)).map(c=>c.id),examPriority.map(p=>p.id));
 for(const id of ['gradient-theorem','orthogonal','convergence','uniform-criteria','integral-limit','derivative-limit']){
  assert(!isExamRecall({id}),`${id} must stay outside exam recall`);
  assert(cards.some(t=>t.id===id),`${id} must remain available in its module`);
@@ -42,6 +47,12 @@ assert.deepEqual(Object.values(legacy).map(r=>r.due),[now+day,now+2*day,now+3*da
 assert.equal(migrateReviews(legacy),false);
 const saved={...emptyState(),reviews:legacy,notes:{'recall-total':'Mein Entwurf'},known:{total:true}};
 assert.deepEqual(mergeState(emptyState(),JSON.parse(JSON.stringify(saved)),modules.map(m=>m.id)),saved);
+const resetState=structuredClone(saved);
+resetState.done.example=true;resetState.positions.example=4;resetState.scores.example=7;
+const original=structuredClone(resetState),backup=resetKnowledge(resetState);
+assert.deepEqual(resetState,{...original,known:{},reviews:{}});
+Object.assign(resetState,backup);
+assert.deepEqual(resetState,original);
 
 const queueCards=['new','focus','due','dueFocus','later'].map(id=>({id}));
 const reviews={due:{level:0,due:now-1000},dueFocus:{level:1,due:now},later:{level:0,due:now+60000}};

@@ -2,6 +2,11 @@ import {emptyPractice,cleanPractice} from './practice-engine.js';
 const map=value=>value&&typeof value==='object'&&!Array.isArray(value);
 const allowedKey=key=>!['__proto__','constructor','prototype'].includes(key);
 export function emptyState(){return {known:{},done:{},notes:{},scores:{},reviews:{},positions:{},examSessions:{},selectedExam:'fokus-a',last:'kompaktheit',practice:emptyPractice()};}
+export function resetKnowledge(state){
+ const previous={known:structuredClone(state.known),reviews:structuredClone(state.reviews)};
+ state.known={};state.reviews={};
+ return previous;
+}
 export function mergeState(target,saved,moduleIds){
  if(!map(saved))return target;
  for(const field of ['known','done','notes','scores','reviews','positions']){

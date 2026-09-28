@@ -5,17 +5,19 @@ import {generate,parseNumber} from './generators.js';
 import {initLab} from './lab-ui.js';
 import {esc,prose,partCard,checklist} from './study-ui.js';
 import {renderExam} from './exam-ui.js';
-import {emptyState,mergeState} from './storage.js';
+import {emptyState,mergeState,resetKnowledge} from './storage.js';
 import {nameCaption,recognitionHint} from './theory-name-ui.js';
 import {originLabels} from './theory-names.js';
-import {examRecallSources,isExamRecall,examFocus,isExamFocus,examRecallCard} from './exam-recall.js';
+import {examRecallSources,isExamRecall,examFocus,isExamFocus,examRecallCard,examPriority,priorityOf,orderExamRecall} from './exam-recall.js';
 import {nextReview,reviewLabel,migrateReviews,reviewQueue} from './review.js';
 import {taylorRecallCards,isTaylorRecall} from './taylor-recall.js';
 
 const app=document.querySelector('#app'),KEY='analysis2b-v1';
+const BACKUP_KEY=KEY+'-knowledge-backup';
 let state=emptyState(),storageOK=true;
 try{mergeState(state,JSON.parse(localStorage.getItem(KEY)||'null'),modules.map(m=>m.id));}catch{storageOK=false;}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;const status=document.querySelector('#storage-status');if(status)status.textContent='Speichern nicht verfügbar. Bitte den Lernstand exportieren.';}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch{storageOK=false;const status=document.querySelector('#storage-status');if(status)status.textContent='Speichern nicht verfügbar. Bitte den Lernstand exportieren.';return false;}}
+function knowledgeBackup(){try{const raw=JSON.parse(localStorage.getItem(BACKUP_KEY)||'null');if(raw?.known&&raw?.reviews){const clean=mergeState(emptyState(),raw,modules.map(m=>m.id));return {known:clean.known,reviews:clean.reviews};}}catch{}return null;}
 const allTheory=modules.flatMap(m=>m.theory.map(t=>({...t,module:m.id,moduleTitle:m.title})));
 const allRecall=[...allTheory,...taylorRecallCards];
 const examRecallCount=Object.keys(examRecallSources).length+taylorRecallCards.length;
@@ -25,7 +27,7 @@ if(migrateReviews(state.reviews))save();
 function rate(t,rating){state.known[t.id]=rating==='complete';state.reviews[t.id]=nextReview(state.reviews[t.id],rating);save();}
 const focusBadge=t=>isExamFocus(t)?`<span class="exam-focus" title="${esc(examFocus[t.id])}">★ Schwerpunkt · zuerst lernen</span>`:'';
 let recallMessage='';
-let recallIndex=0,recallModule='all',recallOnly='due',variant=null,timer=null;
+let recallIndex=0,recallModule='klausurtheorie',recallOnly='priority',variant=null,timer=null;
 function clearTimer(){if(timer!==null){clearInterval(timer);timer=null;}}
 function math(node=app){if(window.renderMathInElement)window.renderMathInElement(node,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false,strict:'ignore',trust:false});}
 function route(){return location.hash.replace(/^#\/?/,'').split('/').filter(Boolean);}
@@ -74,8 +76,29 @@ function worksheetPage(sheetValue='3',number){
 
 function newVariant(type){variant=generate(type,Math.floor(Math.random()*4294967296));renderVariant();}
 function renderVariant(){const host=document.querySelector('#variant');if(!host)return;host.innerHTML=`<p>${esc(variant.prompt)}</p><div class="answer-grid">${variant.fields.map((f,i)=>`<label>${f.label}${f.options?`<select data-answer="${i}"><option value="">Auswählen</option>${f.options.map(o=>`<option value="${o.value}">${o.label}</option>`).join('')}</select>`:`<input type="text" inputmode="text" data-answer="${i}" autocomplete="off" placeholder="Ergebnis">`}</label>`).join('')}</div><div class="actions"><button class="primary" id="check-variant">Ergebnisse prüfen</button><button id="next-variant">Neue Variante</button></div><div id="variant-status" class="status" role="status"></div><details class="rule"><summary>Lösungsweg anzeigen</summary><p>${esc(variant.solution)}</p></details><p class="meta">Variante ${variant.seed}</p>`;math(host);host.querySelector('#next-variant').onclick=()=>newVariant(variant.type);host.querySelector('#check-variant').onclick=()=>{let missing=false,count=0;host.querySelectorAll('[data-answer]').forEach((input,i)=>{const v=parseNumber(input.value),ok=Number.isFinite(v)&&Math.abs(v-variant.fields[i].answer)<=1e-6*Math.max(1,Math.abs(variant.fields[i].answer));if(!Number.isFinite(v))missing=true;input.classList.toggle('input-good',ok);input.classList.toggle('input-bad',!ok);input.setAttribute('aria-invalid',String(!ok));if(ok)count++;});const status=host.querySelector('#variant-status');status.className='status '+(count===variant.fields.length?'good':'');status.textContent=missing?'Bitte alle Felder mit Zahlen oder Brüchen ausfüllen.':count===variant.fields.length?'Alle Ergebnisse stimmen. Prüfe jetzt noch deine Voraussetzungen und Begründung.':`${count} von ${variant.fields.length} Ergebnissen stimmen. Überprüfe die markierten Felder oder öffne den Lösungsweg.`;};}
-function recallScope(){return allRecall.filter(t=>recallModule==='all'||(recallModule==='klausur'?isExamRecall(t)||isTaylorRecall(t):recallModule==='taylorreihen'?isTaylorRecall(t):t.module===recallModule)).map(t=>recallModule==='klausur'?examRecallCard(t):t);}
-function recallCards(){return reviewQueue(recallScope(),state.reviews,state.known,recallOnly,isExamFocus);}
+function recallScope(){return allRecall.filter(t=>recallModule==='all'||(recallModule==='klausurtheorie'?isExamRecall(t):recallModule==='klausur'?isExamRecall(t)||isTaylorRecall(t):recallModule==='taylorreihen'?isTaylorRecall(t):t.module===recallModule)).map(t=>['klausur','klausurtheorie'].includes(recallModule)?examRecallCard(t):t);}
+function recallCards(){return recallOnly==='priority'?orderExamRecall(recallScope()):reviewQueue(recallScope(),state.reviews,state.known,recallOnly,isExamFocus);}
+function resetRecallKnowledge(){
+ const previous={known:state.known,reviews:state.reviews};
+ try{
+  if(Object.keys(previous.known).length||Object.keys(previous.reviews).length)localStorage.setItem(BACKUP_KEY,JSON.stringify(previous));
+ }catch{recallMessage='Der Lernstand konnte nicht gesichert werden. Es wurde nichts zurückgesetzt.';recall();return;}
+ resetKnowledge(state);
+ if(!save()){Object.assign(state,previous);recallMessage='Zurücksetzen konnte nicht gespeichert werden. Dein bisheriger Stand bleibt erhalten.';recall();return;}
+ recallModule='klausurtheorie';recallOnly='priority';recallIndex=0;
+ recallMessage='Wissensstand zurückgesetzt: 0 / 72 sicher. Alle Karten sind wieder neu. Notizen und gelöste Aufgaben bleiben erhalten.';
+ recall();
+}
+function restoreRecallKnowledge(){
+ const previous=knowledgeBackup();if(!previous)return;
+ const current={known:state.known,reviews:state.reviews};Object.assign(state,previous);
+ if(save()){
+  try{localStorage.removeItem(BACKUP_KEY);}catch{}
+  recallMessage='Der Wissensstand vor dem letzten Reset wurde wiederhergestellt.';
+ }else{Object.assign(state,current);recallMessage='Wiederherstellen konnte nicht gespeichert werden.';}
+ recallIndex=0;recall();
+}
+function priorityOverview(){return `<details class="recall-help priority-overview"><summary>Prioritätenliste: alle 24 Aussagen mit Begründung</summary><p class="small muted">Lernempfehlung aus Dozentenmail, Prüfungsbericht 2026, Altklausur 2025 und Übungsblättern. Die genaue Reihenfolge ist eine Gewichtung dieser Hinweise, keine Vorhersage. Auch Rang 24 kann drankommen. <a href="#/quellen">Quellen ansehen</a></p><ol class="priority-list">${examPriority.map(p=>{const c=allTheory.find(t=>t.id===p.id);return `<li><button class="priority-start" data-priority-id="${p.id}">${esc(c.title)}</button><p class="small muted">${esc(p.reason)}</p></li>`;}).join('')}</ol></details>`;}
 function recall(){
  clearTimer();
  const cards=recallCards();
@@ -85,12 +108,14 @@ function recall(){
  const series=t&&isTaylorRecall(t);
  shell(`<div class="eyebrow">Wiederholen</div><h1>Sätze abfragen</h1>
  <p class="lead">Erst aus dem Gedächtnis formulieren, dann vergleichen und bewerten. Nicht gewusst: nach 1 Minute. Grob gewusst: nach 10 Minuten. Vollständig: nach 1, dann 2, danach jeweils 3 Tagen.</p>
- <details class="recall-help"><summary>So funktioniert die Wiederholung</summary><p class="small">Wähle „Jetzt fällig oder neu“ für die geplante Wiederholung. Fällige Wiederholungen kommen vor neuen Karten; unter neuen Karten starten die vier Schwerpunkte. Eine unvollständige Antwort setzt die Tagesfolge zurück. Nach der nächsten vollständigen Antwort beginnt sie wieder bei 1 Tag. Vorzeitiges freies Wiederholen erhöht die Stufe nicht und verschiebt den Termin nicht nach hinten.</p></details>
- <div class="two-col"><label class="small">Modul<select id="recall-module"><option value="all" ${recallModule==='all'?'selected':''}>Alle Module</option><option value="klausur" ${recallModule==='klausur'?'selected':''}>Klausursätze &amp; Taylorreihen · ${examRecallCount} Karten</option><option value="taylorreihen" ${recallModule==='taylorreihen'?'selected':''}>Taylorreihen · ${taylorRecallCards.length} Karten</option>${modules.map(m=>`<option value="${m.id}" ${recallModule===m.id?'selected':''}>${m.title}</option>`).join('')}</select></label>
- <label class="small">Auswahl<select id="recall-only"><option value="due" ${recallOnly==='due'?'selected':''}>Jetzt fällig oder neu</option><option value="all" ${recallOnly==='all'?'selected':''}>Alle Aussagen · frei wiederholen</option><option value="open" ${recallOnly==='open'?'selected':''}>Noch nicht sicher · frei wiederholen</option></select></label></div>
+ <details class="recall-help"><summary>So funktioniert die Wiederholung</summary><p class="small">„Priorität 1–24“ führt dich der Reihe nach durch alle 24 Theorieaussagen. Nach jeder Bewertung kommt der nächste Rang; Wiederholungstermine werden trotzdem gespeichert. Wähle „Jetzt fällig oder neu“, wenn du diese Termine abarbeiten möchtest. Dort kommen fällige Wiederholungen vor neuen Karten; unter neuen Karten starten die vier Schwerpunkte. Eine unvollständige Antwort setzt die Tagesfolge zurück. Nach der nächsten vollständigen Antwort beginnt sie wieder bei 1 Tag. Vorzeitiges freies Wiederholen erhöht die Stufe nicht und verschiebt den Termin nicht nach hinten.</p></details>
+ <div class="knowledge-reset"><button id="reset-knowledge">Wissensstand zurücksetzen</button>${knowledgeBackup()?'<button id="restore-knowledge">Letzten Reset rückgängig machen</button>':''}<p class="meta">Setzt die Bewertungen und Wiederholungstermine aller 72 Karten zurück. Notizen und gelöste Aufgaben bleiben erhalten.</p></div>
+ <div class="two-col"><label class="small">Modul<select id="recall-module"><option value="klausurtheorie" ${recallModule==='klausurtheorie'?'selected':''}>Die 24 Theorieaussagen</option><option value="all" ${recallModule==='all'?'selected':''}>Alle Module</option><option value="klausur" ${recallModule==='klausur'?'selected':''}>Klausursätze &amp; Taylorreihen · ${examRecallCount} Karten</option><option value="taylorreihen" ${recallModule==='taylorreihen'?'selected':''}>Taylorreihen · ${taylorRecallCards.length} Karten</option>${modules.map(m=>`<option value="${m.id}" ${recallModule===m.id?'selected':''}>${m.title}</option>`).join('')}</select></label>
+ <label class="small">Auswahl<select id="recall-only">${recallModule==='klausurtheorie'?`<option value="priority" ${recallOnly==='priority'?'selected':''}>Priorität 1–24 · der Reihe nach lernen</option>`:''}<option value="due" ${recallOnly==='due'?'selected':''}>Jetzt fällig oder neu</option><option value="all" ${recallOnly==='all'?'selected':''}>Alle Aussagen · frei wiederholen</option><option value="open" ${recallOnly==='open'?'selected':''}>Noch nicht sicher · frei wiederholen</option></select></label></div>
+ ${recallModule==='klausurtheorie'?`<p class="small muted">Zuerst: Heine–Borel, impliziter Satz, Umkehrsatz und Taylor. Die Reihenfolge folgt den Klausurhinweisen.</p>${priorityOverview()}`:''}
  ${recallModule==='klausur'?`<p class="small muted">${Object.keys(examRecallSources).length} Definitionen und Satzaussagen plus ${taylorRecallCards.length} Taylorreihen bis Grad 3. ★ markiert Heine–Borel, Umkehrsatz, impliziten Satz und Taylor.</p><details class="recall-help"><summary>Alle ${examRecallCount} Klausurkarten ansehen</summary><ol class="recall-overview">${recallScope().map(c=>`<li>${isTaylorRecall(c)?esc(c.title):`<a href="#/${c.module}/theorie/${c.id}">${esc(c.title)}</a>`}${isExamFocus(c)?' <strong>★ Schwerpunkt</strong>':''}</li>`).join('')}</ol></details>`:''}
  <p class="small muted" id="recall-live"></p><p class="small review-message" role="status">${esc(recallMessage)}</p>
- <div class="flash" style="margin-top:20px">${t?`<article class="panel"><div class="label">${t.moduleTitle} · ${recallIndex+1} / ${cards.length}</div>${focusBadge(t)}<h2 style="margin-top:0">${esc(t.title)}</h2>${series?'':nameCaption(t)}
+ <div class="flash" style="margin-top:20px">${t?`<article class="panel"><div class="label">${t.moduleTitle} · ${recallIndex+1} / ${cards.length}</div>${recallModule==='klausurtheorie'?`<p class="priority-rank">Lernpriorität ${priorityOf(t).rank} / 24</p>`:''}${focusBadge(t)}<h2 style="margin-top:0">${esc(t.title)}</h2>${series?'':nameCaption(t)}
  <p class="small muted">${series?'Nenne die Taylorpolynome um 0 bis Grad 1, 2 und 3.':`Formuliere ${t.kind.startsWith('Definition')?'die Definition':'die vollständige Aussage'} einschließlich aller Voraussetzungen und der zugehörigen Formel.`}</p>
  <label class="sr-only" for="recall-note">${series?'Deine Taylorpolynome':'Deine Formulierung'}</label><textarea id="recall-note" data-note="recall-${t.id}" placeholder="${series?'Grad 1: …\nGrad 2: …\nGrad 3: …':'Deine Formulierung …'}">${esc(state.notes['recall-'+t.id]||'')}</textarea>
  <div class="actions"><button class="primary" id="reveal-card">${series?'Lösung anzeigen':'Mit der Aussage vergleichen'}</button><button id="next-card">Überspringen</button></div>
@@ -100,7 +125,10 @@ function recall(){
  <p class="meta">${series?'Vergleiche alle drei Grade: Stimmen Vorzeichen, Koeffizienten und Potenzen?':'Bewerte selbst, ob Voraussetzungen und Aussage vollständig waren.'}</p>
  <div class="actions review-ratings"><button id="recall-again" data-rating="again">Nicht gewusst <span>1 Minute</span></button><button id="recall-partial" data-rating="partial">Grob gewusst <span>10 Minuten</span></button><button class="primary" id="recall-known" data-rating="complete">Vollständig <span>${reviewLabel(review,'complete')}</span></button></div>
  </div></div></article>`:'<div class="panel empty"><h2>Für den Moment geschafft</h2><p>Die nächste fällige Karte erscheint hier automatisch. Du kannst inzwischen auf „Alle Aussagen“ wechseln oder andere Aufgaben üben.</p></div>'}</div>`,'abfragen','Wiederholen / Sätze');
- document.querySelector('#recall-module').onchange=e=>{recallModule=e.target.value;recallIndex=0;recallMessage='';recall();};
+ document.querySelector('#reset-knowledge').onclick=resetRecallKnowledge;
+ document.querySelector('#restore-knowledge')?.addEventListener('click',restoreRecallKnowledge);
+ document.querySelectorAll('[data-priority-id]').forEach(button=>button.onclick=()=>{recallModule='klausurtheorie';recallOnly='priority';recallIndex=examPriority.findIndex(p=>p.id===button.dataset.priorityId);recallMessage='';recall();document.querySelector('.flash').scrollIntoView({block:'start'});});
+ document.querySelector('#recall-module').onchange=e=>{recallModule=e.target.value;if(recallModule==='klausurtheorie')recallOnly='priority';else if(recallOnly==='priority')recallOnly='due';recallIndex=0;recallMessage='';recall();};
  document.querySelector('#recall-only').onchange=e=>{recallOnly=e.target.value;recallIndex=0;recallMessage='';recall();};
  if(t){
   document.querySelector('#reveal-card').onclick=e=>{document.querySelector('#flash-answer').hidden=false;e.target.hidden=true;};
@@ -110,7 +138,7 @@ function recall(){
    const rating=button.dataset.rating,label=reviewLabel(state.reviews[t.id],rating);
    rate(t,rating);
    recallMessage=`${t.title}: ${label==='Termin bleibt'?'Der geplante Wiederholungstermin bleibt bestehen.':`Wiederholung geplant (${label}).`}`;
-   if(recallOnly==='all')next();else{recallIndex=0;recall();}
+   if(recallOnly==='all'||recallOnly==='priority')next();else{recallIndex=0;recall();}
    document.querySelector('.flash').scrollIntoView({block:'start'});
   });
  }
@@ -141,9 +169,21 @@ function bind(){
  document.querySelectorAll('[data-known]').forEach(x=>x.onchange=()=>{rate({id:x.dataset.known},x.checked?'complete':'again');document.querySelector('#known-count').textContent=`${allRecall.filter(t=>state.known[t.id]).length} / ${allRecall.length} sicher`;});
  document.querySelectorAll('[data-done]').forEach(x=>x.onchange=()=>{state.done[x.dataset.done]=x.checked;const e=allExercises.find(e=>e.id===x.dataset.done);if(e?.originalNumber)state.done[worksheets[e.originalNumber].id]=allExercises.filter(t=>t.originalNumber===e.originalNumber).every(t=>state.done[t.id]);save();});
  document.querySelectorAll('[data-note]').forEach(x=>x.oninput=()=>{state.notes[x.dataset.note]=x.value;save();});
- document.querySelectorAll('[data-recall-module]').forEach(x=>x.onclick=()=>{recallModule=x.dataset.recallModule;recallIndex=0;location.hash='/abfragen';});
+ document.querySelectorAll('[data-recall-module]').forEach(x=>x.onclick=()=>{recallModule=x.dataset.recallModule;recallOnly='due';recallIndex=0;location.hash='/abfragen';});
 }
 function render(){const [id,tab,entry]=route();clearTimer();if(!id)home();else if(id==='abfragen')recall();else if(id==='satznamen'){location.replace('#/abfragen');}else if(id==='klausur')exam();else if(id==='blaetter')worksheetPage(tab,entry);else if(id==='quellen')sourcePage();else{const m=modules.find(m=>m.id===id);if(m)modulePage(m,tab,entry);else shell('<h1>Modul nicht gefunden</h1><p><a href="#/">Zum Lernplan</a></p>','');}}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0);});window.addEventListener('load',()=>math());render();
+// Ein Reset in einem zweiten Tab darf nicht vom alten Stand überschrieben werden.
+window.addEventListener('storage',event=>{
+ if(event.key!==KEY)return;
+ try{
+  Object.assign(state,mergeState(emptyState(),JSON.parse(event.newValue||'null'),modules.map(m=>m.id)));
+  if(route()[0]==='abfragen')recall();
+  else{
+   document.querySelector('#known-count').textContent=`${allRecall.filter(t=>state.known[t.id]).length} / ${allRecall.length} sicher`;
+   document.querySelectorAll('[data-known]').forEach(input=>{input.checked=!!state.known[input.dataset.known];});
+  }
+ }catch{}
+});
 const ctx=document.modelContext;if(ctx?.registerTool){try{Promise.resolve(ctx.registerTool({name:'open_analysis_module',title:'Analysis-Modul öffnen',description:'Öffnet ein vorhandenes Lernmodul in der gewünschten Ansicht. Verändert keine Bewertungen.',inputSchema:{type:'object',properties:{module:{type:'string',enum:modules.map(m=>m.id)},view:{type:'string',enum:['theorie','aufgaben','grafik','varianten']}},required:['module'],additionalProperties:false},annotations:{readOnlyHint:false},execute:async input=>{if(!input||!modules.some(m=>m.id===input.module)||input.view&&!['theorie','aufgaben','grafik','varianten'].includes(input.view))throw Error('Ungültiges Modul oder ungültige Ansicht.');location.hash=`/${input.module}/${input.view||'theorie'}`;render();return{module:input.module,view:input.view||'theorie'};}})).catch(()=>{});}catch{}}
 document.querySelector('.skip').onclick=e=>{e.preventDefault();document.querySelector('#main').focus();};

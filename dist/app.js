@@ -11,6 +11,7 @@ import {originLabels} from './theory-names.js';
 import {examRecallSources,isExamRecall,examFocus,isExamFocus,examRecallCard,examPriority,priorityOf,orderExamRecall} from './exam-recall.js';
 import {nextReview,reviewLabel,migrateReviews,reviewQueue} from './review.js';
 import {taylorRecallCards,isTaylorRecall} from './taylor-recall.js';
+import {renderCalculationStatements} from './calculation-statements.js';
 
 const app=document.querySelector('#app'),KEY='analysis2b-v1';
 const BACKUP_KEY=KEY+'-knowledge-backup';
@@ -107,6 +108,7 @@ function recall(){
  const review=t?state.reviews[t.id]:null;
  const series=t&&isTaylorRecall(t);
  shell(`<div class="eyebrow">Wiederholen</div><h1>Sätze abfragen</h1>
+ <a class="button-link calculation-statements-link" href="#/abfragen/rechensaetze">Drei Rechensätze · kurz lernen →</a>
  <p class="lead">Erst aus dem Gedächtnis formulieren, dann vergleichen und bewerten. Nicht gewusst: nach 1 Minute. Grob gewusst: nach 10 Minuten. Vollständig: nach 1, dann 2, danach jeweils 3 Tagen.</p>
  <details class="recall-help"><summary>So funktioniert die Wiederholung</summary><p class="small">„Priorität 1–24“ führt dich der Reihe nach durch alle 24 Theorieaussagen. Nach jeder Bewertung kommt der nächste Rang; Wiederholungstermine werden trotzdem gespeichert. Wähle „Jetzt fällig oder neu“, wenn du diese Termine abarbeiten möchtest. Dort kommen fällige Wiederholungen vor neuen Karten; unter neuen Karten starten die vier Schwerpunkte. Eine unvollständige Antwort setzt die Tagesfolge zurück. Nach der nächsten vollständigen Antwort beginnt sie wieder bei 1 Tag. Vorzeitiges freies Wiederholen erhöht die Stufe nicht und verschiebt den Termin nicht nach hinten.</p></details>
  <div class="knowledge-reset"><button id="reset-knowledge">Wissensstand zurücksetzen</button>${knowledgeBackup()?'<button id="restore-knowledge">Letzten Reset rückgängig machen</button>':''}<p class="meta">Setzt die Bewertungen und Wiederholungstermine aller 72 Karten zurück. Notizen und gelöste Aufgaben bleiben erhalten.</p></div>
@@ -171,14 +173,14 @@ function bind(){
  document.querySelectorAll('[data-note]').forEach(x=>x.oninput=()=>{state.notes[x.dataset.note]=x.value;save();});
  document.querySelectorAll('[data-recall-module]').forEach(x=>x.onclick=()=>{recallModule=x.dataset.recallModule;recallOnly='due';recallIndex=0;location.hash='/abfragen';});
 }
-function render(){const [id,tab,entry]=route();clearTimer();if(!id)home();else if(id==='abfragen')recall();else if(id==='satznamen'){location.replace('#/abfragen');}else if(id==='klausur')exam();else if(id==='blaetter')worksheetPage(tab,entry);else if(id==='quellen')sourcePage();else{const m=modules.find(m=>m.id===id);if(m)modulePage(m,tab,entry);else shell('<h1>Modul nicht gefunden</h1><p><a href="#/">Zum Lernplan</a></p>','');}}
+function render(){const [id,tab,entry]=route();clearTimer();if(!id)home();else if(id==='abfragen'){if(tab==='rechensaetze')renderCalculationStatements({shell});else recall();}else if(id==='satznamen'){location.replace('#/abfragen');}else if(id==='klausur')exam();else if(id==='blaetter')worksheetPage(tab,entry);else if(id==='quellen')sourcePage();else{const m=modules.find(m=>m.id===id);if(m)modulePage(m,tab,entry);else shell('<h1>Modul nicht gefunden</h1><p><a href="#/">Zum Lernplan</a></p>','');}}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0);});window.addEventListener('load',()=>math());render();
 // Ein Reset in einem zweiten Tab darf nicht vom alten Stand überschrieben werden.
 window.addEventListener('storage',event=>{
  if(event.key!==KEY)return;
  try{
   Object.assign(state,mergeState(emptyState(),JSON.parse(event.newValue||'null'),modules.map(m=>m.id)));
-  if(route()[0]==='abfragen')recall();
+  if(route()[0]==='abfragen'&&route()[1]!=='rechensaetze')recall();
   else{
    document.querySelector('#known-count').textContent=`${allRecall.filter(t=>state.known[t.id]).length} / ${allRecall.length} sicher`;
    document.querySelectorAll('[data-known]').forEach(input=>{input.checked=!!state.known[input.dataset.known];});

@@ -25,12 +25,12 @@ try{
  await page.goto(url);
  await page.evaluate(({key,seed})=>localStorage.setItem(key,JSON.stringify(seed)),{key,seed});
  await page.reload();
- assert.equal(await page.locator('#known-count').innerText(),'25 / 72 sicher');
+ assert.equal(await page.locator('#known-count').innerText(),'25 / 75 sicher');
  const other=await context.newPage();await other.goto(url);
  await page.locator('#reset-knowledge').click();
- assert.equal(await page.locator('#known-count').innerText(),'0 / 72 sicher');
+ assert.equal(await page.locator('#known-count').innerText(),'0 / 75 sicher');
  assert.deepEqual(await read(),{...seed,known:{},reviews:{}});
- await other.getByRole('link',{name:'0 / 72 sicher',exact:true}).waitFor();
+ await other.getByRole('link',{name:'0 / 75 sicher',exact:true}).waitFor();
  await other.locator('#recall-note').fill('Notiz nach Reset im zweiten Tab');
  assert.deepEqual((await read()).known,{});
  // A module tab must update its marks without saving its navigation again.
@@ -43,9 +43,9 @@ try{
  assert.equal((await read()).last,afterNavigation.last);
  await other.close();
  await page.reload();
- assert.equal(await page.locator('#known-count').innerText(),'0 / 72 sicher');
+ assert.equal(await page.locator('#known-count').innerText(),'0 / 75 sicher');
  await page.locator('#restore-knowledge').click();
- assert.equal(await page.locator('#known-count').innerText(),'25 / 72 sicher');
+ assert.equal(await page.locator('#known-count').innerText(),'25 / 75 sicher');
  const restored=await read();
  assert.deepEqual(restored.known,seed.known);assert.deepEqual(restored.reviews,seed.reviews);
  assert.equal(restored.notes['recall-heine-borel'],'Notiz nach Reset im zweiten Tab');

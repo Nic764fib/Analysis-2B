@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {taylorRecallCards} from '../dist/taylor-recall.js';
+import {calculationRecallCards} from '../dist/calculation-statements.js';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
 const browser=await chromium.launch({channel:'msedge',headless:true});
@@ -47,7 +48,7 @@ try{
  await page.locator('#recall-module').selectOption('taylorreihen');
  await page.locator('#recall-only').selectOption('all');
  assert.equal(await page.locator('#recall-note').inputValue(),saved.notes['recall-series-exp']);
- assert.match(await page.locator('#known-count').innerText(),/^1 \/ 72 sicher$/);
+ assert.match(await page.locator('#known-count').innerText(),/^1 \/ 75 sicher$/);
  await page.locator('#recall-only').selectOption('due');
  assert.notEqual(await page.locator('#recall-note').getAttribute('data-note'),'recall-series-exp');
  await page.locator('#recall-module').selectOption('klausur');
@@ -55,6 +56,52 @@ try{
  await page.locator('#reveal-card').click();
  assert.equal(await page.locator('#flash-answer').isVisible(),true);
  assert.equal(await page.locator('.taylor-recall-answer').count(),0);
+ // Calculation statements use the same recall flow, with independent IDs.
+ await page.locator('#recall-module').selectOption('rechensaetze');
+ assert.match(await page.locator('#recall-module option:checked').innerText(),/Drei Rechensätze · 3 Karten/);
+ assert(page.url().endsWith('#/abfragen/rechensaetze'));
+ await page.locator('#recall-only').selectOption('all');
+ for(const width of [1400,390]){
+  await page.setViewportSize({width,height:1100});
+  for(const card of calculationRecallCards){
+   assert.equal(await page.locator('#recall-note').getAttribute('data-note'),'recall-'+card.id);
+   assert.equal(await page.locator('#flash-answer').isVisible(),false);
+   assert.equal(await page.locator('.calculation-note').isVisible(),false);
+   assert.equal(await page.locator('.flash .name-caption').count(),0);
+   await page.locator('#reveal-card').click();
+   assert.equal(await page.locator('.calculation-note').isVisible(),true);
+   assert.match(await page.locator('.calculation-note').innerText(),/Aufpassen/);
+   assert.equal(await page.locator('.katex-error').count(),0);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'calculation card overflow');
+   await page.locator('#next-card').click();
+  }
+ }
+ await page.locator('#recall-only').selectOption('due');
+ await page.locator('#recall-note').fill('Mein kurzer Begründungssatz');
+ const calculationStart=Date.now();
+ for(const rating of ['#recall-known','#recall-partial','#recall-again']){
+  await page.locator('#reveal-card').click();await page.locator(rating).click();
+ }
+ assert.equal(await page.locator('#recall-note').count(),0);
+ const calculationSaved=await page.evaluate(()=>JSON.parse(localStorage.getItem('analysis2b-v1')));
+ assert(calculationSaved.reviews['calculation-implicit'].due>=calculationStart+86400000);
+ assert(calculationSaved.reviews['calculation-inverse'].due>=calculationStart+600000);
+ assert(calculationSaved.reviews['calculation-taylor'].due>=calculationStart+60000);
+ assert.equal(calculationSaved.known['calculation-implicit'],true);
+ assert.equal(calculationSaved.known['calculation-inverse'],false);
+ assert.equal(calculationSaved.known['calculation-taylor'],false);
+ assert.deepEqual(calculationSaved.reviews['series-exp'],saved.reviews['series-exp']);
+ assert.equal(calculationSaved.reviews['implicit-theorem'],undefined);
+ await page.reload();
+ assert.equal(await page.locator('#recall-module').inputValue(),'rechensaetze');
+ assert.equal(await page.locator('#recall-note').count(),0);
+ await page.locator('#recall-only').selectOption('all');
+ assert.equal(await page.locator('#recall-note').inputValue(),'Mein kurzer Begründungssatz');
+ assert.equal(await page.locator('#flash-answer').isVisible(),false);
+ await page.locator('#recall-module').selectOption('klausurtheorie');
+ assert(page.url().endsWith('#/abfragen'));
+ await page.reload();
+ assert.equal(await page.locator('#recall-module').inputValue(),'klausurtheorie');
  assert.deepEqual(errors,[]);
- console.log(JSON.stringify({taylorCards:7,examCards:31,layouts:'desktop and mobile',reveal:'passed',reviewPersistence:'passed',theoryRegression:'passed'}));
+ console.log(JSON.stringify({taylorCards:7,examCards:31,calculationCards:3,layouts:'desktop and mobile',reveal:'passed',reviewPersistence:'passed',theoryRegression:'passed',calculationScheduling:'passed',calculationRoute:'passed'}));
 }finally{await browser.close();}

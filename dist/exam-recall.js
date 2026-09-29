@@ -28,6 +28,15 @@ export const examRecallSources = Object.freeze({
 });
 export const isExamRecall = card => Object.hasOwn(examRecallSources, card.id);
 
+// Die 13 im Chat ausgewählten Aussagen zu den vier Schwerpunkten.
+// Vorhandene Karten verwenden, damit Notizen und Wiederholungen geteilt bleiben.
+export const focusRecallIds = Object.freeze([
+ 'heine-borel', 'compact-def', 'sequential', 'stability', 'cantor',
+ 'inverse-theorem', 'diffeo', 'implicit-theorem', 'taylor-theorem',
+ 'ck', 'schwarz', 'hessian', 'gradient',
+]);
+export const isFocusRecall = card => focusRecallIds.includes(card.id);
+
 // Lernempfehlung aus den bereitgestellten Quellen, keine Eintrittswahrscheinlichkeiten.
 export const examPriority = Object.freeze([
  ['heine-borel', 'In der Dozentenmail hervorgehoben; im Bericht 2026 ausdrücklich als Theoriefrage genannt.'],

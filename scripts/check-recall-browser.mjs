@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {taylorRecallCards} from '../dist/taylor-recall.js';
 import {calculationRecallCards} from '../dist/calculation-statements.js';
+import {modules} from '../dist/content.js';
+import {isFocusRecall,examRecallCard,orderExamRecall} from '../dist/exam-recall.js';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
 const browser=await chromium.launch({channel:'msedge',headless:true});
@@ -102,6 +104,53 @@ try{
  assert(page.url().endsWith('#/abfragen'));
  await page.reload();
  assert.equal(await page.locator('#recall-module').inputValue(),'klausurtheorie');
+ // The focused module reuses exactly the selected 13 theory cards and their progress.
+ const focusCards=orderExamRecall(modules.flatMap(m=>m.theory).filter(isFocusRecall).map(examRecallCard));
+ assert.deepEqual(focusCards.map(c=>c.id),[
+  'heine-borel','implicit-theorem','inverse-theorem','taylor-theorem',
+  'compact-def','stability','sequential','diffeo','hessian','ck','schwarz','gradient','cantor',
+ ]);
+ await page.locator('#recall-module').selectOption('schwerpunkte');
+ assert.equal(await page.locator('#recall-module option:checked').innerText(),'13 Schwerpunkt-Theoriefragen');
+ assert(page.url().endsWith('#/abfragen/schwerpunkte'));
+ assert.equal(await page.locator('.recall-overview li').count(),13);
+ await page.locator('#recall-only').selectOption('all');
+ for(const width of [1400,390]){
+  await page.setViewportSize({width,height:1100});
+  for(const card of focusCards){
+   assert.equal(await page.locator('#recall-note').getAttribute('data-note'),'recall-'+card.id);
+   assert.equal(await page.locator('.flash h2').innerText(),card.title);
+   assert.equal(await page.locator('#flash-answer').isVisible(),false);
+   await page.locator('#reveal-card').click();
+   assert.equal(await page.locator('#flash-answer').isVisible(),true);
+   assert.equal(await page.locator('.katex-error').count(),0);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),card.id+' focus overflow');
+   await page.locator('#next-card').click();
+  }
+  await page.screenshot({path:`tmp/focus-recall-${width}.png`,fullPage:true});
+ }
+ await page.locator('#recall-note').fill('Heine–Borel aus dem Gedächtnis');
+ await page.locator('#reveal-card').click();
+ const focusStart=Date.now();
+ await page.locator('#recall-known').click();
+ const focusSaved=await page.evaluate(()=>JSON.parse(localStorage.getItem('analysis2b-v1')));
+ assert.equal(focusSaved.known['heine-borel'],true);
+ assert(focusSaved.reviews['heine-borel'].due>=focusStart+86400000);
+ assert.deepEqual(focusSaved.reviews['series-exp'],saved.reviews['series-exp']);
+ assert.deepEqual(focusSaved.reviews['calculation-implicit'],calculationSaved.reviews['calculation-implicit']);
+ assert.match(await page.locator('#known-count').innerText(),/^3 \/ 75 sicher$/);
+ await page.locator('#recall-module').selectOption('klausurtheorie');
+ assert.equal(await page.locator('#recall-note').inputValue(),'Heine–Borel aus dem Gedächtnis');
+ await page.locator('#reveal-card').click();
+ assert.match(await page.locator('#recall-known').innerText(),/Termin bleibt/);
+ await page.locator('#recall-module').selectOption('schwerpunkte');
+ assert.notEqual(await page.locator('#recall-note').getAttribute('data-note'),'recall-heine-borel');
+ await page.reload();
+ assert.equal(await page.locator('#recall-module').inputValue(),'schwerpunkte');
+ assert.notEqual(await page.locator('#recall-note').getAttribute('data-note'),'recall-heine-borel');
+ await page.locator('#recall-only').selectOption('all');
+ assert.equal(await page.locator('#recall-note').inputValue(),'Heine–Borel aus dem Gedächtnis');
+ assert.equal(await page.locator('#flash-answer').isVisible(),false);
  assert.deepEqual(errors,[]);
- console.log(JSON.stringify({taylorCards:7,examCards:31,calculationCards:3,layouts:'desktop and mobile',reveal:'passed',reviewPersistence:'passed',theoryRegression:'passed',calculationScheduling:'passed',calculationRoute:'passed'}));
+ console.log(JSON.stringify({taylorCards:7,examCards:31,calculationCards:3,focusCards:13,layouts:'desktop and mobile',reveal:'passed',reviewPersistence:'passed',theoryRegression:'passed',calculationScheduling:'passed',calculationRoute:'passed',focusRoute:'passed',focusSharedProgress:'passed'}));
 }finally{await browser.close();}

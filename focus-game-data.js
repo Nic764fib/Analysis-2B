@@ -1,0 +1,77 @@
+import {modules} from './content.js';
+import {examRecallCard,isFocusRecall,orderExamRecall} from './exam-recall.js';
+
+const R=String.raw;
+const q=(prompt,options,answer,explanation)=>({prompt,options,answer,explanation});
+const content={
+ 'heine-borel':{name:'Heine–Borel',group:'Kompaktheit',checks:['Der Raum ist endlichdimensional und normiert, zum Beispiel ℝⁿ.','Kompaktheit ist äquivalent zu Abgeschlossenheit und Beschränktheit.'],questions:[
+  q(R`Wann ist eine Teilmenge $A\subseteq\mathbb R^n$ nach Heine–Borel kompakt?`,['Wenn sie abgeschlossen und beschränkt ist.','Wenn sie nur abgeschlossen ist.','Wenn sie nur beschränkt ist.','Wenn sie offen und beschränkt ist.'],0,'In endlichdimensionalen normierten Räumen sind beide Bedingungen zusammen notwendig und hinreichend.'),
+  q('Welche Einschränkung darf in Heine–Borel nicht fehlen?',['Der Raum muss ein Skalarprodukt besitzen.','Die Menge muss nichtleer sein.','Der normierte Raum muss endlichdimensional sein.','Die Menge muss aus endlich vielen Punkten bestehen.'],2,'In allgemeinen metrischen oder unendlichdimensionalen normierten Räumen reicht abgeschlossen und beschränkt nicht aus. Die leere Menge ist ebenfalls kompakt.'),
+ ]},
+ 'implicit-theorem':{name:'Implizite Funktionen',group:'Implizite Funktionen',checks:['f ist C¹ auf einer offenen Menge in ℝⁿ⁺ᵐ mit Werten in ℝⁿ; f(a,b)=0.','Der Block Aₓ für die gesuchten x-Variablen ist invertierbar.','Lokal gibt es genau eine Lösung x=g(y), mit g∈C¹ und g(b)=a.','Die Identität f(g(y),y)=0 und Dg(b)=−(Aₓ)⁻¹Aᵧ sind enthalten.'],questions:[
+  q(R`Du suchst lokal $x=g(y)$ aus $f(x,y)=0$. Welche Voraussetzungen prüfst du bei $(a,b)$?`,[R`$f\in C^1$, $f(a,b)=0$, $D_yf(a,b)$ invertierbar.`,R`$f$ stetig, $f(a,b)=0$, $D_xf(a,b)$ invertierbar.`,R`$f\in C^1$, $D_xf(a,b)$ invertierbar; der Funktionswert ist egal.`,R`$f\in C^1$, $f(a,b)=0$, $D_xf(a,b)$ invertierbar.`],3,'Der quadratische Block gehört zu den gesuchten Variablen: hier x. Die C¹-Eigenschaft gilt in einer offenen Umgebung; der Ausgangspunkt muss die Gleichung erfüllen.'),
+  q(R`Setze $A_x=D_xf(a,b)$ und $A_y=D_yf(a,b)$. Welche Ableitung gehört zu $x=g(y)$?`,[R`$Dg(b)=-(A_y)^{-1}A_x$`,R`$Dg(b)=-(A_x)^{-1}A_y$`,R`$Dg(b)=(A_x)^{-1}A_y$`,R`$Dg(b)=-(A_x)^{-1}(-A_y)$`],1,R`Es gilt $A_xDg(b)+A_y=0$. Also $Dg(b)=-(A_x)^{-1}A_y=A_x^{-1}(-A_y)$. Genau ein zusätzliches Minuszeichen.`),
+ ]},
+ 'inverse-theorem':{name:'Umkehrsatz',group:'Umkehrfunktionen',checks:['f∈C¹ auf einer offenen Menge E⊂ℝⁿ mit Werten in ℝⁿ.','Df(a) ist invertierbar und b=f(a).','Offene Umgebungen U,V: f|U ist bijektiv von U nach V; g=f⁻¹ ist C¹.','Dg(b)=[Df(a)]⁻¹; allgemein Dg(y)=[Df(g(y))]⁻¹.'],questions:[
+  q(R`$f\in C^1(E,\mathbb R^n)$, $E\subseteq\mathbb R^n$ offen, $\det Df(a)\ne0$. Was folgt?`,['f ist auf ganz E injektiv.','f ist auf ganz E bijektiv nach ℝⁿ.','f besitzt bei a eine lokale C¹-Umkehrfunktion.','f ist bei a lediglich stetig.'],2,'Der Umkehrsatz liefert offene Umgebungen von a und f(a), zwischen denen f ein C¹-Diffeomorphismus ist. Globale Injektivität folgt daraus nicht.'),
+  q(R`Gesucht ist $D(f^{-1})(b)$. Du hast $f(a)=b$ gelöst. Welche Matrix invertierst du?`,[R`$Df(a)$`,R`$Df(b)$`,R`$-Df(a)$`,R`$Df(a)^T$`],0,R`$D(f^{-1})(b)=[Df(a)]^{-1}$. Die Ableitung von f wird am Eingabepunkt a ausgewertet, nicht an der Ausgabe b.`),
+ ]},
+ 'taylor-theorem':{name:'Taylor mit Restglied',group:'Taylor',checks:['f∈Cᵏ⁺¹ auf offenem E; die gesamte Strecke x+tξ für 0≤t≤1 liegt in E.','Es gibt ein θ∈[0,1], und f(x+ξ)=Tₖ(f;x)(x+ξ)+Rₖ(x+ξ).','Im Polynom: |α|≤k, Faktor 1/α!, Ableitung in x.','Im Rest: |α|=k+1, Faktor 1/α!, Ableitung in x+θξ.'],questions:[
+  q(R`Welche Voraussetzung reicht für $|R_2(a+h)|\le C\|h\|^3$ für alle kleinen $h$ mit festem $C>0$?`,[R`$f$ ist stetig bei $a$.`,R`$f\in C^1$ nahe $a$.`,R`$f\in C^2$ nahe $a$.`,R`$f\in C^3$ in einer offenen Umgebung von $a$.`],3,R`Dritte stetige Ableitungen sind auf einer hinreichend kleinen abgeschlossenen Kugel beschränkt. Das liefert die kubische Schranke. C² allein garantiert diese Schranke nicht.`),
+  q(R`Welches Restglied gehört zum Taylorpolynom vom Grad $k$ für $f(a+h)$? Die Strecke liegt im Definitionsgebiet.`,[R`$\displaystyle\sum_{|\alpha|=k+1}\frac{D^\alpha f(a)}{\alpha!}h^\alpha$`,R`$\displaystyle\sum_{|\alpha|=k+1}\frac{D^\alpha f(a+\theta h)}{\alpha!}h^\alpha$`,R`$\displaystyle\sum_{|\alpha|\le k}\frac{D^\alpha f(a+\theta h)}{\alpha!}h^\alpha$`,R`$\displaystyle\sum_{|\alpha|=k+1}D^\alpha f(a+\theta h)h^\alpha$`],1,R`Die Restableitungen haben Ordnung k+1 und werden am Zwischenpunkt a+θh ausgewertet, für ein θ∈[0,1]. Der Faktor 1/α! gehört dazu.`),
+ ]},
+ 'compact-def':{name:'Offene Überdeckung',group:'Kompaktheit',checks:['(X,d) ist metrisch und A⊂X.','Die Familie offener Uᵢ überdeckt A.','Jede offene Überdeckung besitzt eine endliche Teilüberdeckung.'],questions:[
+  q('Welche Aussage definiert die Kompaktheit einer Menge A im metrischen Raum?',['Jede offene Überdeckung von A enthält eine endliche Teilüberdeckung.','Es gibt mindestens eine endliche offene Überdeckung von A.','Jede Überdeckung von A besteht aus endlich vielen Mengen.','A lässt sich durch eine einzige offene Menge darstellen.'],0,'Entscheidend ist jede offene Überdeckung. Dass überhaupt eine endliche offene Überdeckung existiert, genügt nicht: Der ganze Raum überdeckt jede seiner Teilmengen.'),
+  q(R`Was bedeutet „endliche Teilüberdeckung“ einer offenen Überdeckung $(U_i)_{i\in I}$ von $A$?`,['Die ausgewählten Mengen enthalten nur endlich viele Punkte.','Die ausgewählten Mengen müssen paarweise disjunkt sein.','Endlich viele Mengen aus dieser Familie überdecken zusammen ganz A.','Alle Mengen der Überdeckung müssen weggelassen werden können.'],2,'Man wählt endlich viele der bereits vorhandenen offenen Mengen. Ihre Vereinigung muss weiterhin A enthalten; die einzelnen Mengen dürfen unendlich viele Punkte besitzen.'),
+ ]},
+ stability:{name:'Kompaktheit erhalten',group:'Kompaktheit',checks:['Abgeschlossene Teilmengen kompakter Mengen.','Endliche Vereinigungen kompakter Mengen.','Endliche kartesische Produkte kompakter Mengen.','Bilder kompakter Mengen unter stetigen Abbildungen.'],questions:[
+  q('Welche vier Operationen erhalten Kompaktheit?',[
+   'Beliebige Teilmengen, endliche Vereinigungen, endliche Produkte, stetige Bilder.',
+   'Abgeschlossene Teilmengen, beliebige Vereinigungen, endliche Produkte, stetige Bilder.',
+   'Abgeschlossene Teilmengen, endliche Vereinigungen, endliche Produkte, beliebige Bilder.',
+   'Abgeschlossene Teilmengen, endliche Vereinigungen, endliche Produkte, stetige Bilder.',
+  ],3,'Bei Teilmengen brauchst du Abgeschlossenheit, bei Vereinigungen Endlichkeit und bei Bildern Stetigkeit. Auch endliche Produkte kompakter Mengen sind kompakt.'),
+  q(R`Jedes $K_n=[-n,n]\subseteq\mathbb R$ ist kompakt. Ist $\bigcup_{n\ge1}K_n$ kompakt?`,['Ja, jede Vereinigung kompakter Mengen ist kompakt.','Nein. Die Vereinigung ist ℝ und damit unbeschränkt.','Ja, weil jedes Kₙ abgeschlossen ist.','Nein, weil die Vereinigung nicht abgeschlossen ist.'],1,'Die Vereinigung ist ℝ: abgeschlossen, aber unbeschränkt. Die Regel für endliche Vereinigungen lässt sich nicht auf beliebige Vereinigungen übertragen.'),
+ ]},
+ sequential:{name:'Folgenkompaktheit',group:'Kompaktheit',checks:['Jede Folge in A hat eine konvergente Teilfolge.','Ihr Grenzwert gehört wieder zu A.','In metrischen Räumen: kompakt genau dann, wenn folgenkompakt.'],questions:[
+  q('Was gehört zur Definition der Folgenkompaktheit von A?',['Jede Folge in A konvergiert.','Es gibt eine konvergente Folge in A.','Jede Folge in A hat eine Teilfolge, die gegen einen Punkt in A konvergiert.','Jede Folge in A hat eine Teilfolge, deren Grenzwert irgendwo im umgebenden Raum liegt.'],2,'Die ursprüngliche Folge muss nicht konvergieren. Eine passende Teilfolge genügt, aber ihr Grenzwert muss in A liegen.'),
+  q('Welche Beziehung gilt in metrischen Räumen?',['Kompaktheit und Folgenkompaktheit sind äquivalent.','Kompaktheit folgt nur in ℝ aus Folgenkompaktheit.','Folgenkompaktheit bedeutet, dass A endlich ist.','Eine kompakte Menge muss nicht folgenkompakt sein.'],0,'Die Äquivalenz gilt für Teilmengen jedes metrischen Raumes. Hier ist keine endliche Dimension nötig.'),
+ ]},
+ diffeo:{name:'Diffeomorphismus',group:'Umkehrfunktionen',checks:['U,V⊂ℝⁿ sind offen.','Global: f ist bijektiv; f und f⁻¹ sind C¹.','Lokal in p: passende offene Umgebung W, f(W) offen, f|W ein Diffeomorphismus.','Lokal auf U bedeutet lokal in jedem Punkt von U.'],questions:[
+  q('Was verlangt ein globaler C¹-Diffeomorphismus zwischen offenen Mengen U,V?',[
+   'Nur Bijektivität.',
+   'Bijektivität sowie f∈C¹ und f⁻¹∈C¹.',
+   'Nur f∈C¹ und Surjektivität.',
+   'Bijektivität und Stetigkeit von f; mehr nicht.',
+  ],1,'Zur differenzierbaren Umkehrbarkeit gehören beide Richtungen. In der hier verwendeten Definition sind f und seine Umkehrfunktion C¹.'),
+  q('Was bedeutet „lokaler Diffeomorphismus in p“?',['f ist auf seinem gesamten Definitionsgebiet ein Diffeomorphismus.','f ist in p nur stetig.','Die Ableitung von f ist in p null.','Es gibt eine offene Umgebung W von p, sodass f(W) offen und f|W ein Diffeomorphismus ist.'],3,'Die Aussage bezieht sich auf eine passende Umgebung des Punktes. Eine lokale Eigenschaft ist keine Behauptung globaler Bijektivität.'),
+ ]},
+ hessian:{name:'Hesse-Matrix',group:'Taylor',checks:['f:E→ℝ ist C² und E⊂ℝⁿ offen.','H_f(a) enthält die zweiten partiellen Ableitungen Dᵢⱼf(a).','Nach Schwarz ist die Hesse-Matrix symmetrisch.'],questions:[
+  q(R`Welche Matrix ist für $f\in C^2(E,\mathbb R)$ die Hesse-Matrix?`,[R`$H_f(a)=(D_i f(a))_i$`,R`$H_f(a)=(D_i f_j(a))_{i,j}$`,R`$H_f(a)=(D_{ij}f(a))_{i,j}$`,R`$H_f(a)=(D_i f(a)D_j f(a))_{i,j}$`],2,'Die Hesse-Matrix sammelt alle zweiten partiellen Ableitungen der skalaren Funktion. Der Gradient enthält dagegen die ersten Ableitungen.'),
+  q(R`Warum gilt für $f\in C^2(E)$ die Symmetrie $H_f(a)^T=H_f(a)$?`,['Nach Schwarz stimmen die gemischten zweiten partiellen Ableitungen überein.','Weil jede quadratische Matrix symmetrisch ist.','Weil alle zweiten Ableitungen positiv sind.','Weil f an a ein Extremum hat.'],0,'C² erfüllt die Voraussetzungen zur Vertauschbarkeit der gemischten zweiten Ableitungen. Ein Extremum oder positive Ableitungen werden nicht vorausgesetzt.'),
+ ]},
+ ck:{name:'Höhere Ableitungen',group:'Taylor',checks:['Cᵏ: Alle partiellen Ableitungen bis einschließlich Ordnung k existieren und sind stetig.','Dᵢⱼf=Dᵢ(Dⱼf): zuerst j, dann i.','C∞: Partielle Ableitungen jeder Ordnung existieren und sind stetig.'],questions:[
+  q(R`Was bedeutet $f\in C^k(E)$?`,['Nur f selbst ist stetig.','Alle partiellen Ableitungen der Ordnung k existieren, Stetigkeit ist egal.','Mindestens eine k-te partielle Ableitung ist stetig.','Alle partiellen Ableitungen bis einschließlich Ordnung k existieren auf E und sind stetig.'],3,'Cᵏ enthält die Existenz und die Stetigkeit aller partiellen Ableitungen bis zur angegebenen Ordnung. Für C∞ gilt das für jede Ordnung.'),
+  q(R`In welcher Reihenfolge wird $D_{ij}f=D_i(D_jf)$ gebildet?`,['Zuerst nach i, dann nach j.','Zuerst nach j, dann nach i.','Gleichzeitig nach i und j.','Die Indizes bezeichnen Funktionswerte, keine Ableitungen.'],1,'Die innere Ableitung wird zuerst ausgeführt: Dⱼf. Danach wird dieses Ergebnis mit Dᵢ abgeleitet. Ohne passende Voraussetzungen darfst du die Reihenfolge nicht einfach tauschen.'),
+ ]},
+ schwarz:{name:'Satz von Schwarz',group:'Taylor',checks:['E⊂ℝ² offen; D₁f,D₂₁f,D₂f existieren auf E.','D₂₁f ist im betrachteten Punkt p stetig.','Dann existiert D₁₂f(p) und ist gleich D₂₁f(p).'],questions:[
+  q(R`In der Skriptfassung existieren $D_1f,D_{21}f,D_2f$ auf offenem $E\subseteq\mathbb R^2$. Was wird zusätzlich am Punkt $p$ vorausgesetzt?`,[R`$D_{21}f$ ist in $p$ stetig.`,R`$f(p)=0$.`,R`$D_1f(p)=D_2f(p)=0$.`,R`$D_{21}f(p)>0$.`],0,'Die Stetigkeit der gemischten Ableitung D₂₁f im betrachteten Punkt ist die zusätzliche Voraussetzung dieser Skriptfassung.'),
+  q(R`Unter diesen Voraussetzungen des Satzes von Schwarz folgt:`,[R`$D_1f(p)=D_2f(p)$`,R`$D_{11}f(p)=D_{22}f(p)$`,R`$D_{12}f(p)$ existiert und ist gleich $D_{21}f(p)$.`,R`Alle zweiten Ableitungen verschwinden in $p$.`],2,'Der Satz liefert die Existenz der Ableitung in umgekehrter Reihenfolge am Punkt und die Gleichheit der beiden gemischten Ableitungen.'),
+ ]},
+ gradient:{name:'Gradient und Richtung',group:'Taylor',checks:['Für skalare, partiell differenzierbare f: ∇f(a) ist der Spaltenvektor der ersten partiellen Ableitungen.','Dᵥf(a)=lim für t→0 von [f(a+tv)−f(a)]/t, sofern der Grenzwert existiert.','Bei totaler Differenzierbarkeit: Dᵥf(a)=Df(a)v=∇f(a)·v.'],questions:[
+  q(R`Welche zusätzliche Voraussetzung sichert $D_vf(a)=\nabla f(a)\cdot v$ für jede Richtung $v$?`,['f ist lediglich stetig in a.','f ist in a total differenzierbar.','Die partiellen Ableitungen existieren nur in a.','f(a)=0.'],1,'Die Existenz der partiellen Ableitungen in a allein genügt nicht. Totale Differenzierbarkeit liefert die lineare Approximation und damit die Formel für alle Richtungen.'),
+  q(R`Wie ist die Richtungsableitung in Richtung $v$ definiert, falls der Grenzwert existiert?`,[R`$\displaystyle\lim_{t\to0}\frac{f(a+t)-f(a)}{t}$`,R`$\displaystyle\lim_{t\to0}\frac{f(a+tv)-f(a)}{t^2}$`,R`$\displaystyle\lim_{t\to0}\frac{f(a+tv)}{t}$`,R`$\displaystyle\lim_{t\to0}\frac{f(a+tv)-f(a)}{t}$`],3,'Du gehst vom Punkt a entlang der Geraden mit Richtung v und bildest den gewöhnlichen Differenzenquotienten bezüglich t.'),
+ ]},
+ cantor:{name:'Cantorscher Durchschnitt',group:'Kompaktheit',checks:['(X,d) metrisch, A⊂X; Äquivalenz zur Kompaktheit von A.','Für jede Familie abgeschlossener Cᵢ: A geschnitten mit jeder endlichen Teilfamilie ist nichtleer.','Dann ist A geschnitten mit der ganzen Familie nichtleer.','Die endliche Teilfamilie darf leer sein; ihre Bedingung lautet A≠∅.'],questions:[
+  q('Welche Voraussetzung an die abgeschlossenen Mengen Cᵢ steht im Cantorschen Durchschnittssatz für kompaktes A?',['Jedes Cᵢ ist unbeschränkt.','Nur je zwei Cᵢ müssen sich treffen.','A geschnitten mit jeder endlichen Teilfamilie ist nichtleer.','Alle Cᵢ müssen offen sein.'],2,'Die Bedingung gilt für jede endliche Auswahl, nicht nur für Paare. Daraus folgt, dass A auch mit dem gesamten Durchschnitt einen nichtleeren Schnitt hat.'),
+  q(R`In $A=\{1,2,3\}$ liegen $C_1=\{1,2\}$, $C_2=\{2,3\}$ und $C_3=\{1,3\}$. Alle paarweisen Schnitte sind nichtleer. Erfüllt die Familie die Bedingung für jede endliche Teilfamilie?`,['Nein. Schon der Schnitt aller drei Mengen ist leer.','Ja. Paarweise Schnitte genügen immer.','Ja. A enthält endlich viele Punkte.','Nein. Endliche Teilmengen von ℝ sind nicht abgeschlossen.'],0,'Die Auswahl aller drei Mengen ist ebenfalls eine endliche Teilfamilie. Ihr leerer Schnitt zeigt, warum die Bedingung stärker als paarweises Schneiden ist.'),
+ ]},
+};
+
+export const gameTopics=orderExamRecall(modules.flatMap(m=>m.theory).filter(isFocusRecall).map(examRecallCard)).map(card=>{
+ const extra=content[card.id];
+ return {...extra,card,id:card.id,questions:extra.questions.map((question,i)=>({...question,id:`${card.id}:q${i}`,topic:card.id,kind:i?'Stolperstelle':'Grundidee',type:'choice'}))};
+});
+export const gameItems=gameTopics.flatMap(t=>[...t.questions,{id:`${t.id}:recall`,topic:t.id,kind:'Frei aufsagen',type:'recall'}]);
+export const topicById=new Map(gameTopics.map(t=>[t.id,t]));
+export const itemById=new Map(gameItems.map(t=>[t.id,t]));

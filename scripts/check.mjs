@@ -15,6 +15,7 @@ import './check-math.mjs';
 import './check-theory-names.mjs';
 import './check-labs.mjs';
 import './check-review.mjs';
+import './check-focus-game.mjs';
 import './check-practice.mjs';
 const ids=new Set();let formulas=0;
 function strings(obj){if(typeof obj==='string')return[obj];if(Array.isArray(obj))return obj.flatMap(strings);if(obj&&typeof obj==='object')return Object.values(obj).flatMap(strings);return[]}
